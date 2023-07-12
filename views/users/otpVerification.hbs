@@ -1,0 +1,96 @@
+	<link rel="stylesheet" href="/stylesheets/forget.css">  
+            <style>
+  
+  .otp-container{
+     display: flex;
+      justify-content: center;
+      align-items: center;
+      
+  }
+  .otp-logo{
+    display: block;
+      margin: 0 auto;
+      max-height: 81px;
+  }
+ </style>
+    
+
+		<div class="row">
+		
+      
+			<div class="col align-items-center flex-col sign-up">
+				<div class="form-wrapper align-items-center">
+					<div class="form sign-up">
+            <form method="post" action="/verifyOtp">
+            <div>  
+                <h2>OTP Login</h2>
+            </div>
+  <div class="input-group">
+    <i class='bx bx-mail-send'></i>
+    <input type="number" name="otp" placeholder=" Enter The Code">
+  </div>
+
+ <a href="#">
+  <button type="submit" value="Verify OTP"  >Submit</button>
+</a>
+             
+             <div>
+                <br>
+    <div id="resendOtp" class="text-dark"style="text-align: center;">
+        {{{timerValue}}} seconds remaining
+    </div>
+{{!-- 
+    <div  style="text-align: center;">
+        <a href="/sendOtp" method="post">resend otp</a>
+    </div> --}}
+</div>
+
+
+
+                
+
+
+           {{#if message}}
+                <p><span style="font-family: Arial, sans-serif; color: green; display:inline-block">{{message}}</span></p>
+
+          {{/if}}
+          
+    
+     </form>
+        <p>
+    <b onclick="toggle()" class="pointer" style="text-align: center;"><a href="/">Back to Login Page</a></b>
+      </p>
+      
+      {{!-- newly added --}}
+               
+
+
+
+
+	</div>
+ </div>
+			
+</div>
+
+
+<script>
+    var timeLeft = 30;
+    var timer = document.getElementById('resendOtp');
+    var timeId = setInterval(countdown, 1000);
+
+    function countdown() {
+        if (timeLeft === -1) {
+            clearTimeout(timeId);
+            working();
+        } else {
+            timer.innerHTML = timeLeft + ' seconds remaining';
+            timeLeft--;
+        }
+    }
+
+    function working() {
+        timer.style.display = 'none';
+        var showResendOtp = document.getElementById('resendButton');
+        showResendOtp.style.display = 'block';
+    }
+</script>

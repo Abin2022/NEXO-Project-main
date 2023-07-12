@@ -1,0 +1,335 @@
+ {{!-- from Home page --}}
+
+ <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Responsive CSS -->
+    <link href="css/responsive.css" rel="stylesheet">
+
+
+ {{!-- stylesheet section link --}}
+  <link rel="stylesheet" href="/stylesheets/core-style.css">
+  <link rel="stylesheet" href="/stylesheets/animate.css">
+ 
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+  {{!-- <link rel="stylesheet" href="/stylesheets/font-awesome.min.css"> --}}
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min1.css">
+   
+  {{!-- <link rel="stylesheet" href="/stylesheets/forget.css"> --}}
+  {{!-- <link rel="stylesheet" href="/stylesheets/jquery-ui.min.css"> --}}
+   
+  {{!-- <link rel="stylesheet" href="/stylesheets/login.css"> --}}
+  <link rel="stylesheet" href="/stylesheets/magnific-popup.css">
+   
+  <link rel="stylesheet" href="/stylesheets/nouislider.css">
+  <link rel="stylesheet" href="/stylesheets/owl.carousel.css">
+   <link rel="stylesheet" href="/stylesheets/responsive.css">
+    {{!-- <link rel="stylesheet" href="/stylesheets/style.css"> 
+  <link rel="stylesheet" href="/stylesheets/themify-icons.css">  --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="wrapper"> 
+
+            <!-- Top Header Area End -->
+            {{!-- <div  class="list-group mb-3 sticky-top" > --}}
+            <div class="main_header_area">
+
+       
+
+                <div class="container h-100">
+                    <div class="row h-100">
+                        <div class="col-12 d-md-flex justify-content-between">
+                            <!-- Header Social Area -->
+                            <div class="header-social-area">
+                                {{!-- <span class="karl-level">Share</span> --}}
+                                <a href="#"> <i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
+                            <!-- Menu Area -->
+                            <div class="main-menu-area">
+                                <nav class="navbar navbar-expand-lg align-items-start">
+
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i class="ti-menu"></i></span></button>   
+                                    <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
+                                        <ul class="navbar-nav animated" id="nav">
+                                         {{!-- <li class="nav-item active"> <a href="#"><img src="img/core-img/NEXO1.png" alt=""  ></a></li> --}}
+                                         <li class="nav-item active"> <a href="#"><img src="img/core-img/logo.png" alt=""  ></a></li>
+
+
+                                            <li class="nav-item active"><a class="nav-link" href="/home"> Home</a></li>
+                                            
+                                           <li class="nav-item active"><a class="nav-link"   href="#">Mobiles</a></li>
+                                           <li class="nav-item active"><a class="nav-link" href="#"> Laptops</a></li>
+										      <li class="nav-item active"><a class="nav-link"   href="/shop">SHOP</a></li>
+
+                                             <li class="nav-item active"><a class="nav-link"   href="/order-details">Orders</a></li>
+
+
+                                             
+                                            <li class="nav-item active">  <a class="nav-link"  href="/cart">Cart<i class="ti-bag"></i> </a></li>
+                                            
+                                            <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li> 
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                            <!-- Help Line -->
+                           
+                            <div class="help-line">
+                               {{!-- <i class="ti-headphone-alt"></i> --}}
+                                <a href="/logout">LOGOUT</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+              {{!-- </div>   --}}
+            </div>
+
+            
+        </header>
+       <body> <!-- ****** Header Area End ****** -->
+        
+
+        <!-- ****** Top Discount Area Start ****** -->
+        <section class="top-discount-area d-md-flex align-items-center">
+            <!-- Single Discount Area -->
+              
+            <div class="single-discount-area">
+                <h5>Free Shipping &amp; Returns</h5>
+                {{!-- <h6><a href="#">BUY NOW</a></h6> --}}
+            </div>
+            <!-- Single Discount Area -->
+            <div class="single-discount-area">
+                <h5>15% Discount for all Products</h5>
+                {{!-- <h6>USE CODE: Colorlib</h6> --}}
+            </div>
+            <!-- Single Discount Area -->
+            <div class="single-discount-area">
+                <h5>Flat ₹2,000 Instant Discount with Online-Payment</h5>
+                {{!-- <h6>USE CODE: Colorlib</h6> --}}
+            </div>
+              
+        </section>
+        <!-- ****** Top Discount Area End ****** -->
+
+
+
+
+{{!-- <!-- Search Input -->
+<input type="text" id="searchInput" placeholder="Search products">
+
+<!-- Filter Options -->
+<select id="filterOption">
+  <option value="">All</option>
+  <option value="category">Category</option>
+  <option value="price">Price</option>
+  <!-- Add more filter options here -->
+</select>
+
+<!-- Sort Options -->
+<select id="sortOption">
+  <option value="">Default</option>
+  <option value="priceLowToHigh">Price: Low to High</option>
+  <option value="priceHighToLow">Price: High to Low</option>
+  <!-- Add more sort options here -->
+</select>
+
+<!-- Product List -->
+<ul id="productList">
+  {{#each products}}
+    <li>{{this.name}} - {{this.price}}</li>
+  {{/each}}
+</ul>
+
+<!-- Pagination -->
+<div id="pagination">
+  {{#if showPrevious}}
+    <a href="#" class="previous">Previous</a>
+  {{/if}}
+
+  {{#each pageNumbers}}
+    {{#if this.isActive}}
+      <a href="#" class="active">{{this.number}}</a>
+    {{else}}
+      <a href="#">{{this.number}}</a>
+    {{/if}}
+  {{/each}}
+
+  {{#if showNext}}
+    <a href="#" class="next">Next</a>
+  {{/if}}
+</div>
+ --}}
+
+
+
+
+
+<section style="margin-top: 5vh;">
+  <div class="container">
+	
+<style>
+  .form-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 5px;
+    width: 500px;
+    margin: 0 auto;
+  }
+
+  .form-container input[type="text"],
+  .form-container select {
+    height: 42px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  .form-container button {
+    height: 42px;
+    background-color: #4a413a;
+    color: aliceblue;
+    border: none;
+    border-radius: 3px;
+    padding: 0 15px;
+    cursor: pointer;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+  </div>
+  <br>
+   <br>
+   
+
+  <div class="container">
+
+
+
+
+    
+
+  {{!-- <form>
+<input type="text" placeholder="Search Here" name="search">
+<input type="submit" value="search">
+</form> --}}
+
+    <div class="row karl-new-arrivals">
+      {{#each Product}}
+   
+      <div class="col-12 col-sm-6 col-md-4 single_gallery_item women wow fadeInUpBig" data-wow-delay="0.2s">
+        <!-- Product Image -->
+        <div class="product-img">
+          <a href="/product-details?id={{this._id}}">
+            <img src="/uploads/{{images.[0]}}" alt="Image">
+          </a>
+          <div class="product-quicview">
+            <a href="/product-details?id={{this._id}}" data-toggle="modal" data-target="#quickview"><i class="ti-plus"></i></a>
+          </div>
+        </div>
+        <!-- Product Description -->
+        <div class="product-description">
+          <h6>{{this.productname}}</h6>
+          <h6>Price: ₹{{this.price}}</h6>
+          <a href="#" class="add-to-cart-btn" onclick="addToCart('{{this._id}}',event), showSweetAlert()">Add to cart</a>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+	
+
+	
+	
+	
+<div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="popupModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="popupModalLabel">Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="popupMessage"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/javascripts/viewproducts.js"></script>
+<script>
+  // Handle search input change event
+  document.getElementById('searchInput').addEventListener('input', function(event) {
+    var searchQuery = event.target.value;
+    // Call a function to filter and update the product list based on the search query
+    // You can use AJAX or any other method to fetch the filtered products from the server
+  });
+
+  // Handle filter option change event
+  document.getElementById('filterOption').addEventListener('change', function(event) {
+    var filterOption = event.target.value;
+    // Call a function to filter and update the product list based on the selected filter option
+  });
+
+  // Handle sort option change event
+  document.getElementById('sortOption').addEventListener('change', function(event) {
+    var sortOption = event.target.value;
+    // Call a function to sort and update the product list based on the selected sort option
+  });
+
+  // Handle pagination click events
+  document.getElementById('pagination').addEventListener('click', function(event) {
+    if (event.target.tagName === 'A') {
+      var pageNumber = parseInt(event.target.innerText);
+      // Call a function to update the product list based on the selected page number
+    }
+  });
+</script>
+Please note that this is a simplified example and you would need to adapt it to your specific implementation. The code assumes that you have JavaScript functions to handle the filter, sort, and pagination functionality, as well as an array of products that you can access in your HBS template.
+
+
+
+
+
+

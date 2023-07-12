@@ -1,0 +1,67 @@
+<style>
+  .edit-profile-container {
+    width: 400px;
+    margin: 0 auto;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .edit-profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .edit-profile-header h2 {
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    font-weight: bold;
+    color: #555;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .form-group button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+</style>
+
+<div class="edit-profile-container">
+  <div class="edit-profile-header">
+    <h2>Edit Profile</h2>
+  </div>
+  <form action="" method="POST">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" value="{{user.name}}" placeholder="Enter your name">
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" value="{{user.email}}" placeholder="Enter your email">
+    </div>
+    <div class="form-group">
+      <label for="mobile">Mobile:</label>
+      <input type="text" id="mobile" name="mobile" value="{{user.mobile}}" placeholder="Enter your mobile number">
+    </div>
+    <div class="form-group">
+      <button type="submit">Update profile</button>
+    </div>
+  </form>
+</div>

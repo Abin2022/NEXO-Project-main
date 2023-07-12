@@ -1,0 +1,895 @@
+<style>
+    .container {
+        max-width: 1170px;
+        margin: 0 auto;
+    }
+
+    .card {
+        max-width: 960px;
+        margin: 0 auto;
+        margin-top: 80px;
+        margin-bottom: 80px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        padding: 20px;
+        box-shadow: inset 0 0 6px rgba(0, 0, 1, 0.30);
+    }
+
+    .lh-condensed {
+        line-height: 1.25;
+    }
+
+    .btn-checkout {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        transition: all 0.3s ease;
+    }
+
+    .btn-checkout:hover {
+        background-color: #d0a72e;
+        border-color: #d0a72e;
+        transform: scale(1.050);
+    }
+
+    /* Custom radio button */
+    .custom-control-input:checked~.custom-control-label::before {
+        background-color: #000;
+        border-color: #000;
+    }
+
+    .custom-control-input:checked~.custom-control-label::after {
+        background-color: #000;
+    }
+
+    /* ... your existing styles ... */
+
+    /* Custom validation styles */
+    .needs-validation input:valid,
+    .needs-validation textarea:valid {
+        border-color: #000;
+    }
+
+    .needs-validation input:invalid,
+    .needs-validation textarea:invalid {
+        border-color: #000000;
+    }
+
+    .needs-validation input:valid:focus,
+    .needs-validation textarea:valid:focus {
+        border-color: #000;
+        box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
+    }
+
+    .needs-validation input:invalid:focus,
+    .needs-validation textarea:invalid:focus {
+        border-color: #000000;
+        box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
+    }
+    
+</style>
+
+
+{{!-- header --}}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Nexo - | Cart</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Responsive CSS -->
+    <link href="css/responsive.css" rel="stylesheet">
+
+
+    {{!-- links from home page --}}
+    
+ <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Responsive CSS -->
+    <link href="css/responsive.css" rel="stylesheet">
+
+
+ {{!-- stylesheet section link --}}
+  <link rel="stylesheet" href="/stylesheets/core-style.css">
+  <link rel="stylesheet" href="/stylesheets/animate.css">
+ 
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+  {{!-- <link rel="stylesheet" href="/stylesheets/font-awesome.min.css"> --}}
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min1.css">
+   
+  {{!-- <link rel="stylesheet" href="/stylesheets/forget.css"> --}}
+  {{!-- <link rel="stylesheet" href="/stylesheets/jquery-ui.min.css"> --}}
+   
+  {{!-- <link rel="stylesheet" href="/stylesheets/login.css"> --}}
+  <link rel="stylesheet" href="/stylesheets/magnific-popup.css">
+   
+  <link rel="stylesheet" href="/stylesheets/nouislider.css">
+  <link rel="stylesheet" href="/stylesheets/owl.carousel.css">
+   <link rel="stylesheet" href="/stylesheets/responsive.css">
+    {{!-- <link rel="stylesheet" href="/stylesheets/style.css"> 
+  <link rel="stylesheet" href="/stylesheets/themify-icons.css">  --}}
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+     
+<div id="wrapper"> 
+
+            <!-- Top Header Area End -->
+            <div class="main_header_area">
+                <div class="container h-100">
+                    <div class="row h-100">
+                        <div class="col-12 d-md-flex justify-content-between">
+                            <!-- Header Social Area -->
+                            <div class="header-social-area">
+                                {{!-- <span class="karl-level">Share</span> --}}
+                                <a href="#"> <i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
+                            <!-- Menu Area -->
+                            <div class="main-menu-area">
+                                <nav class="navbar navbar-expand-lg align-items-start">
+
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i class="ti-menu"></i></span></button>   
+                                    <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
+                                        <ul class="navbar-nav animated" id="nav">
+
+                            
+                                         <li class="nav-item active"> <a href="#"><img src="img/core-img/logo.png" alt=""  ></a></li>
+
+
+                                            <li class="nav-item active"><a class="nav-link" href="/home"> Home</a></li>
+                                         <li class="nav-item active"><a class="nav-link" href="#"> Mobiles</a></li>
+
+                                            <li class="nav-item active"><a class="nav-link" href="#">Laptops</a></li>
+                                             <li class="nav-item active"><a class="nav-link"   href="/shop">SHOP</a></li>
+
+
+                                            {{!-- <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" id="karlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+                                                <div class="dropdown-menu" aria-labelledby="karlDropdown">
+                                                    
+                                                    <a class="dropdown-item" href="shop.html">Shop</a>
+                                                    <a class="dropdown-item" href="product-details.html">Product Details</a>
+                                                    <a class="dropdown-item" href="/cart">Cart</a>
+                                                    <a class="dropdown-item" href="checkout.html">Checkout</a>
+                                                </div>
+                                            </li> --}}
+                                            <li class="nav-item"><a class="nav-link" href="/order-details">Orders</a></li>
+                                            {{!-- <span class="karl-level">hot</span> --}}
+                                                 <li class="nav-item active"><a class="nav-link" href="/cart">Cart<i class="ti-bag"></i> </a>
+
+                                            <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                                             
+                                               <a href="#" id="header-cart-btn" target="_blank"> <i class="ti-bag"></i> </a>
+                                             
+                                             
+                                             </li>
+                                             {{!-- <li class="nav-item"><a class="nav-link" href="#">Whishlist</a></li>
+                                             <li class="nav-item"><a class="nav-link" href="#">Account</a></li> 
+                                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li> --}}
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                            <!-- Help Line -->
+                           
+                            <div class="help-line">
+                               {{!-- <i class="ti-headphone-alt"></i> --}}
+                                <a href="/logout">LOGOUT</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- ****** Header Area End ****** -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- ****** Top Discount Area Start ****** -->
+        <section class="top-discount-area d-md-flex align-items-center">
+            <!-- Single Discount Area -->
+            <div class="single-discount-area">
+                <h5>Free Shipping &amp; Returns</h5>
+                <h6><a href="#">BUY NOW</a></h6>
+            </div>
+            <!-- Single Discount Area -->
+            <div class="single-discount-area">
+                <h5>20% Discount for all dresses</h5>
+                <h6>USE CODE: Colorlib</h6>
+            </div>
+            <!-- Single Discount Area -->
+            <div class="single-discount-area">
+                <h5>20% Discount for students</h5>
+                <h6>USE CODE: Colorlib</h6>
+            </div>
+        </section>
+        <!-- ****** Top Discount Area End ****** -->
+
+
+
+<div class="card" style="max-width: 1309px;">
+    <div class="card-body">
+        <div class="container">
+     
+            <div class="row">
+                {{#if products}}
+                <div class="col-md-4 order-md-2 mb-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Your cart</span>
+                        <span class="badge badge-secondary badge-pill">{{this.totalCount}}</span>
+                    </h4>
+                    <ul class="list-group mb-3 ">
+                        {{#each products}}
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                   
+                                 <img src="/uploads/{{images.[0]}}" class="img-fluid" alt="Product Image" width="50px" />
+                                <h6 class="my-0">{{this.name}} x {{this.quantity}}</h6>
+                               
+                            </div>
+                            <span class="text-muted">₹{{this.total}}</span>
+                        </li>
+                        {{/each}}
+                       
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <div class="text-success">
+                                <h6 class="my-0">Total Discount</h6>
+                                
+                            </div>
+                            <span class="text-success">-₹{{this.couponDiscount}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total(INR)</span>
+                            <strong>₹{{this.subtotal}}</strong>
+                        </li>
+                    </ul>
+                    <form class="card p-2" action="/apply-coupon" method="POST">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter the Coupon Code Here" name="couponCodeFromUser" style="width: 200px;">
+                            {{#if couponApplied}}
+                              
+                            <p style="color: #21b503;"><b>{{couponApplied}}</b></p>
+
+                            {{else if couponError}}
+                        
+                            <p style="color: red;"><b>{{couponError}}</b></p>
+
+                            {{/if}}
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-secondary" >Redeem</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                {{/if}}
+
+
+                
+                <div class="col-md-8 order-md-1">
+                    <h4 class="mb-3">Billing address</h4>
+                    <form class="needs-validation" novalidate="" id="checkout-form">
+
+
+
+
+                        <div class="mb-3">
+                            <label for="username">Name</label>
+                            <div class="input-group">
+
+                                <input type="text" class="form-control" id="username" placeholder="Username" required=""
+                                    value="{{defaultAddress.name}}" readonly>
+                                <div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Mobile </label>
+                            <input type="email" class="form-control" id="email" placeholder="Mobile"
+                                value="{{defaultAddress.mobile}}" readonly>
+                            <div class="invalid-feedback"> Please enter a valid email address for shipping updates.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address">Address</label>
+                            <input type="text" class="form-control" id="address" placeholder="1234 Main St"
+                                value="{{defaultAddress.address}}" required="" readonly>
+                            <div class="invalid-feedback"> Please enter your shipping address. </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5 mb-3">
+                                <label for="country">City</label>
+                                <input type="text" class="form-control" id="address" placeholder="1234 Main St"
+                                    required="" value="{{defaultAddress.city}}" readonly>
+                                <div class="invalid-feedback"> Please select a valid country. </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="state">Street</label>
+                                <input type="text" class="form-control" id="address" placeholder="1234 Main St"
+                                    required="" value="{{defaultAddress.state}}" readonly>
+                                <div class="invalid-feedback"> Please provide a valid state. </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="zip">Postal Code</label>
+                                <input type="text" class="form-control" id="zip" placeholder="" required=""
+                                    value="{{defaultAddress.pincode}}" readonly>
+                                <div class="invalid-feedback"> Zip code required. </div>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <button class="btn btn-dark btn-lg btn-block" data-toggle="modal"
+                                    data-target="#changeaddress" type="button">Change Address</button>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <button class="btn btn-dark btn-lg btn-block" data-toggle="modal"
+                                    data-target="#addnewaddress" type="button">Add new Address</button>
+                            </div>
+                             {{!-- <div class="col-md-3 mb-3">
+                                <button class="btn btn-dark btn-lg btn-block" data-toggle="modal"
+                                    data-target="editingAddress" type="button">Edit Address</button>
+                            </div> --}}
+                            <div class="col-md-3 mb-3">
+  <a href="/address" class="btn btn-dark btn-lg btn-block" >Edit Address</a>
+</div>
+                                            {{!-- <div class="col-md-3 mb-3">
+  <a href="/delete-address?id={{this._id}}" class="btn btn-dark btn-lg btn-block"  onclick="return confirm('Are you sure you want to delete this Address?')">Delete Address</a>
+</div>
+  --}}
+   <div class="col-md-3 mb-3">
+  <a href="/address" class="btn btn-dark btn-lg btn-block" >Remove Address</a>
+</div>
+             
+                             {{!-- <div class="col-md-3 mb-3">
+                                <button class="btn btn-dark btn-lg btn-block" data-toggle="modal"
+                                    data-target="#addnewaddress" type="button">Delete Address</button>
+                            </div> --}}
+                        </div>
+
+                        <hr class="mb-4">
+                        <h4 class="mb-3" style="color: #343a40;">Payment</h4>
+                        <div class="d-block my-3">
+                           
+                              <div class="custom-control custom-radio">
+                                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input"
+                                    checked="" required="" value="COD">
+                                <label class="custom-control-label" for="credit">COD</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
+                                    required="" value="ONLINE">
+                                <label class="custom-control-label" for="debit">ONLINE</label>
+                            </div>
+
+                        </div>
+
+
+                        <hr class="mb-4">
+                        {{!-- <button class="btn btn-secondary rounded-pill m-2" type="submit" >Continue to
+                            checkout</button> --}}
+                            
+                             <hr class="mb-4">
+                        <button class="btn btn-dark btn-lg btn-block btn-checkout" id="checkout-button" type="submit">Continue to
+                            checkout</button>
+                            
+                    </form>
+                    <div class="message" style="color: red; text-align: center;">
+  {{#if message}}
+  {{message}}
+  {{/if}}
+</div>
+
+                </div>
+               
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{{!--Change Address modal--}}
+
+
+<style>
+  .address-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .card {
+    flex-basis: calc(50% - 1rem);
+    margin-bottom: 1rem;
+  }
+
+  .modal-footer {
+    position: sticky;
+    bottom: 0;
+    background-color: #f8f9fa;
+    padding: 1rem;
+  }
+</style>
+
+<div class="modal fade" id="changeaddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Change Address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/change-address" method="post">
+          <div class="address-container">
+            {{#each filteredAddresses}}
+            <div class="card border-dark mb-3">
+              <div class="card-header">Address details</div>
+              <div class="card-body text-dark">
+                <input type="radio" name="addressId" value="{{this._id}}" id="address" checked>
+                <div class="address-info">
+                  <p class="card-text">{{this.name}}</p>
+                  <p class="card-text">{{this.mobile}}</p>
+                  <p class="card-text">{{this.address}}</p>
+                  <p class="card-text">{{this.city}}</p>
+                  <p class="card-text">{{this.state}}</p>
+                  <p class="card-text">{{this.pincode}}</p>
+                </div>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-warning" style="color: #ffffff;">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{!-- Add address modal --}}
+
+<!--Add address Modal -->
+<div class="modal fade" id="addnewaddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true" style="color: #343a40;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add new address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{!-- <form action="/add-new-address" method="post"> --}}
+       <form action="/add-new-address" method="post">
+
+          <div class="form-group">
+            <label for="edit-username">Name</label>
+            <input type="text" class="form-control" name="name" id="edit-username">
+          </div>
+          <div class="form-group">
+            <label for="edit-email">Mobile</label>
+            <input type="text" class="form-control" name="mobile" id="edit-email">
+          </div>
+          <div class="form-group">
+            <label for="edit-phone">Address</label>
+            <input type="text" class="form-control" name="address" id="edit-phone">
+          </div>
+          <div class="form-group">
+            <label for="edit-email">City</label>
+            <input type="text" class="form-control" name="city" id="edit-email">
+          </div>
+          <div class="form-group">
+            <label for="edit-email">State</label>
+            <input type="text" class="form-control" name="state" id="edit-email">
+          </div>
+          <div class="form-group">
+            <label for="edit-email">Pin code</label>
+            <input type="number" class="form-control" name="pincode" id="edit-email">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-warning add-button" style="color: #343a40;">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- footer --}}
+<!--Edit address Modal -->
+<div class="modal fade" id="editingAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit address detailed</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{!-- metheod post --}}
+        <form action="/edit-address" method="post">
+          <div class="form-group">
+            <label for="edit-username">Name</label>
+            <input type="text" class="form-control" name="name" id="edit-name" value=" {{this.name}}" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-email">Mobile</label>
+            <input type="text" class="form-control" name="mobile" id="edit-mobile" value="{{this.mobile}}" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-phone">Address</label>
+            <input type="text" class="form-control" name="address" id="edit-address"  value="{{this.address}}" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-email">City</label>
+            <input type="text" class="form-control" name="city" id="edit-city" value="{{this.city}}" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-email">State</label>
+            <input type="text" class="form-control" name="state" id="edit-state" value="{{this.state}}" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-email">Postal code</label>
+            <input type="number" class="form-control" name="pincode" id="edit-pincode" value="{{this.pincode}}"
+              required>
+          </div>
+          <input type="hidden" class="form-control" name="_id" id="edit-_id">
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary add-button">Edit</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    
+     {{!-- footer section from home page --}}
+        <footer class="footer_area">
+            <div class="container">
+                <div class="row">
+                    <!-- Single Footer Area Start -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="single_footer_area">
+                            <div class="footer-logo">
+                                {{!-- <ul>Hi,there we are</ul> --}}
+                                <img src="img/core-img/logo.png" alt="" >                     
+                                
+                            </div>
+                            {{!-- <div class="copywrite_text d-flex align-items-center">
+                                <p>WE the Nexo Group are the top selling Platform in lead online selling sites, almost all Countries</p>
+                            </div> --}}
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Area Start -->
+                    <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                        <div class="single_footer_area">
+                            <ul class="footer_widget_menu">
+                                <li><a href="#">About</a></li>
+                                {{!-- <li><a href="#">Blog</a></li>  --}}
+                                <li><a href="#">Faq</a></li>
+                                <li><a href="#">Returns</a></li>
+                             <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Single Footer Area Start -->
+                    <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                        <div class="single_footer_area">
+                            <ul class="footer_widget_menu">
+                                <li><a href="#">My Account</a></li>
+                                <li><a href="#">Shipping</a></li>
+                                <li><a href="#">Our Policies</a></li>
+                                <li><a href="#">Afiliates</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Single Footer Area Start -->
+                    <div class="col-12 col-lg-5">
+                        <div class="single_footer_area">
+                            <div class="footer_heading mb-30">
+                                <h6>Hi,there we are Nexo Group</h6>
+                         
+                            <div class="subscribtion_form">
+                                <form action="#" method="post">
+                                    <input type="email" name="mail" class="mail" placeholder="Your email here">
+                                    <button type="submit" class="submit">Subscribe</button>
+                                </form>
+                            </div>
+                             <div class="copywrite_text d-flex align-items-center">
+                                <p>We the Nexo Group, are the top selling Platform in online selling sites almost in all Countries for Last 6 years.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="line"></div>
+                
+ 
+
+                 {{!-- Footer Bottom Area Start  --}}
+                <div class="footer_bottom_area">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="footer_social_area text-center">
+                                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- ****** Footer Area End ****** -->
+    </div>
+
+
+    </div>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    // Set the address details in the edit modal when the edit button is clicked
+    $('.edit-button').click(function () {
+
+      var name = $(this).data('name');
+      var mobile = $(this).data('mobile');
+      var address = $(this).data('address');
+      var city = $(this).data('city');
+      var state = $(this).data('state');
+      var pincode = $(this).data('pincode');
+      var _id = $(this).data('_id');
+
+      $('#edit-name').val(name);
+      $('#edit-mobile').val(mobile);
+      $('#edit-address').val(address);
+      $('#edit-city').val(city);
+      $('#edit-state').val(state);
+      $('#edit-pincode').val(pincode);
+      $('#edit-_id').val(_id);
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script >
+    (function () {
+        'use strict'
+
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        }, false)
+</script>
+
+
+
+
+
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+// JavaScript to make Ajax call for Checkout Button - called by checkout button in place-order page
+<script>
+
+
+    $(document).ready(function () {
+
+        $('#checkout-button').click(function (e) {
+
+            e.preventDefault(); // To prevent default method of submitting form as here Ajax should be used here to submit the form based on the two different payment methods
+
+            console.log("Checkout Button Ajax call");
+
+            $.ajax({
+
+                url: '/place-order',
+
+                method: 'POST',
+
+                data: $('#checkout-form').serialize(), // Here serialize function is used to get all the data from the form into the data feild of ajax call
+
+                success: (response) => {
+
+                    if (response.COD_CHECKOUT) {
+                        location.href = '/orderPlaced'
+                    } else if (response.ONLINE_CHECKOUT) {
+                        makeRazorpayPayment(response);
+                    } else {
+                        location.href = '/orderFailed'
+                        // If any of the above payment didn't happen, Should create a failed order page to user and display
+                    }
+
+                }
+
+            })
+
+        })
+
+        function makeRazorpayPayment(serverOrderData) {
+            let razorpayKeyId = serverOrderData.razorpayKeyId;
+            let orderDetails = serverOrderData.orderDetails;
+            let userDetails = serverOrderData.userDetails;
+            let userOrderRequestData = serverOrderData.userOrderRequestData;
+        console.log(orderDetails.id,"orderDetails.id")
+            let paymentDataToRazorpayServer = {
+                "key": razorpayKeyId,
+                "amount": orderDetails.amount,
+                "currency": "INR",
+                "name": "NEXO-PROJECT",
+                "description": "Test Transaction",
+                "order_id": orderDetails.id,
+                "handler": function (response) {
+                    verifyPayment(response, orderDetails);
+                },
+                "prefill": {
+                    "name": userDetails.name,
+                    "email": userDetails.email,
+                    "contact": userOrderRequestData.mobile
+                },
+                "notes": {
+                    "Customer Address": userOrderRequestData.address
+                }
+            };
+
+            var razorpayPayment = new Razorpay(paymentDataToRazorpayServer);
+            razorpayPayment.open();
+
+            // If the payment failed for any reason, calling the pre-defined function "on" in Razorpay module using the object of Razorpay
+        }
+
+        function verifyPayment(razorpayServerPaymentResponse, serverOrderDetails) {
+            $.ajax({
+               
+                url: '/verify-payment',
+                data: {
+
+                    razorpayServerPaymentResponse,
+
+                    serverOrderDetails
+                    
+
+                },
+                method: 'POST',
+                  
+                success: (response) => {
+                    if (response.status) {
+                        location.href = '/orderPlaced'
+                    } else {
+                        location.href = '/orderFailed'
+                    }
+                }
+            })
+        }
+
+    })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- /.wrapper end -->
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Plugins js -->
+    <script src="js/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+

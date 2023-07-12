@@ -1,0 +1,205 @@
+
+ <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="style.css">
+   
+    <!-- Responsive CSS -->
+    <link href="css/responsive.css" rel="stylesheet">
+    <link href="/public/stylesheets/responsive.css">
+    <link href="/public/stylesheets/core-style.css">
+
+
+  {{!-- added  --}}
+  <link rel="stylesheet" href="css/magnific-popup.css">
+
+
+
+{{!-- 
+
+<!-- ****** Quick View Modal Area Start ****** -->
+<div class="modal fade" id="quickview" tabindex="-1" role="dialog" aria-labelledby="quickview" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+            <div class="modal-body">
+                <div class="quickview_body">
+                    <div class="container">
+                   
+                        {{#each product}}
+                        <div class="row">
+                            <div class="col-12 col-lg-5">
+                                <div class="quickview_pro_img">
+                                     <img src="/uploads/{{images}}" alt="Image" width="250px" height="100px">
+                                    {{!-- <img src="img/product-img/product-1.jpg" alt="Image"> --}}
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-7">
+                                <div class="quickview_pro_des">
+                                    {{!-- <h4 class="title">Boutique Silk Dress</h4> --}}
+                                    {{!-- <div class="top_seller_product_rating mb-15">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </div> --}}
+                                    <h3 class="product-price">{{this.brand}}</h3>
+                                    <h6>{{this.productname}}</h6>
+                                    <h6>{{this.price}}</h6>
+                                    <p>{{this.description}}</p>
+                                    <h3>This is the...</h3>
+                                    <a href="/product-details">View Full Product Details</a>
+                                </div>
+                                <!-- Add to Cart Form -->
+                                {{!-- <form class="cart" method="post">
+                                    <div class="quantity">
+                                        <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+
+                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="12" name="quantity" value="1">
+
+                                        <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                    </div>
+                                    <button type="submit" name="addtocart" value="5" class="cart-submit">Add to cart</button>
+                                    <!-- Wishlist -->
+                                    <div class="modal_pro_wishlist">
+                                        <a href="wishlist.html" target="_blank"><i class="ti-heart"></i></a>
+                                    </div>
+                                    <!-- Compare -->
+                                    <div class="modal_pro_compare">
+                                        <a href="compare.html" target="_blank"><i class="ti-stats-up"></i></a>
+                                    </div>
+                                </form> --}}
+
+                                <div class="share_wf mt-30">
+                                    <p>Share With Friend</p>
+                                    <div class="_icon">
+                                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+
+
+<div class="container-fluid pt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-right mb-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalCenter">
+                    Add Category
+                </button>
+            </div>
+
+            <div class="bg-light rounded p-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-4" style="font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 1.2em; margin-bottom: 0;">Category List</h6>
+                    
+                    {{!-- <a href="/admin/unlisted-category" class="btn btn-outline-danger m-2">Unlisted Category</a> --}}
+                </div>
+                <div class="table-responsive">
+                    <table class="table w-100">
+                        <thead>
+                            <tr>
+                                <th scope="col">SL NO</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">CATEGORY</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each product}}
+                            <tr>
+                                {{#if}}
+                                <th class="align-middle" scope="row">{{productname}}</th>
+                                <td class="align-middle">{{price}}</td>
+                                <td class="align-middle">{{category}}</td>
+                                {{/if}}
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Category</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/users/quickview" method="get">
+                <div class="modal-body">
+                   {{#if error}}
+                  <div class="alert alert-danger" role="alert">
+                    {{error}}
+                  </div>
+                  <script>
+                    // Show the error message in an alert box
+                    window.onload = function() {
+                      setTimeout(function() {
+                        alert("{{error}}");
+                      }, 100);
+                    }
+                  </script>
+                {{/if}}
+                    <div class="mb-3">
+                        <input type="text" name="category" class="form-control">
+                    </div>
+                </div>
+                
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          

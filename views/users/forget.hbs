@@ -1,0 +1,34 @@
+	<link rel="stylesheet" href="/stylesheets/forget.css">  
+    
+
+		<div class="row">
+		
+      
+			<div class="col align-items-center flex-col sign-up">
+				<div class="form-wrapper align-items-center">
+					<div class="form sign-up">
+            <form method="post" action="/forget">
+            <div>  
+                <h2>Forget password?</h2>
+            </div>
+  <div class="input-group">
+    <i class='bx bx-mail-send'></i>
+    <input type="email" name="email" placeholder=" Enter your Email">
+  </div>
+ 
+  <button>Get password link</button>
+  <p>
+  
+    <b onclick="toggle()" class="pointer"  ><a href="/">Back to Login Page</a></b>
+  </p>
+</form>
+<div class="message" style="color: red; text-align: center;">
+  {{#if message}}
+  {{message}}
+  {{/if}}
+</div>
+
+					</div>
+				</div>
+			
+			</div>

@@ -1,0 +1,624 @@
+
+
+
+<style>
+    body {
+        min-height: 100vh;
+        background-size: cover;
+        font-family: 'Lato', sans-serif;
+        color: rgba(116, 116, 116, 0.667);
+        background: linear-gradient(140deg, #4c4b4b, 50%, #19191a);
+    }
+
+    .container-fluid {
+        margin-top: 200px;
+    }
+
+    p {
+        font-size: 14px;
+        margin-bottom: 7px;
+    }
+
+    .small {
+        letter-spacing: 0.5px !important;
+    }
+
+    .card-1 {
+        box-shadow: 2px 2px 10px 0px rgb(33, 33, 33);
+        border: 1px solid #000000;
+        /* Added black border */
+        width: 90%;
+        /* Increased the width of the card */
+        margin: auto;
+        /* Centered the card */
+    }
+
+    hr {
+        background-color: rgba(154, 154, 154, 0.667);
+    }
+
+    .bold {
+        font-weight: 500;
+    }
+
+    .change-color {
+        color: #f5d93a !important;
+    }
+
+    .card-2 {
+        box-shadow: 1px 1px 3px 0px rgb(112, 115, 139);
+    }
+
+    .fa-circle.active {
+        font-size: 8px;
+        color: #282829;
+    }
+
+    .fa-circle {
+        font-size: 8px;
+        color: #aaa;
+    }
+
+    .rounded {
+        border-radius: 2.25rem !important;
+    }
+
+    .progress-bar {
+        background-color: #f5d93a !important;
+    }
+
+    .progress {
+        height: 5px !important;
+        margin-bottom: 0;
+    }
+
+    .invoice {
+        position: relative;
+        top: -70px;
+    }
+
+    .Glasses {
+        position: relative;
+        top: -12px !important;
+    }
+
+    .card-footer {
+        background-color: #000000;
+        color: #020202;
+    }
+
+    h2 {
+        color: rgb(232, 199, 55);
+        letter-spacing: 2px !important;
+    }
+
+    .display-3 {
+        font-weight: 500 !important;
+    }
+
+    @media (max-width: 479px) {
+        .invoice {
+            position: relative;
+            top: 7px;
+        }
+
+        .border-line {
+            border-right: 0px solid rgb(226, 206, 226) !important;
+        }
+    }
+
+    @media (max-width: 700px) {
+        h2 {
+            color: rgb(0, 0, 0);
+            font-size: 17px;
+        }
+
+        .display-3 {
+            font-size: 28px;
+            font-weight: 500 !important;
+        }
+    }
+
+    .card-footer small {
+        letter-spacing: 7px !important;
+        font-size: 12px;
+    }
+
+    .border-line {
+        border-right: 1px solid rgb(226, 206, 226);
+    }
+
+    .outline-box {
+        display: inline-block;
+        padding: 4px 8px;
+        border: 1px solid #000;
+        border-radius: 4px;
+    }
+
+    .card-footer h2,
+    .card-footer h1 {
+        font-family: 'Lato', sans-serif;
+        font-weight: normal;
+    }
+
+    .card-footer {
+        background-color: #000000;
+        color: #000000;
+    }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+
+
+
+
+
+
+ {{!-- from Home page --}}
+
+ <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Responsive CSS -->
+    <link href="css/responsive.css" rel="stylesheet">
+
+
+ {{!-- stylesheet section link --}}
+  <link rel="stylesheet" href="/stylesheets/core-style.css">
+  <link rel="stylesheet" href="/stylesheets/animate.css">
+ 
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+  {{!-- <link rel="stylesheet" href="/stylesheets/font-awesome.min.css"> --}}
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min1.css">
+   
+  {{!-- <link rel="stylesheet" href="/stylesheets/forget.css"> --}}
+  {{!-- <link rel="stylesheet" href="/stylesheets/jquery-ui.min.css"> --}}
+   
+  {{!-- <link rel="stylesheet" href="/stylesheets/login.css"> --}}
+  <link rel="stylesheet" href="/stylesheets/magnific-popup.css">
+   
+  <link rel="stylesheet" href="/stylesheets/nouislider.css">
+  <link rel="stylesheet" href="/stylesheets/owl.carousel.css">
+   <link rel="stylesheet" href="/stylesheets/responsive.css">
+    {{!-- <link rel="stylesheet" href="/stylesheets/style.css"> 
+  <link rel="stylesheet" href="/stylesheets/themify-icons.css">  --}}
+
+
+
+
+
+
+
+
+<body>
+
+
+
+     
+<div id="wrapper"> 
+
+            <!-- Top Header Area End -->
+            <div class="main_header_area">
+                <div class="container h-100">
+                    <div class="row h-100">
+                        <div class="col-12 d-md-flex justify-content-between">
+                            <!-- Header Social Area -->
+                            <div class="header-social-area">
+                                {{!-- <span class="karl-level">Share</span> --}}
+                                <a href="#"> <i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
+                            <!-- Menu Area -->
+                            <div class="main-menu-area">
+                                <nav class="navbar navbar-expand-lg align-items-start">
+
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i class="ti-menu"></i></span></button>   
+                                    <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
+                                        <ul class="navbar-nav animated" id="nav">
+
+                            
+                                         <li class="nav-item active"> <a href="#"><img src="img/core-img/logo.png" alt=""  ></a></li>
+
+
+                                            <li class="nav-item active"><a class="nav-link" href="/home"> Home</a></li>
+                                           
+                                           
+                                            <li class="nav-item active"><a class="nav-link" href="#"> Mobiles</a></li>
+
+                                            <li class="nav-item active"><a class="nav-link" href="#"> Laptops</a></li>
+
+                                            <li class="nav-item"><a class="nav-link" href="/order-details">Orders</a></li>
+                                             <li class="nav-item active"><a class="nav-link" href="/cart">Cart<i class="ti-bag"></i> </a>
+                                             
+                                                <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                                             
+                                             
+                                             </li>
+                                             {{!-- <li class="nav-item"><a class="nav-link" href="#">Whishlist</a></li>
+                                             <li class="nav-item"><a class="nav-link" href="#">Account</a></li> 
+                                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li> --}}
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                            <!-- Help Line -->
+                           
+                            <div class="help-line">
+                               {{!-- <i class="ti-headphone-alt"></i> --}}
+                                <a href="/logout">LOGOUT</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- ****** Header Area End ****** -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- ****** Top Discount Area Start ****** -->
+        <section class="top-discount-area d-md-flex align-items-center">
+            <!-- Single Discount Area -->
+            <div class="single-discount-area">
+                <h5>Free Shipping &amp; Returns</h5>
+                <h6><a href="#">BUY NOW</a></h6>
+            </div>
+            <!-- Single Discount Area -->
+            <div class="single-discount-area">
+                <h5>20% Discount for all dresses</h5>
+                <h6>USE CODE: Colorlib</h6>
+            </div>
+            <!-- Single Discount Area -->
+            <div class="single-discount-area">
+                <h5>20% Discount for students</h5>
+                <h6>USE CODE: Colorlib</h6>
+            </div>
+        </section>
+        <!-- ****** Top Discount Area End ****** -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container my-5  d-flex  justify-content-center">
+    <div class="card card-1">
+        <div class="card-header bg-white">
+            <div class="media flex-sm-row flex-column-reverse justify-content-between">
+                <div class="col my-auto">
+                    <h4 class="mb-0">Thanks for your Order, <span class="change-color">{{deliveryAddress.name}}</span>!
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-between mb-3">
+                <div class="col-auto">
+                    <h6 class="color-1 mb-0 change-color">Receipt</h6>
+                </div>
+                <div class="col-auto">
+                    <small>ORDER ID: {{orderId}}</small>
+                </div>
+            </div>
+            {{#each orderDetails}}
+            <div class="row">
+                <div class="col">
+
+                    <div class="card card-2">
+                        <div class="card-body">
+                            <div class="media">
+
+
+                                <div class="sq align-self-center">
+                                    <img class="img-fluid  my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0"
+
+                                        src="/uploads/{{image.[0]}}" alt="{{image}}" width="135" height="135" />
+                                 {{!-- <img src="/uploads/{{images.[0]}}" class="img-fluid" alt="Product Image" width="50px" /> --}}
+
+                                </div>
+                                <div class="media-body my-auto text-right">
+                                    <div class="row  my-auto flex-column flex-md-row">
+                                        <div class="col my-auto">
+                                            <h6 class="mb-0">{{name}}</h6>
+                                        </div>
+                                        <div class="col my-auto">
+                                            <small>Qty: {{quantity}}</small>
+                                        </div>
+                                        <div class="col-auto my-auto">
+                                            <small>Price:{{price}}</small>
+                                        </div>
+                                        <div class="col my-auto">
+                                            <h6 class="mb-0">&#8377;{{total}}</h6>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="my-3">
+                            <div class="row align-items-center">
+                                <div class="col mt-auto">
+                                    <div class="media row align-items-center">
+                                        <div class="col-auto">
+                                            <small style="margin-right: 10px;">Track Order <span><i
+                                                        class="ml-2 fa fa-refresh"
+                                                        aria-hidden="true"></i></span></small>
+                                            <small class="text-right">
+                                                <span class="outline-box" style="padding: 5px 10px;">{{status}}</span>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            <div class="row justify-content-center mt-3">
+    <div class="col-auto text-center">
+        {{#if (eq cancellationStatus "Not requested")}}
+
+            <button type="button" class="btn btn-danger btn-sm" onclick="showCancelConfirmationModal('{{orderId}}')">Cancel Order</button>
+        {{else if (eq cancellationStatus "cancellation requested")}}
+
+            <button type="button" class="btn btn-danger btn-sm" onclick="showUndoCancelConfirmationModal('{{orderId}}')">UNDO Cancel request</button>
+        {{else if (eq cancellationStatus "Not Requested")}}
+
+            <button type="button" class="btn btn-danger btn-sm" onclick="showCancelConfirmationModal('{{orderId}}')">Cancel Order</button>
+        {{else if (eq cancellationStatus "cancelled")}}
+          
+        {{/if}}
+    </div>
+</div>
+
+
+            <div class="row mt-4">
+                 {{#each orderDetails}}
+                <div class="col">
+                    <div class="row justify-content-between">
+                        <div class="flex-sm-col text-right col">
+                            <p class="mb-1"><b>Total</b></p>
+                        </div>
+                        <div class="flex-sm-col col-auto">
+                            <p class="mb-1">&#8377;{{total}}</p>
+                        </div>
+                       
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="flex-sm-col text-right col">
+                            <p class="mb-1"><b>Discount</b></p>
+                        </div>
+                        <div class="flex-sm-col col-auto">
+                            <p class="mb-1">&#8377;{{discountAmount}}</p>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="flex-sm-col text-right col">
+                            <p class="mb-1"><b>Delivery Charges</b></p>
+                        </div>
+                        <div class="flex-sm-col col-auto">
+                            <p class="mb-1">Free</p>
+                        </div>
+                    </div>
+                </div>
+                 {{/each}}
+            </div>
+            <div class="row invoice">
+                <div class="col">
+                    <p class="mb-1">ORDER ID: {{orderId}}</p>
+                    <p class="mb-1">ORDER DATE: {{orderDate}}</p>
+                    <!-- Add delivery address below -->
+                    <div class="delivery-address-card">
+                        <h6>DELIVERY ADDRESS</h6>
+                        <div class="delivery-address-details">
+                            <p class="mb-0">{{deliveryAddress.name}}</p>
+                            <p class="mb-0">{{deliveryAddress.address}}</p>
+                            <p class="mb-0">{{deliveryAddress.city}}</p>
+                            <p class="mb-0">{{deliveryAddress.state}}</p>
+                            <p class="mb-0">{{deliveryAddress.pincode}}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="jumbotron-fluid">
+                <div class="row justify-content-between">
+                    <div class="col-auto my-auto">
+                        <h2 class="mb-0 font-weight-bold">Total Amount Paid:</h2>
+                    </div>
+                    <div class="col-auto my-auto ml-auto">
+                        <h1 class="display-3">&#8377;{{subtotal}}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal" id="cancelConfirmationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cancel Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to cancel the order?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                 <form action="/cancel-order" method="post">
+                <button type="submit" class="btn btn-danger" id="confirmCancelBtn" name="orderId" value="{{orderId}}">Yes, Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{{!-- newly added --}}
+
+<div class="modal" id="undoCancelConfirmationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Undo Cancel Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to undo the cancellation of the order?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <form action="/undo-cancel" method="post">
+                    <button type="submit" class="btn btn-danger" id="confirmUndoCancelBtn" name="orderId" value="{{orderId}}">Yes, Undo Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function showUndoCancelConfirmationModal(orderId) {
+        var confirmUndoCancelBtn = document.getElementById("confirmUndoCancelBtn");
+        confirmUndoCancelBtn.value = orderId;
+        var modal = new bootstrap.Modal(document.getElementById("undoCancelConfirmationModal"));
+        modal.show();
+    }
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+    function showCancelConfirmationModal(orderId) {
+        var confirmCancelBtn = document.getElementById("confirmCancelBtn");
+        confirmCancelBtn.value = orderId;
+        var modal = new bootstrap.Modal(document.getElementById("cancelConfirmationModal"));
+        modal.show();
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+     {{!-- footer section from home page --}}
+        <footer class="footer_area">
+            <div class="container">
+                <div class="row">
+                    <!-- Single Footer Area Start -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="single_footer_area">
+                            <div class="footer-logo">
+                                {{!-- <ul>Hi,there we are</ul> --}}
+                                <img src="img/core-img/logo.png" alt="" >                     
+                                
+                            </div>
+                            {{!-- <div class="copywrite_text d-flex align-items-center">
+                                <p>WE the Nexo Group are the top selling Platform in lead online selling sites, almost all Countries</p>
+                            </div> --}}
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Area Start -->
+                    <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                        <div class="single_footer_area">
+                            <ul class="footer_widget_menu">
+                                <li><a href="#">About</a></li>
+                                {{!-- <li><a href="#">Blog</a></li>  --}}
+                                <li><a href="#">Faq</a></li>
+                                <li><a href="#">Returns</a></li>
+                             <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Single Footer Area Start -->
+                    <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                        <div class="single_footer_area">
+                            <ul class="footer_widget_menu">
+                                <li><a href="#">My Account</a></li>
+                                <li><a href="#">Shipping</a></li>
+                                <li><a href="#">Our Policies</a></li>
+                                <li><a href="#">Afiliates</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Single Footer Area Start -->
+                    <div class="col-12 col-lg-5">
+                        <div class="single_footer_area">
+                            <div class="footer_heading mb-30">
+                                <h6>Hi,there we are Nexo Group</h6>
+                         
+                            <div class="subscribtion_form">
+                                <form action="#" method="post">
+                                    <input type="email" name="mail" class="mail" placeholder="Your email here">
+                                    <button type="submit" class="submit">Subscribe</button>
+                                </form>
+                            </div>
+                             <div class="copywrite_text d-flex align-items-center">
+                                <p>We the Nexo Group, are the top selling Platform in online selling sites almost in all Countries for Last 6 years.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="line"></div>
+                
+ 
+
+                 {{!-- Footer Bottom Area Start  --}}
+                <div class="footer_bottom_area">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="footer_social_area text-center">
+                                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- ****** Footer Area End ****** -->

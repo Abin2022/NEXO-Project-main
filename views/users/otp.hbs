@@ -1,0 +1,47 @@
+	<link rel="stylesheet" href="/stylesheets/forget.css">  
+    
+      <style>
+  
+  .otp-container{
+     display: flex;
+      justify-content: center;
+      align-items: center;
+      
+  }
+  .otp-logo{
+    display: block;
+      margin: 0 auto;
+      max-height: 81px;
+  }
+ </style>
+ 
+
+		<div class="row">
+		
+      
+			<div class="col align-items-center flex-col sign-up">
+				<div class="form-wrapper align-items-center">
+					<div class="form sign-up">
+            <form method="post" action="/sendOtp">
+            <div>  
+                <h2>OTP Login</h2>
+            </div>
+  <div class="input-group">
+    <i class='bx bx-mail-send'></i>
+    <input type="number" name="number" placeholder=" Enter your Mobile Number">
+  </div>
+
+ 
+  <button type="submit" >Get OTP</button>   
+     </form>
+        {{#if message}}
+                <p><span style="font-family: Arial, sans-serif; color: rgb(14, 15, 14); display:inline-block">{{message}}</span></p>
+
+          {{/if}}
+       <p>
+    <b onclick="toggle()" class="pointer"><a href="/signup">Back to Signup Page</a></b>
+      </p>
+	</div>
+ </div>
+			
+</div>
