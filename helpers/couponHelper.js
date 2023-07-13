@@ -187,7 +187,6 @@ applyCouponToCart: (userId, couponId) => {
 
 
 //next  sections
-
 checkCurrentCouponValidityStatus: (userId, cartValue) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -199,23 +198,22 @@ checkCurrentCouponValidityStatus: (userId, cartValue) => {
 
             } else {// Applied Coupon Exist
                 
+                
                 const activeCoupon = existingAppledCoupon.usedCoupons.find(coupon => coupon.appliedCoupon === true);
 
                 const activeCouponId = activeCoupon.couponId.toString();
 
                 const activeCouponData = await Coupon.findOne({ _id: new ObjectId(activeCouponId) });
-
+              
                 const minimumOrderValue = parseInt(activeCouponData.minOrderValue);
 
 
                 //Check if coupon previously used by the user 
 
-
                 const previouslyUsedCoupon = await UsedCoupon.findOne({ userId: userId, usedCoupons: { $elemMatch: { couponId: activeCoupon.couponId, usedCoupon: true } } });
                 //Check if the coupon is a active coupon
                 if (activeCouponData.activeCoupon) {
                     // The provided Coupon is a active coupon
-
                     if (previouslyUsedCoupon === null) {
                         // Coupon is not used ever
                         if (cartValue >= minimumOrderValue) {

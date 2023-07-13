@@ -184,7 +184,6 @@ const editProduct = async (req, res) => {
         ...updatedProduct,
         category: lookupCategory(updatedProduct.category),
       };
-      console.log('nantha santhappan',productWithCategoryName);
 
       res.render("admin/edit-product", {
         product: productWithCategoryName,
@@ -198,6 +197,8 @@ const editProduct = async (req, res) => {
     throw new Error(error.message);
   }
 };
+
+
 
 const deleteimg = async (req, res) => {
   try {
@@ -586,12 +587,12 @@ const blockedUsers= async (req, res) => {
 const blockUser = async (req, res) => {
   try {
     const id = req.query.id;
-    console.log(id);
+  
     const userData = await User.findByIdAndUpdate(
       { _id: id },
       { $set: { blocked: true } }
     );
-    console.log(userData);
+    
     res.redirect("/admin/user");
   } catch (error) {
     console.log(error.message);
@@ -603,9 +604,8 @@ const blockUser = async (req, res) => {
 
 const getUserOrders = async (req, res) => {
   try {
-    console.log('entered into getUSERORDERS'); 
+ 
     const orderData = await Order.find().populate("userId").lean();
-    console.log(orderData, "order data coming");
     const orderHistory = orderData.map((history) => {
       let createdOnIST = moment(history.date)
         .tz("Asia/Kolkata")
@@ -613,7 +613,6 @@ const getUserOrders = async (req, res) => {
 
       return { ...history, date: createdOnIST, username: history.userId.name };
     });
-    console.log(orderHistory, "order serial numbers");
     res.render("admin/userOrders", {
       
       orderData: orderHistory,
@@ -626,11 +625,9 @@ const getUserOrders = async (req, res) => {
 
 const loadOrdersView=async(req,res)=>{
   try {
-    console.log("Enterd into the Orederview page........");
       const orderId = req.query.id;
      
 
-      console.log(orderId, 'orderId');
       const order = await Order.findOne({ _id: orderId })
           .populate({
               path: 'products.productId',
@@ -671,10 +668,10 @@ const loadOrdersView=async(req,res)=>{
       const cancellationStatus = order.cancellationStatus
 
 
-      console.log(cancellationStatus,'cancellationStatus');
-      console.log(subtotal, 'subtotal');
-      console.log(orderDetails, 'orderDetails');
-      console.log(deliveryAddress, 'deliveryAddress');
+      // console.log(cancellationStatus,'cancellationStatus');
+      // console.log(subtotal, 'subtotal');
+      // console.log(orderDetails, 'orderDetails');
+      // console.log(deliveryAddress, 'deliveryAddress');
 
       res.render('admin/userOrderView', {
           orderDetails: orderDetails,

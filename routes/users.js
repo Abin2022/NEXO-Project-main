@@ -60,15 +60,11 @@ router.post('/verifyOtp',userControllers.verifyOtp)
 router.get('/delete-address',auth.isLogin,userControllers.deleteAddress);
 router.post('/edit-address',userControllers.editAddress);
 
-
 router.post('/add-new-address',userControllers.addNewAddress)
 
 // router.post('/editCheckoutAddress ',userControllers.editCheckoutAddress);
-
 // router.post('/edit-addressCheckoutPage',userControllers.editAddressCheckoutPage);
 
-
- 
  router.get('/checkout',auth.isLogin,userControllers.loadCheckout);
  router.post('/change-address',userControllers.changeAddress);
 
@@ -98,6 +94,7 @@ router.post('/apply-coupon', couponController.applyCouponOnUserside);
 
 router.get('/block',userControllers.blockUser)
 router.get('/shop',auth.isLogin,userControllers.loadShopPage)
+// router.get('/Search',auth.isLogin,userControllers.searchShop)
 
 
 
