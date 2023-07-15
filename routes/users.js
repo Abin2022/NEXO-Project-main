@@ -57,17 +57,18 @@ router.post('/verifyOtp',userControllers.verifyOtp)
    router.get('/address',userControllers.loadAddress)  
    router.post('/address',userControllers.addAddress);
    router.post('/set-as-default',userControllers.setAsDefault);
-router.get('/delete-address',auth.isLogin,userControllers.deleteAddress);
+   router.get('/delete-address',auth.isLogin,userControllers.deleteAddress);
 router.post('/edit-address',userControllers.editAddress);
 
-router.post('/add-new-address',userControllers.addNewAddress)
 
 // router.post('/editCheckoutAddress ',userControllers.editCheckoutAddress);
 // router.post('/edit-addressCheckoutPage',userControllers.editAddressCheckoutPage);
 
  router.get('/checkout',auth.isLogin,userControllers.loadCheckout);
  router.post('/change-address',userControllers.changeAddress);
-
+ router.post('/add-new-address',userControllers.addNewAddress)
+//wallet
+ router.get('/wallet-placed',auth.isLogin,userControllers.walletOrder)
  // in checkout page
  router.post('/place-order',auth.isLogin,userControllers.placeOrder)
   router.get('/orderPlaced',auth.isLogin,userControllers.orderPlaced);
@@ -81,6 +82,7 @@ router.post('/add-new-address',userControllers.addNewAddress)
   router.get('/ordersView',auth.isLogin,userControllers.loadOrdersView)
    router.post('/cancel-order',userControllers.cancelOrder)
    router.post('/undo-cancel',userControllers.undoCancel)
+ router.post("/return-order", auth.isLogin,userControllers.returnOrder);
 
 
 
@@ -94,7 +96,9 @@ router.post('/apply-coupon', couponController.applyCouponOnUserside);
 
 router.get('/block',userControllers.blockUser)
 router.get('/shop',auth.isLogin,userControllers.loadShopPage)
-// router.get('/Search',auth.isLogin,userControllers.searchShop)
+
+
+ router.get('/wallet-details',auth.isLogin,userControllers.loadWallet)
 
 
 

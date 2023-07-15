@@ -10,7 +10,7 @@ const usedCouponSchema =  new mongoose.Schema({
    usedCoupons: [
     {
       couponId: {
-        type: mongoose.Schema.Types.ObjectId, // The type of the product field (e.g., String, ObjectId, etc.)
+        type: mongoose.Schema.Types.ObjectId, 
         ref:"Coupon"
 
       },

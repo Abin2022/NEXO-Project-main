@@ -17,7 +17,7 @@ const moment = require("moment-timezone")
 // const EventEmitter = require('events');
 
 const accountSid = "ACa547f4ad75438fee11d6c1f2b5cc0a4a";
-const authToken = '6a78cbfaceaa3b6ceeb273292461fdf2';
+const authToken = '733e5cdeaf9fb3b8374f05685f042189';
 const verifySid = "VAb65553a60d1c6c15f8fb69e14c75d2f9";
 const client = require("twilio")(accountSid, authToken);
 
@@ -34,7 +34,7 @@ const productHelper=require("../helpers/productHelper")
 const userHelpers = require('../helpers/userHelpers')
 const couponHelper = require("../helpers/couponHelper")
 // const couponHelpers = require('../helpers/couponHelpers')
-
+const Wallet = require('../models/walletModel')
 
 
 
@@ -1188,33 +1188,20 @@ const editAddress= async (req, res) => {
 
 const loadCheckout= async (req, res) => {
   try {
-    
       const userId = req.session.user_id;
-      // console.log(userId, 'id');
       // Find the default address for the user
       const defaultAddress = await Address.findOne({ user_id: userId, 'addresses.is_default': true }, { 'addresses.$': 1 }).lean();
-
-      // console.log(defaultAddress, 'default address');
       if(defaultAddress===null){
         res.redirect('/address')
        }else{
-
-      
-
       // Find the user document and extract the address array
       const userDocument = await Address.findOne({ user_id: userId }).lean();
       const addressArray = userDocument.addresses;
-      // console.log(addressArray, 'addressArray');
 
       // Filter the addresses where isDefault is false
       const filteredAddresses = addressArray.filter(address => !address.is_default);
-      // console.log(filteredAddresses, 'filteredAddresses');
 
-     
-
-
-      // finding cart products //
-    
+      // finding cart products   
       const cart = await Cart.findOne({ user_id: req.session.user_id })
           .populate({
               path: 'products.productId',
@@ -1255,9 +1242,7 @@ const loadCheckout= async (req, res) => {
 
       if (req.session.couponInvalidError){
         couponError = req.session.couponInvalidError;
-
       }else if(req.session.couponApplied){
-
            couponApplied = req.session.couponApplied
         }
 
@@ -1271,8 +1256,12 @@ const loadCheckout= async (req, res) => {
         couponDiscount=0;
       }
     
-      finalAmount=finalAmount-couponDiscount
+       finalAmount=finalAmount-couponDiscount
 
+
+      //wallet details 
+      const walletDetails = await Wallet.findOne({ userId: userId }).lean()
+      // finalAmount=finalAmount-couponDiscount
       res.render('users/checkout',
           {
               defaultAddress: defaultAddress.addresses[0],
@@ -1285,6 +1274,8 @@ const loadCheckout= async (req, res) => {
               couponDiscount,
               subtotal: finalAmount,
               // finalAmount,
+              walletDetails,
+            
           });
           delete req.session.couponApplied;
           delete req.session.couponInvalidError
@@ -1332,20 +1323,242 @@ const changeAddress= async (req, res) => {
 }
 
 
+//wallet
+
+
+const walletOrder = async (req, res) => {
+  try {
+    console.log("Enterd into Wallet order Seciton..........................................................r");
+      const orderId = req.query.id
+      console.log(orderId, 'From wallet Order');
+      const userId = req.session.user_id
+      console.log(userId,"userId");
+      const updatingWallet = await userHelpers.updateWallet(userId, orderId);
+      res.redirect('/orderPlaced')
+  } catch (error) {
+      console.log(error.message);
+      res.redirect('/orderFailed')
+  }
+}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+const loadWallet = async (req, res) => {
+  try {
+    
+      const userId = req.session.user_id;
+      console.log("userId",userId);
+      const walletDetails = await userHelpers.getWalletDetails(userId);
+      const creditOrderDetails = await userHelpers.creditOrderDetails(userId);
+      const debitOrderDetails = await userHelpers.debitOrderDetails(userId);
+    console.log("walletDetails",walletDetails);
+    console.log("creditOrderDetails",creditOrderDetails);
+    console.log("debitOrderDetails",debitOrderDetails);
+      // Merge credit and debit order details into a single array
+      const orderDetails = [...creditOrderDetails, ...debitOrderDetails];
+
+      // Sort the merged order details by date and time in descending order
+      orderDetails.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      // Pagination logic
+      const currentPage = parseInt(req.query.page) || 1;
+      const PAGE_SIZE = 5;
+
+      const totalItems = orderDetails.length;
+      const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+
+      const startIndex = (currentPage - 1) * PAGE_SIZE;
+      const endIndex = startIndex + PAGE_SIZE;
+      const paginatedOrderDetails = orderDetails.slice(startIndex, endIndex);
+
+      const hasPrev = currentPage > 1;
+      const hasNext = currentPage < totalPages;
+
+      const pages = [];
+      for (let i = 1; i <= totalPages; i++) {
+          pages.push({
+              number: i,
+              current: i === currentPage,
+          });
+      }
+
+      res.render('users/wallet', {
+          walletDetails,
+          orderDetails: paginatedOrderDetails,
+          showPagination: totalItems > PAGE_SIZE,
+          hasPrev,
+          prevPage: currentPage - 1,
+          hasNext,
+          nextPage: currentPage + 1,
+          pages,
+      });
+  } catch (error) {
+      console.log(error.message);
+      res.redirect('/error')
+  }
+};
+
+
+
+
+
+
+
+
+// const placeOrder = async (req, res) => {
+//   try {
+//     let userId = req.session.user_id;
+//     let orderDetails = req.body;
+//     console.log(orderDetails, "ordeerdetails.............");
+
+//     let productsOrdered = await productHelper.getProductListForOrders(userId);
+//     console.log(productsOrdered, "products ordered...........");
+
+//     if (productsOrdered) {
+//       let totalOrderValue = await productHelper.getCartValue(userId);
+//       console.log(totalOrderValue, "this is the total order value");
+
+//       const availableCouponData = await couponHelper.checkCurrentCouponValidityStatus(userId, totalOrderValue);
+//       if (availableCouponData.status) {
+//         const couponDiscountAmount = availableCouponData.couponDiscount;
+
+//         // Inserting the value of coupon discount into the order details object created above
+//         orderDetails.couponDiscount = couponDiscountAmount;
+
+//         // Updating the total order value with coupon discount applied
+//         totalOrderValue = totalOrderValue - couponDiscountAmount;
+
+//         const updateCouponUsedStatusResult = await couponHelper.updateCouponUsedStatus(userId, availableCouponData.couponId);
+//       }
+
+//       productHelper.placingOrder(userId, orderDetails, productsOrdered, totalOrderValue).then((orderId) => {
+//         console.log("successfully reached hereeeeeeeeee");
+//         if (req.body["paymentMethod"] === "COD") {
+          
+//           res.json({ COD_CHECKOUT: true });
+//         } else if (req.body["paymentMethod"] === "ONLINE") {
+
+//           productHelper
+//             .generateRazorpayOrder(orderId, totalOrderValue)
+//             .then(async (razorpayOrderDetails) => {
+//               const user = await User.findById({ _id: userId }).lean();
+//               res.json({
+//                 ONLINE_CHECKOUT: true,
+//                 userDetails: user,
+//                 userOrderRequestData: orderDetails,
+//                 orderDetails: razorpayOrderDetails,
+//                 razorpayKeyId: "rzp_test_vohNN97b9WnKIu",
+//               });
+//             });
+//         } 
+        
+        
+      
+        
+//         else {
+//           res.json({ paymentStatus: false });
+//         }
+//       });
+//     } else {
+//       res.json({ checkoutStatus: false });
+
+//     }
+//     console.log(checkoutStatus);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
+
+
+// const placeOrder = async (req, res) => {
+//   try {
+//     let userId = req.session.user_id;
+//     let orderDetails = req.body;
+//     console.log(orderDetails, "ordeerdetails.............");
+
+//     let productsOrdered = await productHelper.getProductListForOrders(userId);
+//     console.log(productsOrdered, "products ordered...........");
+
+//     if (productsOrdered) {
+//       let totalOrderValue = await productHelper.getCartValue(userId);
+//       console.log(totalOrderValue, "this is the total order value");
+
+//       const availableCouponData = await couponHelper.checkCurrentCouponValidityStatus(userId, totalOrderValue);
+//       if (availableCouponData.status) {
+//         const couponDiscountAmount = availableCouponData.couponDiscount;
+
+//         // Inserting the value of coupon discount into the order details object created above
+//         orderDetails.couponDiscount = couponDiscountAmount;
+
+//         // Updating the total order value with coupon discount applied
+//         totalOrderValue = totalOrderValue - couponDiscountAmount;
+
+//         const updateCouponUsedStatusResult = await couponHelper.updateCouponUsedStatus(userId, availableCouponData.couponId);
+//       }
+
+//       productHelper.placingOrder(userId, orderDetails, productsOrdered, totalOrderValue).then((orderId) => {
+//         console.log("successfully reached hereeeeeeeeee");
+//         if (req.body["paymentMethod"] === "COD") {
+//           res.json({ COD_CHECKOUT: true });
+//         } else if (req.body["paymentMethod"] === "ONLINE") {
+//           productHelper
+//             .generateRazorpayOrder(orderId, totalOrderValue)
+//             .then(async (razorpayOrderDetails) => {
+//               const user = await User.findById({ _id: userId }).lean();
+//               res.json({
+//                 ONLINE_CHECKOUT: true,
+//                 userDetails: user,
+//                 userOrderRequestData: orderDetails,
+//                 orderDetails: razorpayOrderDetails,
+//                 razorpayKeyId: "rzp_test_vohNN97b9WnKIu",
+//               });
+//             });
+//         } else if (req.body["paymentMethod"] === "WALLET") {
+//           const walletBalance = await userHelpers.walletBalance(userId);
+//           console.log(walletBalance, "wallet balance is this");
+//           if (walletBalance >= totalOrderValue) {
+//             productHelper
+//               .placingOrder(userId, orderDetails, productsOrdered, totalOrderValue)
+//               .then(async (orderId, error) => {
+//                 res.json({ WALLET_CHECKOUT: true, orderId });
+//               });
+//           } else {
+//             res.json({ error: "Insufficient balance." });
+//           }
+//         } else {
+//           res.json({ paymentStatus: false });
+//         }
+//       });
+//     } else {
+//       res.json({ checkoutStatus: false });
+//     }
+//     console.log(checkoutStatus);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 
 const placeOrder = async (req, res) => {
   try {
-    console.log("entered placed order routeeeee");
     let userId = req.session.user_id;
     let orderDetails = req.body;
-    console.log(orderDetails, "ordeerdetails have reached here");
+    console.log(orderDetails, "order details.............");
 
     let productsOrdered = await productHelper.getProductListForOrders(userId);
-    console.log(productsOrdered, "products that are ordered");
+    console.log(productsOrdered, "products ordered...........");
 
     if (productsOrdered) {
       let totalOrderValue = await productHelper.getCartValue(userId);
@@ -1364,38 +1577,55 @@ const placeOrder = async (req, res) => {
         const updateCouponUsedStatusResult = await couponHelper.updateCouponUsedStatus(userId, availableCouponData.couponId);
       }
 
-      productHelper.placingOrder(userId, orderDetails, productsOrdered, totalOrderValue).then((orderId) => {
-        console.log("successfully reached hereeeeeeeeee");
-        if (req.body["paymentMethod"] === "COD") {
-          console.log("cod_is true here");
-          res.json({ COD_CHECKOUT: true });
-        } else if (req.body["paymentMethod"] === "ONLINE") {
-
-          productHelper
-            .generateRazorpayOrder(orderId, totalOrderValue)
-            .then(async (razorpayOrderDetails) => {
-              const user = await User.findById({ _id: userId }).lean();
-              res.json({
-                ONLINE_CHECKOUT: true,
-                userDetails: user,
-                userOrderRequestData: orderDetails,
-                orderDetails: razorpayOrderDetails,
-                razorpayKeyId: "rzp_test_vohNN97b9WnKIu",
-              });
-            });
+      const orderId = await productHelper.placingOrder(userId, orderDetails, productsOrdered, totalOrderValue);
+      console.log("successfully reached hereeeeeeeeee");
+      if (req.body["paymentMethod"] === "COD") {
+        res.json({ COD_CHECKOUT: true });
+      } else if (req.body["paymentMethod"] === "ONLINE") {
+        const razorpayOrderDetails = await productHelper.generateRazorpayOrder(orderId, totalOrderValue);
+        const user = await User.findById({ _id: userId }).lean();
+        res.json({
+          ONLINE_CHECKOUT: true,
+          userDetails: user,
+          userOrderRequestData: orderDetails,
+          orderDetails: razorpayOrderDetails,
+          razorpayKeyId: "rzp_test_vohNN97b9WnKIu",
+        });
+      } else if (req.body["paymentMethod"] === "WALLET") {
+        const walletBalance = await userHelpers.walletBalance(userId);
+        console.log(walletBalance, "wallet balance is this");
+        if (walletBalance.walletAmount >= totalOrderValue) {
+          await productHelper.placingOrder(userId, orderDetails, productsOrdered, totalOrderValue);
+          res.json({ WALLET_CHECKOUT: true, orderId });
+          
         } else {
-          res.json({ paymentStatus: false });
+          res.json({ error: "Insufficient balance." });
         }
-      });
+      } else {
+        res.json({ paymentStatus: false });
+      }
     } else {
       res.json({ checkoutStatus: false });
-
     }
     console.log(checkoutStatus);
   } catch (error) {
     console.log(error.message);
   }
-}
+};
+
+
+//  const walletBalance= (userId) => {
+//   return new Promise(async (resolve, reject) => {
+//       try {
+//           const walletBalance = await Wallet.findOne({ userId: userId })
+//           resolve(walletBalance)
+//       } catch (error) {
+//           reject(err)
+
+//       }
+//   })
+// }
+
 
 
 const orderPlaced = async (req, res) => {
@@ -1579,6 +1809,29 @@ const undoCancel = async (req, res) => {
   }
 };
 
+const returnOrder = async (req, res) => {
+  try {
+    const orderId = req.body.orderId;
+    const url = "/ordersView?id=" + orderId;
+    console.log(orderId, "order have reached");
+    const updateOrder = await Order.findByIdAndUpdate(
+      { _id: new ObjectId(orderId) },
+      {
+        $set: {
+          orderStatus: "Return Processing",
+          cancellationStatus: "Return Processing",
+        },
+      },
+      { new: true }
+    ).exec();
+    console.log(updateOrder, "updated order");
+
+    res.redirect(url);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 
 
 
@@ -1594,12 +1847,12 @@ const loadShopPage=async(req,res)=>{
       search=req.query.search;
     }
 
-    // var page = 1;
-    // if(req.query.search){
-    //   search = req.query.search;
-    // }
+    var page = 1;
+    if(req.query.search){
+      search = req.query.search;
+    }
 
-    //  const limit= 6;
+     const limit= 3;
 
     const productData = await Product.find({unlist:false,
       $or: [
@@ -1609,26 +1862,26 @@ const loadShopPage=async(req,res)=>{
               ],
 
     }).lean()
-    // .limit(limit*1)
-    // .skip((page -1 )* limit)
+    .limit(limit*1)
+    .skip((page -1 )* limit)
     .exec()
 
-    // const count = await Product.find({unlist:false,
-    //   $or: [
-    //             { brand: { $regex: '.*' + search + '.*', $options: 'i' } },
-    //             { productname: { $regex: '.*' + search + '.*', $options: 'i' } },
-    //             { category: { $regex: '.*' + search + '.*', $options: 'i' } },         
-    //           ],
+    const count = await Product.find({unlist:false,
+      $or: [
+                { brand: { $regex: '.*' + search + '.*', $options: 'i' } },
+                { productname: { $regex: '.*' + search + '.*', $options: 'i' } },
+                { category: { $regex: '.*' + search + '.*', $options: 'i' } },         
+              ],
 
-    // }).lean().countDocuments()
+    }).lean().countDocuments()
 
 
    
 
   res.render("users/shop", {
     Product: productData,
-    // totalPages: Math.ceil(count/limit),
-    // currentPage: page
+    totalPages: Math.ceil(count/limit),
+    currentPage: page
   });
   
   } catch (error) {
@@ -1742,16 +1995,21 @@ module.exports={
   
  loadCheckout,
  placeOrder,
+//  walletBalance,
  orderPlaced,
  orderFailed,
  verifyPayment,
  changeAddress,
+ loadWallet,
+ walletOrder,
+
 
  
  orderDetails,
  loadOrdersView,
  cancelOrder,
  undoCancel,
+ returnOrder,
  loadShopPage,
 //  searchShop,
  

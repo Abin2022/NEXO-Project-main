@@ -397,11 +397,39 @@
                                     checked="" required="" value="COD">
                                 <label class="custom-control-label" for="credit">COD</label>
                             </div>
+                             {{!-- <div class="custom-control custom-radio">
+                                <input id="" name="paymentMethod" type="radio" class="custom-control-input"
+                                    required="" value="ONLINE">
+                                <label class="custom-control-label" for="">WALLET</label>
+                            </div> --}}
+                             <div class="custom-control custom-radio">
+                                <input id="wallet" name="paymentMethod" type="radio" class="custom-control-input"
+                                    required="" value="WALLET">
+                                <label class="custom-control-label" for="wallet">WALLET <span class="wallet-balance">
+                                     
+                                    (Amount in the Wallet: ₹{{walletDetails.walletAmount}})</span>
+                                   
+                                </label>
+                                 <p id="error-message" class="text-danger"></p>
+                              </div>
+                                 {{!-- <div class="custom-control custom-radio">
+                                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input"
+                                    checked="" required="" value="WALLET">
+                                <label class="custom-control-label" for="credit">WALLET</label>
+                            </div> --}}
+                   
+
+
+
+
+
                             <div class="custom-control custom-radio">
                                 <input id="debit" name="paymentMethod" type="radio" class="custom-control-input"
                                     required="" value="ONLINE">
                                 <label class="custom-control-label" for="debit">ONLINE</label>
                             </div>
+                            
+                            
 
                         </div>
 
@@ -774,7 +802,12 @@
 
                     if (response.COD_CHECKOUT) {
                         location.href = '/orderPlaced'
-                    } else if (response.ONLINE_CHECKOUT) {
+                    } else if(response.WALLET_CHECKOUT){
+                        location.href = '/wallet-placed?id='+response.orderId
+                    }else if(response.error){
+                         $('#error-message').text(response.error);
+                    }
+                    else if (response.ONLINE_CHECKOUT) {
                         makeRazorpayPayment(response);
                     } else {
                         location.href = '/orderFailed'

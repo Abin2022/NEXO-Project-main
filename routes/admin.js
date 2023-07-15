@@ -65,6 +65,7 @@ router.get('/blocked-users', adminAuth.isLogin, adminController.blockedUsers);
   router.post('/reject-by-admin',adminController.rejectCancellation)
   router.post('/prepare-by-admin',adminController.productDelevery)
   router.post('/deliver-by-admin',adminController.deliveredProduct)
+   router.post("/return-by-admin", adminController.returnOrder);
 
    router.get('/manage-coupons',adminAuth.isLogin,couponController.manageCoupon);
    router.get('/add-coupon',adminAuth.isLogin, couponController.addNewCouponPage);

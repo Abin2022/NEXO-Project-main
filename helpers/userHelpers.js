@@ -3,9 +3,10 @@ const Category = require('../models/categoryModel')
 const Product = require('../models/productModel')
 const Order =require('../models/orderModel')
 const cartModel = require('../models/cartModel')
-
+const Wallet = require('../models/walletModel')
 const Razorpay = require("razorpay");
 const { ObjectId } = require('mongodb');
+const moment = require("moment-timezone")
 var instance = new Razorpay({
     key_id: 'rzp_test_vohNN97b9WnKIu',
 
@@ -90,6 +91,127 @@ updateOnlineOrderPaymentStatus: (ordersCollectionId, onlinePaymentStatus) => {
     }
     })
  },
+
+
+//wallet
+  
+
+getWalletDetails:(userId)=>{
+    return new Promise(async(resolve,reject)=>{
+        try{
+            const walletDetails = await Wallet.findOne({ userId:userId}).lean()
+            console.log("walletDetails",walletDetails);
+            resolve(walletDetails)
+        }catch(error){
+            reject(error)
+        }
+    })
+  
+},
+
+creditOrderDetails: (userId) => {
+    console.log("Entered into credit Page");
+    return new Promise(async (resolve, reject) => {
+        try {
+            const orderDetails = await Order.find({
+                userId: userId,
+                $or: [{ paymentMethod: 'ONLINE' }, { paymentMethod: 'WALLET' }],
+                orderStatus: 'cancelled'
+            }).lean();
+            console.log("Credit orderDetails",orderDetails);
+            const orderHistory = orderDetails.map(history => {
+                let createdOnIST = moment(history.date)
+                    .tz('Asia/Kolkata')
+                    .format('DD-MM-YYYY h:mm A');
+
+                return { ...history, date: createdOnIST };
+            });
+            console.log(orderHistory,"orderHis");
+
+            resolve(orderHistory);
+        } catch (error) {
+            reject(error);
+        }
+    });
+},
+
+debitOrderDetails: (userId) => {
+    console.log("Enterd into the deb page");
+    return new Promise(async (resolve, reject) => {
+        try {
+            const orderDetails = await Order.find({
+                userId: userId,
+                paymentMethod: 'WALLET',
+                $or: [{ orderStatus: 'Placed' }, { orderStatus: 'Delivered' },{orderStatus:'Product'}],
+              
+            }).lean();
+            console.log(orderDetails,"orderDetails..");
+
+            const orderHistory = orderDetails.map(history => {
+                let createdOnIST = moment(history.date)
+                    .tz('Asia/Kolkata')
+                    .format('DD-MM-YYYY h:mm A');
+
+                return { ...history, date: createdOnIST };
+            });
+
+            resolve(orderHistory);
+        } catch (error) {
+            reject(error);
+        }
+    });
+},
+
+
+
+
+
+walletBalance: (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const walletBalance = await Wallet.findOne({ userId: userId })
+            resolve(walletBalance)
+        } catch (error) {
+            reject(err)
+
+        }
+    })
+},
+
+
+
+
+
+   updateWallet:(userId,orderId)=>{
+    return new Promise(async(resolve,reject)=>{
+        try{
+            const orderDetails=await Order.findOne({_id:orderId})
+            const wallet=await Wallet.findOne({userId:userId })
+
+            if(wallet){
+                const updatedWalletAmount = wallet.walletAmount - orderDetails.orderValue;
+
+                await Wallet.findOneAndUpdate(
+                    { userId:userId},
+                    { walletAmount: updatedWalletAmount}
+                );
+                resolve(updatedWalletAmount)
+            } else {
+                reject('Wallet is not found')
+            }
+            }catch(error){
+                reject(error)
+            }
+        
+    })
+   }
+
+
+
+
+
+
+
 
 
 }

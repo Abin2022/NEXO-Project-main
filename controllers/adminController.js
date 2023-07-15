@@ -20,7 +20,7 @@ const mongoose=require("mongoose")
 
 const ObjectId = mongoose.Types.ObjectId;
 const categoryHelpers=require("../helpers/categoryHelpers")
-
+const Wallet = require("../models/walletModel")
 
 const loadLogin =async(req,res)=>{
     try{
@@ -652,7 +652,6 @@ const loadOrdersView=async(req,res)=>{
           };
       });
 
-
       const deliveryAddress = {
           name: order.addressDetails.name,
          address: order.addressDetails.address,
@@ -691,6 +690,7 @@ const cancelledByAdmin = async (req, res) => {
   try {
     const id = req.body.orderId;
     console.log(id, 'id');
+    
 
     const url = '/admin/ordersView?id=' + id;
     console.log(url, 'url');
@@ -700,8 +700,27 @@ const cancelledByAdmin = async (req, res) => {
       { $set: { cancellationStatus: "cancellation requested", orderStatus: "cancelled" } },
       { new: true }
     ).exec();
+
+
     
     console.log(updateOrder, 'updateOrder');
+
+    const wallet = await Wallet.findOne({ userId: updateOrder.userId }).exec();
+
+    if (wallet) {
+      const updatedWallet = await Wallet.findOneAndUpdate(
+        { userId: updateOrder.userId },
+        { $inc: { walletAmount: updateOrder.orderValue } },
+        { new: true }
+      ).exec();
+    } else {
+      const newWallet = new Wallet({
+        userId: updateOrder.userId,
+        walletAmount: updateOrder.orderValue,
+      });
+      const createdWallet = await newWallet.save();
+      console.log(createdWallet, "created wallet");
+    }
 
     res.redirect(url);
   } catch (error) {
@@ -744,7 +763,6 @@ const rejectCancellation = async (req, res) => {
 
 const productDelevery = async (req, res) => {
   try {
-    console.log("entered into product delivery stage.................");
     const orderId = req.body.orderId;
     console.log(orderId, 'id here............');
 
@@ -754,10 +772,8 @@ const productDelevery = async (req, res) => {
       { new: true }
     ).exec();
 
-    console.log(updateOrder, 'updateOrder');
 
     const url = '/admin/ordersView?id=' + orderId;
-    console.log(url, 'Here is the url..................');
     
     res.redirect(url);
   } catch (error) {
@@ -788,6 +804,45 @@ const deliveredProduct = async (req, res) => {
   }
 };
 
+
+const returnOrder = async (req, res) => {
+  try {
+    const orderId = req.body.orderId;
+    const url = "/admin/ordersView?id=" + orderId;
+    const updatedOrder = await Order.findByIdAndUpdate(
+      { _id: new ObjectId(orderId) },
+      {
+        $set: {
+          orderStatus: "Returned",
+          cancellationStatus: "Returned",
+          returnOrder: true,
+        },
+      },
+      { new: true }
+    ).exec();
+
+    const wallet = await Wallet.findOne({ userId: updatedOrder.userId }).exec();
+
+    if (wallet) {
+      const updatedWallet = await Wallet.findOneAndUpdate(
+        { userId: updatedOrder.userId },
+        { $inc: { walletAmount: updatedOrder.orderValue } },
+        { new: true }
+      ).exec();
+    } else {
+      const newWallet = new Wallet({
+        userId: updatedOrder.userId,
+        walletAmount: updatedOrder.orderValue,
+      });
+      const createdWallet = await newWallet.save();
+      console.log(createdWallet, "created wallet");
+    }
+
+    res.redirect(url);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 
 
@@ -831,6 +886,7 @@ module.exports = {
      rejectCancellation,
      productDelevery,
      deliveredProduct,
+     returnOrder,
    
     
 

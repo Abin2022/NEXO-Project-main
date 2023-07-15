@@ -141,196 +141,154 @@
             </div>
               
         </section>
-        <!-- ****** Top Discount Area End ****** -->
 
 
 
+<style>
+    body {
+      background-color: #f5f5f5;
+    }
+    
+    .wallet-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .wallet-card {
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+      margin-bottom: 50px;
+      position: relative; /* Position the card container */
+    }
+    
+    .wallet-header {
+      background-color: #fff;
+      padding: 20px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      font-family: "Arial", sans-serif; /* Change the font to a professional font */
+      position: relative; /* Position the header container */
+    }
+    
+    .wallet-body {
+      background-color: #fff;
+      padding: 20px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+    
+    .balance {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .transaction-list li {
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+    }
+    
+    .transaction-list li:last-child {
+      border-bottom: none;
+    }
 
+    /* Additional styles for wallet GIF and text */
+    .wallet-gif {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 60px;
+    }
+    
+    .wallet-text {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+  .black-page-link {
+    color: rgb(0, 0, 0) !important;
+    
+  }
+   .black-page-link.current-page {
+    color: white !important;
+    background-color: black !important;
+    border-color: black;
+   }
 
+  </style>
 
-
-
-<section style="margin-top: 5vh;">
-  <div class="container">
-
-
-
-<form style="text-align: center;">
-    <input type="text" placeholder="Search Here" name="search">
-    <input type="submit" value="search">
-</form>
-
-
-
-
-
-
-
-  </div>
-  <br>
-   <br>
-
-   
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-    {{!-- <div class="button-bar">
-  <a href="/search" class="btn btn-primary">
-    <i class="bi bi-search"></i> Search
-  </a>
-</div> --}}
-
-    </div>
-  </div>
-  <div class="row karl-new-arrivals">
-    {{#each Product}}
-    <div class="col-12 col-sm-6 col-md-4 mb-4">
-      <div class="card single_gallery_item wow fadeInUpBig" data-wow-delay="0.2s">
-        <div class="product-img">
-          <a href="/product-details?id={{this._id}}">
-            <img src="/uploads/{{images.[0]}}" alt="Image">
-          </a>
-          <div class="product-quicview">
-            <a href="/product-details?id={{this._id}}" data-toggle="modal" data-target="#quickview"><i class="ti-plus"></i></a>
+ <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card wallet-card">
+        <div class="card-header wallet-header">
+          <h1 class="display-4 mb-0">My Wallet</h1>
+          <img src="/img/core-img/giphy.gif" alt="Wallet" style="width:150px " class="wallet-gif">
+        </div>
+        <div class="card-body wallet-body">
+          <div class="balance">
+            {{#if walletDetails}}
+              <h2 class="display-2">₹{{walletDetails.walletAmount}}</h2>
+            {{/if}}
           </div>
-        </div>
-        <div class="product-description">
-          <h3>{{ this.brand }}</h3>
-          <h6>{{this.productname}}</h6>
-          <h6>{{this.category}}</h6>
-        </div>
-      </div>
-    </div>
-    {{/each}}
-  </div>
-</div>
-
-<br>
- 
-  
-{{!-- {{#each pages}}
-  <a href="?page={{this}}">{{this}}</a>
-{{/each}} --}}
-
-
-{{!-- {{#range}}
-{{#each (range 1 totalPages)}}
-  <a href="?page={{this}}">{{this}}</a>
-{{/each}}
-{{/range}} --}}
-
-	
-	
-	
-<div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="popupModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="popupModalLabel">Message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p id="popupMessage"></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script src="/javascripts/viewproducts.js"></script>
-
-{{!-- 
-<div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="pagination">
-            {{#range}}
-            {{#each (range 1 totalPages)}}
-
-            <a href="?page={{this}}">{{this}}</a>
+          <ul class="list-unstyled transaction-list">
+            {{#each orderDetails}}
+              <li class="d-flex justify-content-between align-items-center">
+                {{#if (or (eq this.orderStatus "Product") (eq this.orderStatus "Placed") (eq this.orderStatus "Delivered"))}}
+                  <span class="font-weight-bold">Debit Transaction on {{this.date}}</span>
+                  <span class="text-danger">-₹{{this.orderValue}}</span>
+                {{else if (eq this.orderStatus "cancelled")}}
+                  <span class="font-weight-bold">Credit Transaction on {{this.date}}</span>
+                  <span class="text-success">₹{{this.orderValue}}</span>
+                {{/if}}
+              </li>
             {{/each}}
-            {{/range}}
-          </div>
+          </ul>
+          {{#if showPagination}}
+            <nav aria-label="Transaction Pagination">
+              <ul class="pagination justify-content-center">
+                {{#if hasPrev}}
+                  <li class="page-item">
+                    <a class="page-link black-page-link" href="?page={{prevPage}}" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                {{/if}}
+                {{#each pages}}
+                  <li class="page-item{{#if current}} active{{/if}}">
+                    <a class="page-link black-page-link{{#if current}} current-page{{/if}}" href="?page={{number}}">{{number}}</a>
+                  </li>
+                {{/each}}
+                {{#if hasNext}}
+                  <li class="page-item">
+                    <a class="page-link black-page-link" href="?page={{nextPage}}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                {{/if}}
+              </ul>
+            </nav>
+
+            {{else}}
+               {{!-- <h2 class="display-2">₹{{walletDetails.walletAmount}}</h2> --}}
+
+          {{/if}}
         </div>
       </div>
-    </div> --}}
+    </div>
+  </div>
+</div>
 
 
 
-        <!-- ****** Footer Area Start ****** -->
-        <footer class="footer_area">
-            <div class="container">
-                <div class="row">
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="single_footer_area">
-                            <div class="footer-logo">
-                                {{!-- <ul>Hi,there we are</ul> --}}
-                                <img src="img/core-img/logo.png" alt="" >                     
-                                
-                            </div>
-                            {{!-- <div class="copywrite_text d-flex align-items-center">
-                                <p>WE the Nexo Group are the top selling Platform in lead online selling sites, almost all Countries</p>
-                            </div> --}}
-                        </div>
-                    </div>
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-sm-6 col-md-3 col-lg-2">
-                        <div class="single_footer_area">
-                            <ul class="footer_widget_menu">
-                                <li><a href="#">About</a></li>
-                                {{!-- <li><a href="#">Blog</a></li>  --}}
-                                <li><a href="#">Faq</a></li>
-                                <li><a href="#">Returns</a></li>
-                             <li><a href="#">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-sm-6 col-md-3 col-lg-2">
-                        <div class="single_footer_area">
-                            <ul class="footer_widget_menu">
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">Shipping</a></li>
-                                <li><a href="#">Our Policies</a></li>
-                                <li><a href="#">Afiliates</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-lg-5">
-                        <div class="single_footer_area">
-                            <div class="footer_heading mb-30">
-                                <h6>Hi,there we are Nexo Group</h6>
-                         
-                            <div class="subscribtion_form">
-                                <form action="#" method="post">
-                                    <input type="email" name="mail" class="mail" placeholder="Your email here">
-                                    <button type="submit" class="submit">Subscribe</button>
-                                </form>
-                            </div>
-                             <div class="copywrite_text d-flex align-items-center">
-                                <p>We the Nexo Group, are the top selling Platform in online selling sites almost in all Countries for Last 6 years.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="line"></div>
-               </div>
-  
 
-
-  
- {{!-- newly added for search bar --}}
- <script>
-
-  $(function(){
-    $('#productsTable').DataTable();
-  })
-  </script>
-  
+<!-- Bootstrap JS (Optional) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 
 

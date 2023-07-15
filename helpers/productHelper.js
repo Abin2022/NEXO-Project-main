@@ -52,10 +52,15 @@ module.exports = {
   },
 
   placingOrder: async (userId, orderData, orderedProducts, totalOrderValue) => {
+    return new Promise(async(resolve,reject)=>{
+     try{
+   
     console.log("enter  the helper placing order");
     let orderStatus =
       orderData["paymentMethod"] === "COD" ? "Placed" : "PENDING";
     console.log(orderStatus, "this is the order status");
+
+
     const defaultAddress = await Address.findOne(
       { user_id: userId, "addresses.is_default": true },
       { "addresses.$": 1 }
@@ -92,12 +97,21 @@ module.exports = {
     const placedOrder = await orderDetails.save();
     console.log(placedOrder, "save to the database");
     await Cart.deleteMany({ user_id: userId });
-    console.log("placing db order id here jdslkcjdsjk");
     let dbOrderId = placedOrder._id.toString();
     console.log(dbOrderId, "order id of the user");
    
-    return dbOrderId;
+    resolve(dbOrderId)
+
+    }catch(error){
+      reject(error)
+    }
+  })
   },
+
+
+
+
+
 
   generateRazorpayOrder: (orderId, totalOrderValue) => {
     orderValue = totalOrderValue * 100;
