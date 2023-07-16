@@ -197,12 +197,31 @@
             <!-- Navbar End -->
 
 
+            <style>
+                /* Add this CSS to arrange images horizontally */
+                .image-container {
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+
+                .image-item {
+                    margin-right: 10px;
+                }
+
+                /* Optional: If you want a fixed height for the image previews */
+                .image-preview {
+                    width: 200px;
+                    height: 180px;
+                }
+            </style>
+
+
 
             <div class="container">
 
 
                 <br>
-                <form action="/admin/edit-product" method="post">
+                <form action="/admin/edit-product" method="post" enctype="multipart/form-data">
                     <h2 class="mb-3">Edit Product</h2>
 
 
@@ -223,25 +242,32 @@
                         <div class="col-sm-10">
                             <select name="category" class="form-control" required>
                                 <option value="{{this.category}}" {{#if this.category}} {{/if}}>
-                                {{#each categories}}
+                                    {{#each categories}}
                                     {{this.category}}
-                                   
+
                                 </option>
                                 {{/each}}
                             </select>
                         </div> --}}
 
-                           <div class="row mb-3">
-                        <label for="category" class="col-sm-2 col-form-label">CATEGORY</label>
-                        <div class="col-sm-10">
-                            <select name="category" class="form-control" required>
-                                <option selected >{{product.category}}</option>
-                                {{#each categories}}
-                                <option value="{{this._id}}">{{this.category}}</option>
-                                {{/each}}
-                            </select>
+                        <div class="row mb-3">
+                            <label for="category" class="form-label">CATEGORY</label>
+
+                            <div class="col-sm-10">
+
+
+                                <select name="category" class="form-control" required>
+                                    {{#each categories}}
+                                    {{#unless (eq this.category product.category)}}
+                                    <option value="{{this._id}}">{{this.category}}</option>
+                                    {{/unless}}
+                                    {{/each}}
+                                </select>
+
+                            </div>
                         </div>
-                    </div>
+
+
                         <br>
 
                         <div class="mb-3">
@@ -251,22 +277,29 @@
 
 
                         <div class="mb-3">
-                            <label  data-productid="{{product._id}}" id="img" for="image" class="form-label">Image</label>
+                            <label data-productid="{{product._id}}" id="img" for="image"
+                                class="form-label">Image</label>
                             <div class="image-container">
+                                <input type="file" name="image" class="form-control"
+                                    enctype="multipart/form-data" multiple required>
+
                                 {{#each product.images}}
                                 <div class="image-item">
-                                
-                                    
-                                    <img src="/uploads/{{this}}" alt="" style="width: 200px;height: 180px;"
-                                        class="image-preview">
-                                        
-                                    <a href="#" onclick="deleteimage()" data-imagename="{{this}}" id="imgid" class="delete-image" data-index="{{@index}}"><i
-                                            class="bi bi-trash"></i></a>
+
+                                    <!-- Each input should have a unique name, so let's add an index to the name -->
+
+                                    <img src="/uploads/{{this}}" alt="" class="image-preview">
+
+                                    <!-- Pass the index to the deleteimage() function for proper identification -->
+                                    <a href="#" onclick="deleteimage({{@index}})" data-imagename="{{this}}"
+                                        class="delete-image" data-index="{{@index}}">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
                                 </div>
                                 {{/each}}
                             </div>
-                            <input type="file" name="image" class="form-control" multiple required>
                         </div>
+
                         <br>
                         <br>
                         <div>
@@ -383,23 +416,22 @@
 
 
     function deleteimage() {
-      let imgName=  $('#imgid').data('imagename')
-      let productId = $('#img').data('productid')
-      console.log(imgName)
-      console.log(productId)
-    $.ajax({
-        url:'/admin/delete-img',
-        method:'delete',
-        data:{imgName,productId},
-        success:((res)=>{
-            location.reload()
+        let imgName = $('#imgid').data('imagename')
+        let productId = $('#img').data('productid')
+        console.log(imgName)
+        console.log(productId)
+        $.ajax({
+            url: '/admin/delete-img',
+            method: 'delete',
+            data: { imgName, productId },
+            success: ((res) => {
+                location.reload()
+
+            })
 
         })
-
-    })
 
     }
 </script>
 
 </html>
-

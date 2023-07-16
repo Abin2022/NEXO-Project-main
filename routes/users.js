@@ -46,7 +46,6 @@ router.post('/sendOtp',userControllers.sendOtp)
 router.post('/verifyOtp',userControllers.verifyOtp)
 
 
-// router.get('/mobile',auth.isLogin,userControllers.mobilePage)
 
 
  router.get('/product-details',auth.isLogin,userControllers.singleProductDetails)
@@ -66,7 +65,11 @@ router.post('/edit-address',userControllers.editAddress);
 
  router.get('/checkout',auth.isLogin,userControllers.loadCheckout);
  router.post('/change-address',userControllers.changeAddress);
- router.post('/add-new-address',userControllers.addNewAddress)
+ router.post('/add-new-address',userControllers.addNewAddress);
+ router.get('/delete-address-checkout',auth.isLogin,userControllers.deleteAddressCheckout);
+ router.post('/update-address',userControllers.editAddressCheckout);
+
+
 //wallet
  router.get('/wallet-placed',auth.isLogin,userControllers.walletOrder)
  // in checkout page
@@ -83,6 +86,7 @@ router.post('/edit-address',userControllers.editAddress);
    router.post('/cancel-order',userControllers.cancelOrder)
    router.post('/undo-cancel',userControllers.undoCancel)
  router.post("/return-order", auth.isLogin,userControllers.returnOrder);
+ router.get('/download/order/:orderId',auth.isLogin,userControllers.downloadInvoice)
 
 
 
@@ -101,5 +105,6 @@ router.get('/shop',auth.isLogin,userControllers.loadShopPage)
  router.get('/wallet-details',auth.isLogin,userControllers.loadWallet)
 
 
-
+ router.get('/user-home',auth.isLogin,userControllers.mobilePage)
+ 
 module.exports=router

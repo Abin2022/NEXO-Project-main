@@ -1,334 +1,158 @@
-   exports.modules={ 
-    getWalletDetails: (userId) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const walletDetails = await Wallet.findOne({ userId: userId }).lean()
-            // console.log(walletDetails,'walletDetailsvvvvvvvvvvvvvv');
 
+const pdfDoc = new PDFDocument();
+const filePath = path.join(__dirname, `downloads_${orderId}.pdf`); // Use 'path.join()' to create the file path
 
-            resolve(walletDetails)
-        } catch (error) {
-            reject(error);
-        }
-    })
-},
+pdfDoc.pipe(fs.createWriteStream(filePath));
+pdfDoc.fontSize(16).text(`Order ID: ${orderId}`, { align: 'center' });
 
-creditOrderDetails: (userId) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const orderDetails = await Order.find({
-                userId: userId,
-                $or: [{ paymentMethod: 'ONLINE' }, { paymentMethod: 'WALLET' }],
-                orderStatus: 'cancelled'
-            }).lean();
+order.products.forEach((product, index) => {
+  const images = product.productId.images || [];
+  const image = images.length > 0 ? images[0] : '';
 
-            const orderHistory = orderDetails.map(history => {
-                let createdOnIST = moment(history.date)
-                    .tz('Asia/Kolkata')
-                    .format('DD-MM-YYYY h:mm A');
+  // Check if the image path is not empty before adding the image to the PDF
+  if (image) {
+    // Use 'path.join()' to create the full path to the image file
+    const imagePath = path.join(__dirname, 'path/to/your/images/', image);
 
-                return { ...history, date: createdOnIST };
-            });
-
-            resolve(orderHistory);
-        } catch (error) {
-            reject(error);
-        }
+    // Add the image to the PDF with specified position, width, and height
+    pdfDoc.image(imagePath, {
+      fit: [100, 100], // Set the width and height of the image in points (100x100 in this example)
+      align: 'center', // Align the image to the center of the page
+      valign: 'center', // Vertically center the image on the page
     });
-},
+  }
 
-debitOrderDetails: (userId) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const orderDetails = await Order.find({
-                userId: userId,
-                paymentMethod: 'WALLET',
-                $or: [{ orderStatus: 'Placed' }, { orderStatus: 'Delivered' },{orderStatus:'Preparing food'}],
-              
-            }).lean();
+  pdfDoc.text(`Product Purchased ${index + 1}: ${product.productId.productname}`);
+  pdfDoc.text(`Price: ${product.productId.price}`);
+  pdfDoc.text(`Discount: ${product.discount}`)
+  pdfDoc.text(`Quantity: ${product.quantity}`);
 
-            const orderHistory = orderDetails.map(history => {
-                let createdOnIST = moment(history.date)
-                    .tz('Asia/Kolkata')
-                    .format('DD-MM-YYYY h:mm A');
+  pdfDoc.text('------------------------------');
+});
 
-                return { ...history, date: createdOnIST };
-            });
+pdfDoc.end();
 
-            resolve(orderHistory);
-        } catch (error) {
-            reject(error);
-        }
+
+
+
+
+
+
+
+//new invoice 
+
+const loadOrdersView = async (req, res) => {
+  try {
+    const orderId = req.query.id;
+    const userId = req.session.user_id;
+
+    console.log(orderId, 'orderId when loading page');
+    const order = await Order.findOne({ _id: orderId }).populate({
+      path: 'products.productId',
+      select: 'productname price images',
     });
-},
 
+    const createdOnIST = moment(order.date).tz('Asia/Kolkata').format('DD-MM-YYYY h:mm A');
+    order.date = createdOnIST;
 
+    const orderDetails = order.products.map((product) => {
+      const images = product.productId.images || [];
+      const image = images.length > 0 ? images[0] : '';
 
-
-
-
-
-
-
-//other section
-
-walletBalance: (userId) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const walletBalance = await Wallet.findOne({ userId: userId })
-            resolve(walletBalance)
-        } catch (error) {
-            reject(err)
-
-        }
-    })
-},
-
-updateWallet: (userId, orderId) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const orderDetails = await Order.findOne({ _id: orderId });
-            const wallet = await Wallet.findOne({ userId: userId });
-
-            if (wallet) {
-                // Subtract orderValue from walletAmount
-                const updatedWalletAmount = wallet.walletAmount - orderDetails.orderValue;
-
-                // Update the walletAmount in the Wallet collection
-                await Wallet.findOneAndUpdate(
-                    { userId: userId },
-                    { walletAmount: updatedWalletAmount }
-                );
-
-                resolve(updatedWalletAmount);
-            } else {
-                reject('Wallet not found');
-            }
-        } catch (error) {
-            reject(error);
-        }
+      return {
+        name: product.productId.productname,
+        image: images,
+        price: product.productId.price,
+        total: product.total,
+        quantity: product.quantity,
+        status: order.orderStatus,
+      };
     });
-},
 
+    const deliveryAddress = {
+      name: order.addressDetails.name,
+      address: order.addressDetails.address,
+      city: order.addressDetails.city,
+      state: order.addressDetails.state,
+      pincode: order.addressDetails.pincode,
+    };
 
+    const subtotal = order.orderValue;
+    const cancellationStatus = order.cancellationStatus;
 
-placeOrder: async (req, res) => {
-    try {
-      console.log("entered placed order routeeeee");
-      let userId = req.session.user_id;
-      let orderDetails = req.body;
-      console.log(orderDetails, "ordeerdetails have reached here");
+    console.log(subtotal, 'subtotal');
+    console.log(orderDetails, 'orderDetails');
+    console.log(deliveryAddress, 'deliveryAddress');
 
-      let productsOrdered = await productHepler.getProductListForOrders(userId);
-      console.log(productsOrdered, "products that are ordered");
-
-      if (productsOrdered) {
-        let totalOrderValue = await productHepler.getCartValue(userId);
-        console.log(totalOrderValue, "this is the total order value");
-        productHepler
-          .placingOrder(userId, orderDetails, productsOrdered, totalOrderValue)
-          .then(async (orderId) => {
-            console.log("successfully reached hereeeeeeeeee");
-
-            if (req.body["paymentMethod"] === "COD") {
-              console.log("cod_is true here");
-              res.json({ COD_CHECKOUT: true });
-            } else if (req.body["paymentMethod"] === "ONLINE") {
-              productHepler
-                .generateRazorpayOrder(orderId, totalOrderValue)
-                .then(async (razorpayOrderDetails) => {
-                  console.log(
-                    razorpayOrderDetails,
-                    "razorpayOrderDetails reached here"
-                  );
-                  const user = await User.findById({ _id: userId }).lean();
-                  res.json({
-                    ONLINE_CHECKOUT: true,
-                    userDetails: user,
-                    userOrderRequestData: orderDetails,
-                    orderDetails: razorpayOrderDetails,
-                    razorpayKeyId: "rzp_test_bfnSH6XKHJdHG9",
-                  });
-                });
-            } else if (req.body["paymentMethod"] === "WALLET") {
-              console.log("wallet true");
-              const walletBalance = await userhelper.walletBalance(userId);
-              console.log(walletBalance, "wallet balance is this");
-              if (walletBalance >= totalOrderValue) {
-                productHepler
-                  .placingOrder(
-                    userId,
-                    orderDetails,
-                    productsOrdered,
-                    totalOrderValue
-                  )
-                  .then(async (orderId, error) => {
-                    res.json({ WALLET_CHECKOUT: true, orderId });
-                  });
-              } else {
-                res.json({ error: "Insufficient balance." });
-              }
-            } else {
-              res.json({ paymentStatus: false });
-            }
-          });
-      } else {
-        res.json({ checkoutStatus: false });
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  },
-
-
-
-
-
-
-
-
-
-
-  //wallet page
-  getWalletDetails: (userId) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const walletDetails = await Wallet.findOne({ userId: userId }).lean()
-            // console.log(walletDetails,'walletDetailsvvvvvvvvvvvvvv');
-
-
-            resolve(walletDetails)
-        } catch (error) {
-            reject(error);
-        }
-    })
-},
-
-creditOrderDetails: (userId) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const orderDetails = await Order.find({
-                userId: userId,
-                $or: [{ paymentMethod: 'ONLINE' }, { paymentMethod: 'WALLET' }],
-                orderStatus: 'cancelled'
-            }).lean();
-
-            const orderHistory = orderDetails.map(history => {
-                let createdOnIST = moment(history.date)
-                    .tz('Asia/Kolkata')
-                    .format('DD-MM-YYYY h:mm A');
-
-                return { ...history, date: createdOnIST };
-            });
-
-            resolve(orderHistory);
-        } catch (error) {
-            reject(error);
-        }
+    res.render('users/ordersView', {
+      orderDetails: orderDetails,
+      deliveryAddress: deliveryAddress,
+      subtotal: subtotal,
+      orderId: orderId,
+      orderDate: createdOnIST,
+      cancellationStatus: cancellationStatus,
     });
-},
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
-debitOrderDetails: (userId) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const orderDetails = await Order.find({
-                userId: userId,
-                paymentMethod: 'WALLET',
-                $or: [{ orderStatus: 'Placed' }, { orderStatus: 'Delivered' },{orderStatus:'Preparing food'}],
-              
-            }).lean();
-
-            const orderHistory = orderDetails.map(history => {
-                let createdOnIST = moment(history.date)
-                    .tz('Asia/Kolkata')
-                    .format('DD-MM-YYYY h:mm A');
-
-                return { ...history, date: createdOnIST };
-            });
-
-            resolve(orderHistory);
-        } catch (error) {
-            reject(error);
-        }
+const downloadInvoice = async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const order = await Order.findOne({ _id: orderId }).populate({
+      path: 'products.productId',
+      select: 'productname price images',
     });
-},
 
-   }
+    const createdOnIST = moment(order.date).tz('Asia/Kolkata').format('DD-MM-YYYY h:mm A');
+    order.date = createdOnIST;
 
+    const orderDetails = order.products.map((product) => {
+      const images = product.productId.images || [];
+      const image = images.length > 0 ? images[0] : '';
 
+      return {
+        name: product.productId.productname,
+        image: images,
+        price: product.productId.price,
+        total: product.total,
+        quantity: product.quantity,
+        status: order.orderStatus,
+      };
+    });
 
+    const deliveryAddress = {
+      name: order.addressDetails.name,
+      address: order.addressDetails.address,
+      city: order.addressDetails.city,
+      state: order.addressDetails.state,
+      pincode: order.addressDetails.pincode,
+    };
 
+    const pdfDoc = new PDFDocument();
+    const filePath = path.join(__dirname, `downloads_${orderId}.pdf`);
 
+    pdfDoc.pipe(fs.createWriteStream(filePath));
+    pdfDoc.fontSize(16).text(`Order ID: ${orderId}`, { align: 'center' });
 
+    orderDetails.forEach((product, index) => {
+      // Your code to add product details to the PDF here...
+    });
 
-   placingOrder: async (userId, orderData, orderedProducts, totalOrderValue) => {
-    return new Promise(async (resolve, reject)=>{
-        try {
-            let orderStatus
+    // Add delivery address details to the PDF
+    pdfDoc.text('Delivery Address:');
+    pdfDoc.text(`Name: ${deliveryAddress.name}`);
+    pdfDoc.text(`Address: ${deliveryAddress.address}`);
+    pdfDoc.text(`City: ${deliveryAddress.city}`);
+    pdfDoc.text(`State: ${deliveryAddress.state}`);
+    pdfDoc.text(`Pincode: ${deliveryAddress.pincode}`);
 
-            if (orderData['paymentMethod'] === 'COD') {
-                orderStatus = 'Placed'
-            } else if (orderData['paymentMethod'] === 'WALLET') {
-                orderStatus = 'Placed'
-            } else {
-                orderStatus = 'Pending'
-            }
-    
-            const defaultAddress = await Address.findOne(
-                { user_id: userId, 'address.isDefault': true },
-                { 'address.$': 1 }
-            ).lean();
-            console.log(defaultAddress, 'default address');
-    
-            if (!defaultAddress) {
-                console.log('Default address not found');
-                return res.redirect('/address');
-            }
-    
-            const defaultAddressDetails = defaultAddress.address[0];
-            const address = {
-                name: defaultAddressDetails.name,
-                mobile: defaultAddressDetails.mobile,
-                homeAddress: defaultAddressDetails.homeAddress,
-                city: defaultAddressDetails.city,
-                street: defaultAddressDetails.street,
-                postalCode: defaultAddressDetails.postalCode
-            };
-            console.log(address, 'address');
-    
-    
-            const orderDetails = new Order({
-                userId: userId,
-                date: Date(),
-                orderValue: totalOrderValue,
-                couponDiscount: orderData.couponDiscount,
-                paymentMethod: orderData['paymentMethod'],
-                orderStatus: orderStatus,
-                products: orderedProducts,
-                addressDetails: address,
-                actualOrderValue:orderData.actualOrderValue,
-                productOfferDiscount:orderData.productOfferDiscount,
-                categoryOfferDiscount:orderData.categoryOfferDiscount
+    pdfDoc.end();
 
-            });
-    
-            const placedOrder = await orderDetails.save();
-    
-            console.log(placedOrder, 'placedOrder');
-    
-            // Remove the products from the cart
-            await Cart.deleteMany({ user_id: userId });
-    
-            let dbOrderId = placedOrder._id.toString();
-            console.log(dbOrderId, 'order id in stringggggggggggggggggggggggggggg');
-            
-            resolve(dbOrderId)
-        } catch (error) {
-            reject(error)
-        }
-    })
-    
-   
-
-
-}
+    res.download(filePath); // Automatically downloads the generated PDF
+  } catch (error) {
+    console.error('Error generating PDF:', error);
+    res.status(500).send('Error generating PDF');
+  }
+};

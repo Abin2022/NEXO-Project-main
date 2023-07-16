@@ -221,19 +221,57 @@
 
   </style>
 
+  {{!-- newly added for wallet heading --}}
+      <style>
+        .wallet-header {
+            font-family: 'Arial', sans-serif;
+            font-size: 36px;
+            font-weight: bold;
+            color: #222629; /* Change this to your desired color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add a subtle text shadow */
+        }
+        
+        .wallet-amount {
+            font-size: 48px;
+            color: #ce1919; /* Change this to your desired color */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a subtle text shadow */
+        }
+        
+    </style>
+
+
+
  <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card wallet-card">
         <div class="card-header wallet-header">
-          <h1 class="display-4 mb-0">My Wallet</h1>
-          <img src="/img/core-img/giphy.gif" alt="Wallet" style="width:150px " class="wallet-gif">
+          {{!-- <h1 class="display-4 mb-0">My Wallet:   ₹{{walletDetails.walletAmount}}</h1> --}}
+            <h1 class="display-4 mb-0">
+        <span class="wallet-header">My Wallet:</span>
+        {{#if walletDetails }}
+        ₹<span class="wallet-amount">{{walletDetails.walletAmount}}</span>
+        {{else }}
+                ₹<span class="wallet-amount">0</span>
+                {{/if}}
+
+
+    </h1>
+     {{#if walletDetails }}
+          <img src="/img/core-img/giphy (1).gif" alt="Wallet" style="width:150px " class="wallet-gif">
+           {{else }}
+           <img src="/img/core-img/poor-empty-wallet.gif" alt="Wallet" style=" position: absolute;
+    top: -2px;
+    right: 26px;
+    width: 97px;
+    height: 109px; " class="wallet-gif1">
+          {{/if}}
         </div>
         <div class="card-body wallet-body">
           <div class="balance">
-            {{#if walletDetails}}
+            {{!-- {{#if walletDetails}}
               <h2 class="display-2">₹{{walletDetails.walletAmount}}</h2>
-            {{/if}}
+            {{/if}} --}}
           </div>
           <ul class="list-unstyled transaction-list">
             {{#each orderDetails}}
@@ -272,8 +310,6 @@
                 {{/if}}
               </ul>
             </nav>
-
-            {{else}}
                {{!-- <h2 class="display-2">₹{{walletDetails.walletAmount}}</h2> --}}
 
           {{/if}}

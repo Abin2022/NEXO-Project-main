@@ -110,9 +110,10 @@ verifyCouponUsedStatus: (userId, couponId) => {
                 usedCoupons: { $elemMatch: { couponId, usedCoupon: true } }
 
             };
+            
 
             const previouslyUsedCoupon = await UsedCoupon.findOne({ userId: userId, usedCoupons: { $elemMatch: { couponId, usedCoupon: true } } });
-
+console.log(previouslyUsedCoupon,"previously used coupon");
             if (previouslyUsedCoupon === null) { // Coupon is not used ever
 
                 resolve({ status: true });

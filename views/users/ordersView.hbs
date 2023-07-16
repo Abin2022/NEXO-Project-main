@@ -336,10 +336,10 @@
 
                                 <div class="sq align-self-center">
                                     <img class="img-fluid  my-auto align-self-center mr-2 mr-md-4 pl-0 p-0 m-0"
-
-                                        src="/uploads/{{image.[0]}}" alt="{{image}}" width="135" height="135" />
+                                   
+                                         src="/uploads/{{image.[0]}}" alt="{{image}}" width="135" height="135" />
                                  {{!-- <img src="/uploads/{{images.[0]}}" class="img-fluid" alt="Product Image" width="50px" /> --}}
-
+                                       
                                 </div>
                                 <div class="media-body my-auto text-right">
                                     <div class="row  my-auto flex-column flex-md-row">
@@ -398,44 +398,37 @@
                     {{else if (eq cancellationStatus "Return Processing")}}
                     <button type="button" class="btn btn-danger btn-sm">Return Processing</button>
                     {{else if (eq cancellationStatus "Returned")}}
-                    <button type="button" class="btn btn-danger btn-sm">Returned</button>
+                    {{!-- <button type="button" class="btn btn-danger btn-sm">Returned</button> --}}
           
         {{/if}}
 
     </div>
 </div>
 
-
-            <div class="row mt-4">
-                 {{#each orderDetails}}
+  <div class="row mt-4">
                 <div class="col">
                     <div class="row justify-content-between">
                         <div class="flex-sm-col text-right col">
                             <p class="mb-1"><b>Total</b></p>
                         </div>
                         <div class="flex-sm-col col-auto">
-                            <p class="mb-1">&#8377;{{total}}</p>
+                            <p class="mb-1">&#8377;{{subtotal}}</p>
                         </div>
-                       
                     </div>
+                    
                     <div class="row justify-content-between">
                         <div class="flex-sm-col text-right col">
-                            <p class="mb-1"><b>Discount</b></p>
+                            <p class="mb-1"><b>Coupon Discount</b></p>
                         </div>
                         <div class="flex-sm-col col-auto">
-                            <p class="mb-1">&#8377;{{discountAmount}}</p>
+                            
+                            <p class="mb-1"><span style="color: red;">-&#8377;{{discountAmount}}</span></p>
+                           
                         </div>
                     </div>
-                    <div class="row justify-content-between">
-                        <div class="flex-sm-col text-right col">
-                            <p class="mb-1"><b>Delivery Charges</b></p>
-                        </div>
-                        <div class="flex-sm-col col-auto">
-                            <p class="mb-1">Free</p>
-                        </div>
-                    </div>
+                      
+                    
                 </div>
-                 {{/each}}
             </div>
             <div class="row invoice">
                 <div class="col">
@@ -470,6 +463,31 @@
         </div>
     </div>
 </div>
+
+<!-- Add this button in your HTML file -->
+<div class="row mt-4" >
+  <div class="col" style="text-align: center;"  style="color:aqua;">
+    <button  class="btn btn-primary"  onclick="downloadPDF('{{orderId}}')">Download Order Details (PDF)</button>
+  </div>
+</div>
+
+<!-- Add this script to handle the download request -->
+<script>
+  function downloadPDF(orderId) {
+    const downloadUrl = `/download/order/${orderId}`;
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.target = '_blank';
+    link.download = `order_${orderId}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+</script>
+
+
+
+
 
 
 <!-- Modal -->

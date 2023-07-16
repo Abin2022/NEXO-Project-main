@@ -10,9 +10,7 @@ const ObjectId = mongoose.Types.ObjectId;
 const userHelpers=require("../helpers/userHelpers")
 //manage 
 const manageCoupon = async (req, res) => {
-    console.log(manageCoupon,"entered into mangeCoupon section...");
     try {
-     console.log("entered into manage coupon..........");
     //   const admin = req.session.is_admin;
       const adminData = await User.find({ is_admin:1});
       
@@ -20,8 +18,7 @@ const manageCoupon = async (req, res) => {
   
       const activeCoupons = await Coupon.find({ activeCoupon: true }).lean();
       const inActiveCoupons = await Coupon.find({ activeCoupon: false }).lean();
-      console.log(activeCoupons,"activeCoupons....");
-      console.log(inActiveCoupons,"inactivecoupons....");
+    
       const dataToRender = {
         adminData,
         activeCoupons,
@@ -36,7 +33,6 @@ const manageCoupon = async (req, res) => {
 
   const addNewCouponPage = async(req,res)=>{
     try {
-        console.log("entered into addnewcouponpage......");
         // const admin = req.session.is_admin;
         const adminData = await User.find({is_admin:1})
         
@@ -58,14 +54,11 @@ const manageCoupon = async (req, res) => {
 
 const addNewCoupon = async (req, res) => {
     try {
-        console.log("Updating the coupon details......");
     //   const admin = req.session.is_admin;
       const adminData = await User.find({ is_admin:1 });
-     console.log(adminData,"admindata........");
       const newCouponData = req.body;
   
       const couponExist = await Coupon.find({ couponCode: newCouponData.couponCode.toLowerCase() }).lean();
-        console.log(couponExist,"couponExit.....");
       if (couponExist.length === 0) {
         const couponData = new Coupon({
           couponCode: newCouponData.couponCode.toLowerCase(),
@@ -115,7 +108,6 @@ const addNewCoupon = async (req, res) => {
 
   const editCouponPage = async (req, res) => {
     try {
-        console.log("entered into edit coupon page.......");
     //   const admin = req.session.is_admin;
       const adminData = await User.find({ is_admin:1 });
   
@@ -127,15 +119,13 @@ const addNewCoupon = async (req, res) => {
   
       const couponId = req.query.id;
       const couponData = await Coupon.findOne({ _id: new ObjectId(couponId) }).lean();
-      console.log("CouponId",couponId);
-       console.log("Coupondata.........",couponData);
+    
       const dataToRender = {
        
         adminData,
         couponExistError,
         couponData
       };
-      console.log("REndered data",dataToRender);
       res.render('admin/coupon-edit', dataToRender);
   
       delete req.session.couponExistError;
@@ -148,7 +138,6 @@ const addNewCoupon = async (req, res) => {
 
   const updateCoupon = async (req, res) => {
     try {
-        console.log("Copuon is beeing updated");
     //   const admin = req.session.is_admin;
       const adminData = await User.find({ is_admin: 1 });
   

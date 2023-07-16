@@ -141,8 +141,79 @@
             </div>
               
         </section>
-        <!-- ****** Top Discount Area End ****** -->
+        <!-- ****** Top Discount Area End ****** --> 
+         <style>
+      .button-bar {
+        display: flex;
+        align-items: center;
+        background-color: #faf7f7;
+        color: rgb(14, 13, 13);
+        padding: 10px;
+      }
 
+      .search-form {
+        display: flex;
+        align-items: center;
+      }
+
+      .search-input {
+        border: 2px solid gray;
+        border-radius: 5px;
+        padding: 8px;
+        margin-right: 10px;
+      }
+
+      .search-button {
+        background-color: #3a3a3a;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .sort-label {
+        color: rgb(0, 0, 0);
+        margin-right: 5px;
+      }
+
+      .sort-select {
+        background-color: gray;
+        color: white;
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+
+      .sort-button {
+        background-color: #3a3a3a;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .button-bar {
+        display: flex;
+        align-items: center;
+      }
+
+      .search-form {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+        /* Add margin to create space between the Search button and Sort by label */
+      }
+
+      .sort-section {
+        display: flex;
+        align-items: center;
+      }
+
+      /* Your existing styles for .search-button and .sort-button */
+    </style>
 
 
 
@@ -151,40 +222,55 @@
 
 
 <section style="margin-top: 5vh;">
-  <div class="container">
-
-
-
+  {{!-- <div class="container">
 <form style="text-align: center;">
     <input type="text" placeholder="Search Here" name="search">
     <input type="submit" value="search">
 </form>
-
-
-
-
-
-
-
-  </div>
+  </div> --}}
   <br>
-   <br>
-
    
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-    {{!-- <div class="button-bar">
-  <a href="/search" class="btn btn-primary">
-    <i class="bi bi-search"></i> Search
-  </a>
-</div> --}}
 
-    </div>
-  </div>
-  <div class="row karl-new-arrivals">
-    {{#each Product}}
-    <div class="col-12 col-sm-6 col-md-4 mb-4">
+
+          {{!-- newly added --}}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="button-bar" style="justify-content: center;">
+                    <form action="/shop" method="GET">
+                        <input type="text" name="search" placeholder="Search Products" value="{{query.search}}">
+                        <button type="submit" class="search-button">Search</button>
+                        <label for="sortField" >Filter By:</label>
+                     
+                        
+                        <select id="sortField" class="sort-label" name="sortField">
+                             <option value="category" {{#if (eq query.sortField "category")}}selected{{/if}}>Category</option>
+{{!-- 
+                            <option value="brand" {{#if (eq query.sortField "brand")}}selected{{/if}}>Brand</option>
+                            <option value="productname" {{#if (eq query.sortField "productname")}}selected{{/if}}>Product Name</option> --}}
+                            <option value="price" {{#if (eq query.sortField "price")}}selected{{/if}}>Price</option>
+                        </select>
+                        <label for="sortDirection">Sort By:</label>
+                        <select id="sortDirection" name="sortDirection">
+                            <option value="asc" {{#if (eq query.sortDirection "asc")}}selected{{/if}}>Ascending</option>
+                            <option value="desc" {{#if (eq query.sortDirection "desc")}}selected{{/if}}>Descending</option>
+                        </select>
+                        
+                        <button type="submit" class="sort-button">Sort</button>
+                    </form>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row karl-new-arrivals">
+            {{#each Product}}
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <!-- Product card code here -->
+               
       <div class="card single_gallery_item wow fadeInUpBig" data-wow-delay="0.2s">
         <div class="product-img">
           <a href="/product-details?id={{this._id}}">
@@ -195,29 +281,49 @@
           </div>
         </div>
         <div class="product-description">
-          <h3>{{ this.brand }}</h3>
-          <h6>{{this.productname}}</h6>
-          <h6>{{this.category}}</h6>
+          <h3 style="text-align: center;">{{ this.brand }}</h3>
+          <h6 style="text-align: center;">{{this.productname}}</h6>
+          <h6 style="text-align: center;">₹{{this.price}}</h6>
         </div>
       </div>
+   
+            </div>
+            {{/each}}
+        </div>
+
+        <br>
+        {{#if showPagination}}
+        <nav aria-label="Transaction Pagination">
+            <ul class="pagination justify-content-center">
+                <!-- Pagination links here -->
+                   
+                {{#if hasPrev}}
+                  <li class="page-item">
+                    <a class="page-link black-page-link" href="?page={{prevPage}}" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                {{/if}}
+                {{#each pages}}
+                  <li class="page-item{{#if current}} active{{/if}}">
+                    <a class="page-link black-page-link{{#if current}} current-page{{/if}}" href="?page={{number}}">{{number}}</a>
+                  </li>
+                {{/each}}
+                {{#if hasNext}}
+                  <li class="page-item">
+                    <a class="page-link black-page-link" href="?page={{nextPage}}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                {{/if}}
+            </ul>
+        </nav>
+        {{/if}}
     </div>
-    {{/each}}
-  </div>
-</div>
+</body>
+</html>
 
-<br>
- 
   
-{{!-- {{#each pages}}
-  <a href="?page={{this}}">{{this}}</a>
-{{/each}} --}}
-
-
-{{!-- {{#range}}
-{{#each (range 1 totalPages)}}
-  <a href="?page={{this}}">{{this}}</a>
-{{/each}}
-{{/range}} --}}
 
 	
 	
@@ -240,21 +346,6 @@
 
 <script src="/javascripts/viewproducts.js"></script>
 
-{{!-- 
-<div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="pagination">
-            {{#range}}
-            {{#each (range 1 totalPages)}}
-
-            <a href="?page={{this}}">{{this}}</a>
-            {{/each}}
-            {{/range}}
-          </div>
-        </div>
-      </div>
-    </div> --}}
 
 
 

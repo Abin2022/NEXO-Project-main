@@ -1,41 +1,39 @@
+{{!-- from Home page --}}
 
- 
+<link rel="icon" href="img/core-img/favicon.ico">
 
+<!-- Core Style CSS -->
+<link rel="stylesheet" href="css/core-style.css">
+<link rel="stylesheet" href="style.css">
 
- {{!-- from Home page --}}
-
- <link rel="icon" href="img/core-img/favicon.ico">
-
-    <!-- Core Style CSS -->
-    <link rel="stylesheet" href="css/core-style.css">
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Responsive CSS -->
-    <link href="css/responsive.css" rel="stylesheet">
+<!-- Responsive CSS -->
+<link href="css/responsive.css" rel="stylesheet">
 
 
- {{!-- stylesheet section link --}}
-  <link rel="stylesheet" href="/stylesheets/core-style.css">
-  <link rel="stylesheet" href="/stylesheets/animate.css">
- 
-  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-  {{!-- <link rel="stylesheet" href="/stylesheets/font-awesome.min.css"> --}}
-  <link rel="stylesheet" href="/stylesheets/bootstrap.min1.css">
-   
-  {{!-- <link rel="stylesheet" href="/stylesheets/forget.css"> --}}
-  {{!-- <link rel="stylesheet" href="/stylesheets/jquery-ui.min.css"> --}}
-   
-  {{!-- <link rel="stylesheet" href="/stylesheets/login.css"> --}}
-  <link rel="stylesheet" href="/stylesheets/magnific-popup.css">
-   
-  <link rel="stylesheet" href="/stylesheets/nouislider.css">
-  <link rel="stylesheet" href="/stylesheets/owl.carousel.css">
-   <link rel="stylesheet" href="/stylesheets/responsive.css">
-    {{!-- <link rel="stylesheet" href="/stylesheets/style.css"> 
-  <link rel="stylesheet" href="/stylesheets/themify-icons.css">  --}}
+{{!-- stylesheet section link --}}
+<link rel="stylesheet" href="/stylesheets/core-style.css">
+<link rel="stylesheet" href="/stylesheets/animate.css">
 
+<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+{{!--
+<link rel="stylesheet" href="/stylesheets/font-awesome.min.css"> --}}
+<link rel="stylesheet" href="/stylesheets/bootstrap.min1.css">
 
+{{!--
+<link rel="stylesheet" href="/stylesheets/forget.css"> --}}
+{{!--
+<link rel="stylesheet" href="/stylesheets/jquery-ui.min.css"> --}}
 
+{{!--
+<link rel="stylesheet" href="/stylesheets/login.css"> --}}
+<link rel="stylesheet" href="/stylesheets/magnific-popup.css">
+
+<link rel="stylesheet" href="/stylesheets/nouislider.css">
+<link rel="stylesheet" href="/stylesheets/owl.carousel.css">
+<link rel="stylesheet" href="/stylesheets/responsive.css">
+{{!--
+<link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="/stylesheets/themify-icons.css"> --}}
 
 
 
@@ -56,285 +54,190 @@
 
 
 
-<div id="wrapper"> 
 
-            <!-- Top Header Area End -->
-            {{!-- <div  class="list-group mb-3 sticky-top" > --}}
-            <div class="main_header_area">
 
+
+<div id="wrapper">
+
+    <!-- Top Header Area End -->
+    {{!-- <div class="list-group mb-3 sticky-top"> --}}
+        <div class="main_header_area">
+
+
+
+            <div class="container h-100">
+                <div class="row h-100">
+                    <div class="col-12 d-md-flex justify-content-between">
+                        <!-- Header Social Area -->
+                        <div class="header-social-area">
+                            <li class="nav-item active"> <a href="#"><img src="img/core-img/NEXO1.png" alt="Nexo"></a>
+                            </li>
+
+                        </div>
+                        <!-- Menu Area -->
+                        <div class="main-menu-area">
+                            <nav class="navbar navbar-expand-lg align-items-start">
+
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false"
+                                    aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i
+                                            class="ti-menu"></i></span></button>
+                                <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
+                                    <ul class="navbar-nav animated" id="nav">
+                                        {{!-- <li class="nav-item active"> <a href="#"><img src="img/core-img/NEXO1.png"
+                                                    alt=""></a></li> --}}
+                                        {{!-- <li class="nav-item active"> <a href="#"><img src="img/core-img/logo.png"
+                                                    alt=""></a></li> --}}
+
+
+                                        <li class="nav-item active"><a class="nav-link" href="/home"> Home</a></li>
+
+                                        <li class="nav-item active"><a class="nav-link" href="/user-home">Mobiles</a>
+                                        </li>
+
+                                        <li class="nav-item active"><a class="nav-link" href="/shop">SHOP</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="/order-details">Orders</a>
+                                        </li>
+
+
+
+                                        <li class="nav-item active"> <a class="nav-link" href="/cart">Cart<i
+                                                    class="ti-bag"></i> </a></li>
+
+                                        <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <!-- Help Line -->
+
+                        <div class="help-line">
+                            {{!-- <i class="ti-headphone-alt"></i> --}}
+                            <a href="/logout">LOGOUT</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {{!--
+        </div> --}}
+
+    </div>
+    <style>
        
+        .add-to-cart-btn {
+            background-color: #your-color;
+            color: #your-color-text;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+           
+        }
+        .button-container {
+    display: flex;
+    justify-content: center;
+}
+    </style>
 
-                <div class="container h-100">
-                    <div class="row h-100">
-                        <div class="col-12 d-md-flex justify-content-between">
-                            <!-- Header Social Area -->
-                            <div class="header-social-area">
-                                {{!-- <span class="karl-level">Share</span> --}}
-                                <a href="#"> <i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                            </div>
-                            <!-- Menu Area -->
-                            <div class="main-menu-area">
-                                <nav class="navbar navbar-expand-lg align-items-start">
-
-                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i class="ti-menu"></i></span></button>   
-                                    <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
-                                        <ul class="navbar-nav animated" id="nav">
-                                         {{!-- <li class="nav-item active"> <a href="#"><img src="img/core-img/NEXO1.png" alt=""  ></a></li> --}}
-                                         <li class="nav-item active"> <a href="#"><img src="img/core-img/logo.png" alt=""  ></a></li>
+    </header>
+    <!-- ****** Header Area End ****** -->
 
 
-                                            <li class="nav-item active"><a class="nav-link" href="/home"> Home</a></li>
-                                            
-                                           <li class="nav-item active"><a class="nav-link"   href="#">Mobiles</a></li>
-                                           <li class="nav-item active"><a class="nav-link" href="#"> Laptops</a></li>
-                                           <li class="nav-item active"><a class="nav-link"   href="/shop">SHOP</a></li>
-                                             <li class="nav-item active"><a class="nav-link"   href="/order-details">Orders</a></li>
+    <!-- ****** Top Discount Area Start ****** -->
+    <section class="top-discount-area d-md-flex align-items-center">
+        <!-- Single Discount Area -->
+
+        <div class="single-discount-area">
+            <h5>Free Shipping &amp; Returns With Full Cash-Back</h5>
+            <h6><a href="/cart">BUY NOW</a></h6>
+        </div>
+
+        <!-- Single Discount Area -->
+        <div class="single-discount-area">
+            <h5>20% Discount for all Products</h5>
+            <h6>USE CODE:#Coupon-22 <span>[1 Time offer]</span></h6>
+        </div>
+        <!-- Single Discount Area -->
+        <div class="single-discount-area">
+            <h5>Purshase Above ₹2,00,000 & get 40% Discount</h5>
+            {{!-- <h5>Purshase Above ₹2,00,000 & get 40% Upto ₹1,00,000 </h5> --}}
+            <h6>USE CODE: #₹₹Nexo$$</h6>
+        </div>
+
+    </section>
+    <!-- ****** Top Discount Area End ****** -->
 
 
-                                             
-                                            <li class="nav-item active">  <a class="nav-link"  href="/cart">Cart<i class="ti-bag"></i> </a></li>
-                                            
-                                            <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li> 
-                                        </ul>
-                                    </div>
-                                </nav>
-                            </div>
-                            <!-- Help Line -->
-                           
-                            <div class="help-line">
-                               {{!-- <i class="ti-headphone-alt"></i> --}}
-                                <a href="/logout">LOGOUT</a>
-                            </div>
-                            
+    <!-- ****** Top Catagory Area Start ****** -->
+    <section class="top_catagory_area d-md-flex clearfix">
+        <!-- Single Catagory -->
+        <div class="single_catagory_area d-flex align-items-center bg-img"
+            style="background-image: url(img/bg-img/bg-2.jpg);">
+            <div class="catagory-content">
+                <h6>On Accesories</h6>
+                <h2>Sale 30%</h2>
+                <a href="/shop" class="btn karl-btn">SHOP NOW</a>
+            </div>
+        </div>
+        <!-- Single Catagory -->
+        <div class="single_catagory_area d-flex align-items-center bg-img"
+            style="background-image: url(img/bg-img/bg-3.jpg);">
+            <div class="catagory-content">
+                <h6>This is the latest Collection of OnePlus </h6>
+                <h2>New Series</h2>
+                <a href="/shop" class="btn karl-btn">SHOP NOW</a>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="new_arrivals_area section_padding_100_0 clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section_heading text-center">
+                        <h2>Mobile </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row karl-new-arrivals">
+                {{#each Product}}
+                {{#if (eq this.category 'MOBILE')}}
+                <!-- Single gallery Item Start -->
+                <div class="col-12 col-sm-6 col-md-4 single_gallery_item women wow fadeInUpBig" data-wow-delay="0.2s">
+                    <!-- Product Image -->
+                    <div class="product-img">
+                        <a href="/product-details?id={{this._id}}">
+                            <img src="/uploads/{{images.[0]}}" alt="Image">
+                        </a>
+                        <div class="product-quicview">
+                            <a href="/product-details?id={{this._id}}" data-toggle="modal" data-target="#quickview"><i
+                                    class="ti-plus"></i></a>
                         </div>
                     </div>
-                </div>
-              {{!-- </div>   --}}
-            </div>
-
-            
-        </header>
-        <!-- ****** Header Area End ****** -->
-        
-
-        <!-- ****** Top Discount Area Start ****** -->
-        <section class="top-discount-area d-md-flex align-items-center">
-            <!-- Single Discount Area -->
-              
-            <div class="single-discount-area">
-                <h5>Free Shipping &amp; Returns</h5>
-                {{!-- <h6><a href="#">BUY NOW</a></h6> --}}
-            </div>
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>15% Discount for all Products</h5>
-                {{!-- <h6>USE CODE: Colorlib</h6> --}}
-            </div>
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>Flat ₹2,000 Instant Discount with Online-Payment</h5>
-                {{!-- <h6>USE CODE: Colorlib</h6> --}}
-            </div>
-              
-        </section>
-        <!-- ****** Top Discount Area End ****** -->
-
-
-        <!-- ****** Top Catagory Area Start ****** -->
-        <section class="top_catagory_area d-md-flex clearfix">
-            <!-- Single Catagory -->
-            <div class="single_catagory_area d-flex align-items-center bg-img" style="background-image: url(img/bg-img/bg-2.jpg);">
-                <div class="catagory-content">
-                    <h6>On Accesories</h6>
-                    <h2>Sale 30%</h2>
-                    <a href="#" class="btn karl-btn">SHOP NOW</a>
-                </div>
-            </div>
-            <!-- Single Catagory -->
-            <div class="single_catagory_area d-flex align-items-center bg-img" style="background-image: url(img/bg-img/bg-3.jpg);">
-                <div class="catagory-content">
-                    <h6>This is the latest Collection of OnePlus  </h6>
-                    <h2>New Series</h2>  
-                    <a href="#" class="btn karl-btn">SHOP NOW</a>
-                </div>
-            </div>
-        </section>
-
-
-<section class="new_arrivals_area section_padding_100_0 clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section_heading text-center">
-                    <h2>Mobile </h2>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row karl-new-arrivals">
-            {{#each Product}}
-            {{#if (eq this.category 'MOBILE')}}
-            <!-- Single gallery Item Start -->
-            <div class="col-12 col-sm-6 col-md-4 single_gallery_item women wow fadeInUpBig" data-wow-delay="0.2s">
-                <!-- Product Image -->
-                <div class="product-img">
-                    <a href="/product-details?id={{this._id}}">
-                        <img src="/uploads/{{images.[0]}}" alt="Image">
-                    </a>
-                    <div class="product-quicview">
-                        <a href="/product-details?id={{this._id}}" data-toggle="modal" data-target="#quickview"><i class="ti-plus"></i></a>
-                    </div>
-                </div>
-                <!-- Product Description -->
-                <div class="product-description">
-                    <h2>{{ this.brand }}</h2>
-                    <h6>{{this.productname}}</h6>
-                    <h6>Price: ₹{{this.price}}</h6>
-                    <a href="#" class="add-to-cart-btn" onclick="addToCart('{{this._id}}',event), showSweetAlert()">Add to cart</a>
-                </div>
-            </div>
-
-            {{/if}}
-            {{/each}}
-        </div>
-    </div>
-</section>
-
-
-
-
-
-
-
-        
-   <section class="new_arrivals_area section_padding_100_0 clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section_heading text-center">
-                    <h2> Laptop </h2>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row karl-new-arrivals">
-            {{#each Product}}
-            {{#if (eq this.category 'LAPTOP')}}
-            <!-- Single gallery Item Start -->
-            <div class="col-12 col-sm-6 col-md-4 single_gallery_item women wow fadeInUpBig" data-wow-delay="0.2s">
-                <!-- Product Image -->
-                <div class="product-img">
-                    <a href="/product-details?id={{this._id}}">
-                        <img src="/uploads/{{images.[0]}}" alt="Image">
-                    </a>
-                    <div class="product-quicview">
-                        <a href="/product-details?id={{this._id}}" data-toggle="modal" data-target="#quickview"><i class="ti-plus"></i></a>
-                    </div>
-                </div>
-                <!-- Product Description -->
-                <div class="product-description">
-                    <h2>{{ this.brand }}</h2>
-                    <h6>{{this.productname}}</h6>
-                    <h6>Price: ₹{{this.price}}</h6>
-                    <a href="#" class="add-to-cart-btn" onclick="addToCart('{{this._id}}',event), showSweetAlert()">Add to cart</a>
-                </div>
-            </div>
-        
-            {{/if}}
-            {{/each}}
-        </div>
-    </div>
-</section>
-
-
-
-{{!-- <section>
-      <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section_heading text-center">
-                    <h2>New Products</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="row">
-        <div class="col-md-3">
-        <div class="card" style="width: 18rem;">
-  <img src="/uploads/{{images}}" alt="Image" width="250px" height="100px">" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
+                    <!-- Product Description -->
+                    <div class="product-description">
+                        {{!-- <h2 style="text-align: center;">{{ this.brand }}</h2> --}}
+                        <h6 style="text-align: center;">{{this.productname}}</h6>
+                        <h6 style="text-align: center;">Price: ₹{{this.price}}</h6>
+                       
+                        {{!-- <button  class="add-to-cart-btn" onclick="addToCart('{{this._id}}', event); showSweetAlert()">Add  to cart</button> --}}
+                       <div class="button-container">
+    <button class="add-to-cart-btn" onclick="addToCart('{{this._id}}', event); showSweetAlert()">Add to cart</button>
 </div>
 
+                    </div>
+                </div>
+
+                {{/if}}
+                {{/each}}
+            </div>
         </div>
-    </div>
-
-</section> --}}
-
-
-
-<script>
-function addToCart(productId, event) {
-  event.preventDefault(); // Prevent the default behavior of the <a> tag
-
-  // Send an AJAX request to the server
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', '/addtocart', true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      // Handle the server response here (if needed)
-      swal("Success", "Product added to cart!", "success");
-    }
-  };
-  xhr.send(JSON.stringify({ productId: productId }));
-}
-</script>
-
-
-
-
-
-   <script>
-function showSweetAlert() {
-  Swal.fire({
-    title: "Success",
-    text: "Product added to cart!",
-    icon: "success",
-    showCancelButton: false,
-    confirmButtonColor: "#FF0000",
-    confirmButtonText: "OK",
-    customClass: {
-      container: "swal-container",
-      title: "swal-title",
-      content: "swal-text",
-      confirmButton: "swal-button"
-    },
-    onOpen: () => {
-      // Set the text color to white
-      const swalContainer = document.querySelector(".swal-container");
-      swalContainer.style.color = "white";
-
-      // Remove the border from the OK button
-      const okButton = document.querySelector(".swal-button");
-      okButton.style.border = "none";
-    }
-  });
-}
-</script>
+    </section>
 
 
 
@@ -343,87 +246,181 @@ function showSweetAlert() {
 
 
 
+    <section class="new_arrivals_area section_padding_100_0 clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section_heading text-center">
+                        <h2> Laptop </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
-
-
-
-
-
-
-
-
-
-        <!-- ****** Footer Area Start ****** -->
-        <footer class="footer_area">
-            <div class="container">
-                <div class="row">
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="single_footer_area">
-                            <div class="footer-logo">
-                                {{!-- <ul>Hi,there we are</ul> --}}
-                                <img src="img/core-img/logo.png" alt="" >                     
-                                
-                            </div>
-                            {{!-- <div class="copywrite_text d-flex align-items-center">
-                                <p>WE the Nexo Group are the top selling Platform in lead online selling sites, almost all Countries</p>
-                            </div> --}}
+        <div class="container">
+            <div class="row karl-new-arrivals">
+                {{#each Product}}
+                {{#if (eq this.category 'LAPTOP')}}
+                <!-- Single gallery Item Start -->
+                <div class="col-12 col-sm-6 col-md-4 single_gallery_item women wow fadeInUpBig" data-wow-delay="0.2s">
+                    <!-- Product Image -->
+                    <div class="product-img">
+                        <a href="/product-details?id={{this._id}}">
+                            <img src="/uploads/{{images.[0]}}" alt="Image">
+                        </a>
+                        <div class="product-quicview">
+                            <a href="/product-details?id={{this._id}}" data-toggle="modal" data-target="#quickview"><i
+                                    class="ti-plus"></i></a>
                         </div>
                     </div>
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-sm-6 col-md-3 col-lg-2">
-                        <div class="single_footer_area">
-                            <ul class="footer_widget_menu">
-                                <li><a href="#">About</a></li>
-                                {{!-- <li><a href="#">Blog</a></li>  --}}
-                                <li><a href="#">Faq</a></li>
-                                <li><a href="#">Returns</a></li>
-                             <li><a href="#">Contact</a></li>
-                            </ul>
-                        </div>
+                    <!-- Product Description -->
+                    <div class="product-description">
+                        {{!-- <h2>{{ this.brand }}</h2> --}}
+                        <h6 style="text-align: center;">{{this.productname}}</h6>
+                        <h6 style="text-align: center;"> Price: ₹{{this.price}}</h6>
+                                           <div class="button-container">
+    <button class="add-to-cart-btn" onclick="addToCart('{{this._id}}', event); showSweetAlert()">Add to cart</button>
+</div>
                     </div>
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-sm-6 col-md-3 col-lg-2">
-                        <div class="single_footer_area">
-                            <ul class="footer_widget_menu">
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">Shipping</a></li>
-                                <li><a href="#">Our Policies</a></li>
-                                <li><a href="#">Afiliates</a></li>
-                            </ul>
+                </div>
+
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- ****** Footer Area Start ****** -->
+    <footer class="footer_area">
+        <div class="container">
+            <div class="row">
+                <!-- Single Footer Area Start -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="single_footer_area">
+                        <div class="footer-logo">
+                            {{!-- <ul>Hi,there we are</ul> --}}
+                            <img src="img/core-img/logo.png" alt="">
+
                         </div>
+                        {{!-- <div class="copywrite_text d-flex align-items-center">
+                            <p>WE the Nexo Group are the top selling Platform in lead online selling sites, almost all
+                                Countries</p>
+                        </div> --}}
                     </div>
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-lg-5">
-                        <div class="single_footer_area">
-                            <div class="footer_heading mb-30">
-                                <h6>Hi,there we are Nexo Group</h6>
-                         
+                </div>
+                <!-- Single Footer Area Start -->
+                <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                    <div class="single_footer_area">
+                        <ul class="footer_widget_menu">
+                            <li><a href="#">About</a></li>
+                            {{!-- <li><a href="#">Blog</a></li> --}}
+                            <li><a href="#">Faq</a></li>
+                            <li><a href="#">Returns</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Single Footer Area Start -->
+                <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                    <div class="single_footer_area">
+                        <ul class="footer_widget_menu">
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Shipping</a></li>
+                            <li><a href="#">Our Policies</a></li>
+                            <li><a href="#">Afiliates</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Single Footer Area Start -->
+                <div class="col-12 col-lg-5">
+                    <div class="single_footer_area">
+                        <div class="footer_heading mb-30">
+                            <h6>Hi,there we are Nexo Group</h6>
+
                             <div class="subscribtion_form">
                                 <form action="#" method="post">
                                     <input type="email" name="mail" class="mail" placeholder="Your email here">
                                     <button type="submit" class="submit">Subscribe</button>
                                 </form>
                             </div>
-                             <div class="copywrite_text d-flex align-items-center">
-                                <p>We the Nexo Group, are the top selling Platform in online selling sites almost in all Countries for Last 6 years.</p>
-                                </div>
+                            <div class="copywrite_text d-flex align-items-center">
+                                <p>We the Nexo Group, are the top selling Platform in online selling sites almost in all
+                                    Countries for Last 6 years.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="line"></div>
-               </div>
+            </div>
+            <div class="line"></div>
+        </div>
 
- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   <!-- add to cart popup -->
-   <script src="js/jquery/jquery-2.2.4.min.js",src="js/popper.min.js",src="js/bootstrap.min.js",src="js/plugins.js",src="js/active.js">  </script>
+    </footer>
 
- <script>
-  <link rel="js" href="jquery/jquery-2.2.4.min.js">
-   <link rel="js" href="js/active.js">
-   <link rel="js" href="js/bootstrap.min.js">
-   <link rel="js" href="js/plugins.js">
-   <link rel="js" href="js/popper.min.js">
-</script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- add to cart popup -->
+    <script src="js/jquery/jquery-2.2.4.min.js" ,src="js/popper.min.js" ,src="js/bootstrap.min.js" ,src="js/plugins.js"
+        ,src="js/active.js">  </script>
+
+    <script>
+        <link rel="js" href="jquery/jquery-2.2.4.min.js">
+            <link rel="js" href="js/active.js">
+                <link rel="js" href="js/bootstrap.min.js">
+                    <link rel="js" href="js/plugins.js">
+                        <link rel="js" href="js/popper.min.js">
+    </script>
+
+
+
+    <script>
+                      function addToCart(productId, event) {
+                          event.preventDefault(); // Prevent the default behavior of the <a> tag
+
+                              // Send an AJAX request to the server
+                              const xhr = new XMLHttpRequest();
+                              xhr.open('POST', '/addtocart', true);
+                              xhr.setRequestHeader('Content-Type', 'application/json');
+                              xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+                              // Handle the server response here (if needed)
+                              swal("Success", "Product added to cart!", "success");
+    }
+  };
+                          xhr.send(JSON.stringify({productId: productId }));
+}
+    </script>
+
+
+
+
+
+    <script>
+                          function showSweetAlert() {
+                              Swal.fire({
+                                  title: "Success",
+                                  text: "Product added to cart!",
+                                  icon: "success",
+                                  showCancelButton: false,
+                                  confirmButtonColor: "#FF0000",
+                                  confirmButtonText: "OK",
+                                  customClass: {
+                                      container: "swal-container",
+                                      title: "swal-title",
+                                      content: "swal-text",
+                                      confirmButton: "swal-button"
+                                  },
+                                  onOpen: () => {
+                                      // Set the text color to white
+                                      const swalContainer = document.querySelector(".swal-container");
+                                      swalContainer.style.color = "white";
+
+                                      // Remove the border from the OK button
+                                      const okButton = document.querySelector(".swal-button");
+                                      okButton.style.border = "none";
+                                  }
+                              });
+}
+    </script>

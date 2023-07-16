@@ -38,7 +38,7 @@ router.get('/home',adminAuth.isLogin,adminController.loadDashboard)
 router.post( "/add-products", uploads.array("image",4), adminController.insertProducts);
 
 router.get("/edit-product",adminAuth.isLogin,adminController.editProduct)
-router.post("/edit-product",adminAuth.isLogin,uploads.array("image",4),adminController.updateProduct)
+router.post("/edit-product",uploads.array("image",4),adminController.updateProduct)
 
 router.delete('/delete-img',adminController.deleteimg)
 router.get( "/unlist-products",adminAuth.isLogin, adminController.unlistProducts);
@@ -74,6 +74,14 @@ router.get('/blocked-users', adminAuth.isLogin, adminController.blockedUsers);
    router.get('/coupon-edit',adminAuth.isLogin, couponController.editCouponPage);
    router.post('/update-coupon',couponController.updateCoupon)
    router.post('/change-coupon-status',couponController.changeCouponStatus)
+
+//    router.get('/salesPage',adminAuth.isLogin,adminController.loadSalesPage)
+// router.get('/getTodaySales',adminAuth.isLogin,adminController.getSalesToday)
+// router.get('/getWeekSales',adminAuth.isLogin,adminController.getWeekSales)
+// router.get('/getMonthlySales',adminAuth.isLogin,adminController.getMonthSales)
+// router.get('/getYearlySales',adminAuth.isLogin,adminController.getYearlySales)
+// router.post('/salesWithDate',adminController.salesWithDate)
+// router.get('/salesReport',adminAuth.isLogin,adminController.downloadSalesReport)
 
 router.get('*',(req,res)=>{ 
     res.redirect('/admin')

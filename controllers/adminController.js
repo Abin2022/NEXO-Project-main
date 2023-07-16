@@ -18,6 +18,21 @@ const Order = require('../models/orderModel')
 const moment = require("moment-timezone")
 const mongoose=require("mongoose")
 
+// var multer = require("multer");
+// const path = require("path");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "../public/uploads"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+const uploads = multer({ storage: storage });
+
+
 const ObjectId = mongoose.Types.ObjectId;
 const categoryHelpers=require("../helpers/categoryHelpers")
 const Wallet = require("../models/walletModel")
@@ -163,12 +178,13 @@ const editProduct = async (req, res) => {
     categories.forEach((category) => {
       categoryLookup[category._id.toString()] = category.category;
     });
-
+ 
     // Define the lookupCategory helper function
     const lookupCategory = function (categoryId) {
       console.log("categoryId:", categoryId);
       console.log("categoryLookup:", categoryLookup);
       return categoryLookup[categoryId];
+      
     };
 
     const updatedProduct = await Product.findById(id).lean();
@@ -182,13 +198,14 @@ const editProduct = async (req, res) => {
     if (updatedProduct) {
       const productWithCategoryName = {
         ...updatedProduct,
-        category: lookupCategory(updatedProduct.category),
+        category: updatedProduct.category,
       };
-
+      // console.log("Naduttyy" ,(updatedProduct.category));
       res.render("admin/edit-product", {
         product: productWithCategoryName,
         categories: categoryData,
       });
+  
     } else {
       console.log("Product not found");
       res.redirect("/admin/products");
@@ -245,31 +262,37 @@ const deleteimg = async (req, res) => {
 
 
 const updateProduct = async (req, res) => {
-  console.log("Enterd into updateProduct.....");
+  console.log("Entered into updateProduct.....");
   try {
-     //here###
-     var arrayImage=[]
-     for (let i = 0; i < req.files.length; i++) {
-       arrayImage[i] = req.files[i].filename;
-     }
-     console.log(arrayImage,"arrayimag");
+    console.log("UpdateProduct", req.files);
+
+    // Now, you should be able to access the uploaded files in req.files["image"]
+    const files = req.files["image"];
+    if (!files || !Array.isArray(files) || files.length === 0) {
+      throw new Error("No files were uploaded or invalid file data.");
+    }
+
+    var arrayImage = files.map(file => file.filename);
+    console.log(arrayImage, "arrayImage");
+
     const id = req.body.id;
     const updatedProduct = {
       brand: req.body.brand,
       productname: req.body.productname,
       category: req.body.category,
       price: req.body.price,
-      images: req.body.images,
       images: arrayImage,
       description: req.body.description,
     };
-    console.log("updatedProduct",updateProduct);
+
+    console.log("updatedProduct", updatedProduct);
     await Product.findByIdAndUpdate(id, updatedProduct);
     res.redirect("/admin/home");
   } catch (error) {
     console.log(error.message);
   }
 };
+
 
 // const updateProduct = async (req, res) => {
 //   console.log("Entered into updateProduct...");

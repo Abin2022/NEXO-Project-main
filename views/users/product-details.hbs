@@ -124,13 +124,29 @@
                     </div>
                 </div>
             </div>
+
         </header>
         <!-- ****** Header Area End ****** -->
 
 
 
 
-        
+            <style>
+        .add-to-cart-btn {
+            background-color:  #db2235;
+           color: #ffffff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
 
         <!-- ****** Top Discount Area Start ****** -->
         <section class="top-discount-area d-md-flex align-items-center">
@@ -236,12 +252,12 @@
                             
                            
                                  
-                            <h4 class="title"><a href="#" style="color:black;" >{{singleProduct.brand}} </a></h4>
-                            <h4 class="price"><a href="#" style="color: rgb(33, 31, 31)">{{ singleProduct.productname}}</a></h4>
+                            <h4 class="title" style="text-align: center;"><a href="#" style="color:black;" > Brand:       {{singleProduct.brand}} </a></h4>
+                            <h4 class="price"  style="text-align: center;"><a href="#" style="color: rgb(33, 31, 31)">{{ singleProduct.productname}}</a></h4>
+                                {{!-- <h4>{{singleProduct._id}}</h4> --}}
+                            <h4 class="price"  style="text-align: center;">Price: ₹{{ singleProduct.price}}</h4>
 
-                            <h4 class="price">Price: ₹{{ singleProduct.price}}</h4>
-
-                            <p class="available">Available: <span class="text-muted" style="color:crimson">In Stock</span></p>
+                            <p class="available"  style="text-align: center;">Available: <span class="text-muted" style="color:crimson">In Stock</span></p>
 
                             <div class="single_product_ratings mb-15">
                                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -266,17 +282,20 @@
                             </div>
 
                             <!-- Add to Cart Form -->
-                            {{!-- <form class="cart clearfix mb-50 d-flex" method="post"> --}}
-                              
-                                {{!-- <a href="#" class="btn cart-submit d-block " onclick="addToCart('{{singleProduct.user_id}}',event), showSweetAlert()" style="display: inline-block; text-align: center;padding: 10px;">Add to cart</a> --}}
-                                
-                               {{!-- <a href="/checkout" class="btn cart-submit d-block" style="display: inline-block; text-align: center;padding: 10px;">Buy Now</a> --}}
-
-                                 <!-- Wishlist -->
-                                            {{!-- <div class="modal_pro_wishlist">
-                                                <a href="wishlist.html" target="_blank"><i class="ti-heart"></i></a>
-                                            </div>
+                          
+                            {{!-- <form class="cart clearfix mb-50 d-flex" method="post"> 
+                                    
+                                    <a href="#" class="add-to-cart-btn" onclick="addToCart('{{singleProduct._id}}',event), showSweetAlert()">Add to cart</a>
+                     
                             </form> --}}
+                            <div class="button-container">
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('{{singleProduct._id}}', event); showSweetAlert()">Add to cart</button>
+                              
+                        </div>
+                      
+                        
+
 
                             <div id="accordion" role="tablist">
                                 <div class="card">
@@ -309,55 +328,6 @@
        
 
 
-
-<script>
-function addToCart(productId, event) {
-  event.preventDefault(); // Prevent the default behavior of the <a> tag
-
-  // Send an AJAX request to the server
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', '/addtocart', true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      // Handle the server response here (if needed)
-      swal("Success", "Product added to cart!", "success");
-    }
-  };
-  xhr.send(JSON.stringify({ productId: productId }));
-}
-</script>
-
-
-
-
- <script>
-function showSweetAlert() {
-  Swal.fire({
-    title: "Success",
-    text: "Product added to cart!",
-    icon: "success",
-    showCancelButton: false,
-    confirmButtonColor: "#FF0000",
-    confirmButtonText: "OK",
-    customClass: {
-      container: "swal-container",
-      title: "swal-title",
-      content: "swal-text",
-      confirmButton: "swal-button"
-    },
-    onOpen: () => {
-      // Set the text color to white
-      const swalContainer = document.querySelector(".swal-container");
-      swalContainer.style.color = "white";
-
-      // Remove the border from the OK button
-      const okButton = document.querySelector(".swal-button");
-      okButton.style.border = "none";
-    }
-  });
-}
-</script>
 
 
 
@@ -444,3 +414,59 @@ function showSweetAlert() {
 </body>
 
 </html>
+
+
+
+<script>
+function addToCart(productId, event) {
+    console.log("Hi")
+  event.preventDefault(); // Prevent the default behavior of the <a> tag
+
+  // Send an AJAX request to the server
+  const xhr = new XMLHttpRequest();
+  console.log(productId,"Herere")
+  
+  xhr.open('POST', '/addtocart', true);
+
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Handle the server response here (if needed)
+      swal("Success", "Product added to cart!", "success");
+    }
+  };
+  xhr.send(JSON.stringify({ productId: productId }));
+}
+</script>
+
+
+
+
+
+   <script>
+function showSweetAlert() {
+  Swal.fire({
+    title: "Success",
+    text: "Product added to cart!",
+    icon: "success",
+    showCancelButton: false,
+    confirmButtonColor: "#FF0000",
+    confirmButtonText: "OK",
+    customClass: {
+      container: "swal-container",
+      title: "swal-title",
+      content: "swal-text",
+      confirmButton: "swal-button"
+    },
+    onOpen: () => {
+      // Set the text color to white
+      const swalContainer = document.querySelector(".swal-container");
+      swalContainer.style.color = "white";
+
+      // Remove the border from the OK button
+      const okButton = document.querySelector(".swal-button");
+      okButton.style.border = "none";
+    }
+  });
+}
+</script>
