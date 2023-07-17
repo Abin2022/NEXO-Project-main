@@ -238,7 +238,9 @@
                                 {{else if (eq cancellationStatus "cancellation requested")}}
                                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#acceptCancel">Accept Cancel</button>
                                  <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#rejectCancel">Reject Cancel</button>
-                                  {{else if (eq cancellationStatus "cancelled")}}
+
+                                  {{!-- {{else if (eq cancellationStatus "cancelled")}} --}}
+
                                 {{else if (eq cancellationStatus "Shipped")}}
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter">Cancel</button>
                                 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#markAsDelivered">Mark as Delivered</button>

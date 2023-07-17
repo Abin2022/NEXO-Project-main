@@ -1,13 +1,146 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <style>
+    /* Custom styles for the header */
+    .main_header_area {
+      background-color: #343a40;
+      padding: 10px 0;
+    }
+
+    .main_header_area a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .main_header_area a:hover {
+      color: #333;
+      background-color: #444;
+    }
+
+    .header-social-area img {
+      width: 150px;
+      height: 80px;
+      margin-right: 15px;
+    }
+
+    .navbar-toggler {
+      border: none;
+      background-color: transparent;
+      padding: 0;
+    }
+
+    .navbar-toggler .navbar-toggler-icon {
+      font-size: 24px;
+      color: #fff;
+    }
+
+    .collapse.navbar-collapse {
+      background-color: #333;
+      padding: 10px;
+    }
+
+    .navbar-nav li {
+      margin: 0 10px;
+    }
+
+    /* Custom styles for nav-links */
+    .navbar-nav .nav-item {
+      position: relative;
+    }
+
+    .navbar-nav .nav-item:before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 50%;
+      background-color: #fff;
+      transition: width 0.3s ease;
+    }
+
+    .navbar-nav .nav-item:hover:before {
+      width: 100%;
+      left: 0;
+    }
+
+    .navbar-nav .nav-link {
+      padding: 10px 20px;
+    }
+
+    @media (max-width: 768px) {
+      .main-menu-area {
+        display: none;
+      }
+
+      .collapse.navbar-collapse.show {
+        display: block;
+      }
+
+      .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar-nav li {
+        margin: 5px 0;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="main_header_area">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 d-md-flex justify-content-between">
+          <!-- Header Social Area -->
+          <div class="header-social-area">
+            <a href="#"><img src="/img/core-img/NEXO.png" alt="Nexo"></a>
+          </div>
 
+          <!-- Menu Area -->
+          <div class="main-menu-area">
+            <nav class="navbar navbar-expand-lg align-items-start">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#karl-navbar"
+                aria-controls="karl-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><i class="ti-menu"></i></span>
+              </button>
+              <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
+                <ul class="navbar-nav animated" id="nav">
+                  <li class="nav-item active"><a class="nav-link" href="/home">Home</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="/mobile">Mobile</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="/laptop">Laptop</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="/shop">Shop</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="/order-details">Orders</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="/cart">Cart <i class="ti-bag"></i></a></li>
+                  <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                </ul>
+              </div>
+            </nav>
+          </div>
 
-  
+          <!-- Help Line -->
+          <div class="help-line">
+            <a href="/logout">LOGOUT</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
-</html>
+
+    </div>
+    <style>
+       
+        .add-to-cart-btn {
+            background-color: #your-color;
+            color: #your-color-text;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+           
+        }
+        .button-container {
+    display: flex;
+    justify-content: center;
+}
+    </style>

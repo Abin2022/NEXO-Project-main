@@ -19,6 +19,7 @@ const manageCoupon = async (req, res) => {
       const activeCoupons = await Coupon.find({ activeCoupon: true }).lean();
       const inActiveCoupons = await Coupon.find({ activeCoupon: false }).lean();
     
+      
       const dataToRender = {
         adminData,
         activeCoupons,

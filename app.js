@@ -30,6 +30,11 @@ defaultLayout:null,
 helpers:handlebarsHelpers()}))
 // hbs.registerHelper(handlebarsHelpers);
 
+handlebars.registerHelper("inc", function(value, options)
+{
+    return parseInt(value) + 1;
+});
+
 
 
 app.use(logger('dev'));

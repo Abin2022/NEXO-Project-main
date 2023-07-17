@@ -449,7 +449,7 @@ const mobilePage = async(req,res)=>{
     const productData = await Product.find({unlist:false}).lean();
     const categoryData = await categoryModel.find({unlist:false }).lean();
 
-  res.render("users/user-home", {
+  res.render("users/mobile", {
      user: userData,
     Product: productData,
     category: categoryData,
@@ -459,6 +459,26 @@ const mobilePage = async(req,res)=>{
     console.log(error.message);
   }
 }
+
+
+
+const laptopPage = async(req,res)=>{
+  try{
+    const userData = await User.findById({ _id: req.session.user_id});
+    const productData = await Product.find({unlist:false}).lean();
+    const categoryData = await categoryModel.find({unlist:false }).lean();
+
+  res.render("users/laptop", {
+     user: userData,
+    Product: productData,
+    category: categoryData,
+  });
+    
+  }catch(error){
+    console.log(error.message);
+  }
+}
+
 
 
 
@@ -1752,7 +1772,6 @@ const returnOrder = async (req, res) => {
 
 const downloadInvoice= async (req, res) => {
   try {
-    console.log("Enterd into the download page ..............");
     const orderId = req.params.orderId;
 
     // Fetch the order details from the database based on the orderId
@@ -1792,14 +1811,7 @@ const downloadInvoice= async (req, res) => {
       pdfDoc.text('------------------------------'); 
     });
 
-    const deliveryAddress = {
-      name: order.addressDetails.name,
-      address: order.addressDetails.address,
-      city: order.addressDetails.city,
-      state: order.addressDetails.state,
-      pincode: order.addressDetails.pincode,
-    };
-
+   
     pdfDoc.end();
 
     // Send the PDF as a downloadable file
@@ -1949,6 +1961,7 @@ module.exports={
   verifyOtp,
 
   mobilePage,
+  laptopPage,
   aboutPage,
   userLogout,
   

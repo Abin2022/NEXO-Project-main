@@ -36,6 +36,8 @@ const uploads = multer({ storage: storage });
 const ObjectId = mongoose.Types.ObjectId;
 const categoryHelpers=require("../helpers/categoryHelpers")
 const Wallet = require("../models/walletModel")
+const adminHelpers = require("../helpers/adminHelpers")
+
 
 const loadLogin =async(req,res)=>{
     try{
@@ -294,41 +296,6 @@ const updateProduct = async (req, res) => {
 };
 
 
-// const updateProduct = async (req, res) => {
-//   console.log("Entered into updateProduct...");
-//   try {
-//     var arrayImage = [];
-//     if (req.files && req.files.length) {
-//       for (let i = 0; i < req.files.length; i++) {
-//         arrayImage[i] = req.files[i].filename;
-//       }
-//     }
-//     console.log(arrayImage, "arrayImage");
-//     const id = req.body.id;
-//     const updatedProduct = {
-//       brand: req.body.brand,
-//       productname: req.body.productname,
-//       category: req.body.category,
-//       price: req.body.price,
-//       images: arrayImage,
-//       description: req.body.description,
-//     };
-//     console.log("updatedProduct", updatedProduct);
-//     await Product.findByIdAndUpdate(id, updatedProduct);
-//     res.redirect("/admin/home");
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
-
-
-
-
-
-
-
-
-
 
 
 
@@ -416,44 +383,13 @@ const listProducts = async (req, res) => {
     }
   };
  
-  // edit category
-  // const editCategory = async (req, res) => {
-  //   try {
-  //     const { category: editCategory } = req.body;
-  //     const categoryId = req.params.id; 
   
-  //     const existingCategory = await Category.findById(categoryId);
-  //     if (!existingCategory) {
-  //       const errorMessage = "Category not found";
-  //       const categories = await Category.find().lean();
-  //       const categoriesWithSerialNumber = categories.map((category, index) => ({
-  //         ...category,
-  //         serialNumber: index + 1,
-  //       }));
-  
-  //       return res.render("admin/category", {
-  //         category: categoriesWithSerialNumber,
-  //         error: errorMessage,
-  //       });
-  //     }
-  
-  //     existingCategory.category = updatedCategory;
-  //     const updatedCategory = await existingCategory.save();
-  
-  //     return res.redirect("/admin/category");
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
-
-
-  //edit un
   const editCategoryLoad = async(req,res)=>{
     try {
       await categoryHelpers.editingCategoryPageLoad(req,res)
     } catch (error) {
       console.log(error.message)
-      res.redirect('/admin/admin-error')
+      res.redirect('admin/errorPage')
     }
   }
   
@@ -462,77 +398,12 @@ const listProducts = async (req, res) => {
       await categoryHelpers.updatingCategory(req,res);
     } catch (error) {
       console.log(error.message)
-      res.redirect('/admin/admin-error')
+      res.redirect('admin/errorPage')
     }
   }
 
 
 
-  //newly add for category
-
-//  const editCategory=  async(req,res)=>{
-//     try {
-//         const id = req.query._id;
-//         console.log('ID:', id);
-
-
-//         const categoryData = await Category.findById({ _id: id }).lean();
-//         console.log('Category Data:', categoryData);
-
-//         if (categoryData) {
-//             res.render('admin/edit-category', { category: categoryData });
-//         } else {
-//             console.log('User not found');
-//             res.redirect('/admin/category');
-//         }
-//     } catch (error) {
-//         throw new Error(error.message);
-//     }
-// }
-
-// const updatingCategory= async (req, res) => {
-//     try {
-//         const { id, category } = req.body;
-
-//         // Check if a category with the same name (case-insensitive) already exists
-//         const existingCategory = await Category.findOne({
-//             _id: { $ne: id }, // Exclude the current category from the check
-//             category: { $regex: new RegExp('^' + category + '$', 'i') }
-//         });
-
-//         if (existingCategory) {
-//             const errorMessage = 'Category already exists.';
-//             const updatedCategories = await Category.find().lean();
-//             const categoryWithSerialNumber = updatedCategories.map((category, index) => ({
-//                 ...category,
-//                 serialNumber: index + 1,
-//             }));
-
-//             if (existingCategory) {
-//               const errorMessage = 'Category already exists.';
-//               const updatedCategories = await Category.find().lean();
-//               const categoryWithSerialNumber = updatedCategories.map((category, index) => ({
-//                   ...category,
-//                   serialNumber: index + 1,
-//               }));
-  
-//               return res.render('admin/category', {
-                 
-//                   category: categoryWithSerialNumber,
-//                   error: errorMessage
-//               });
-//           }
-//         }
-//           // Update the category with the new name
-//           await Category.findByIdAndUpdate(id, { category: category.toUpperCase() });
-//           res.redirect('/admin/category');
-//          }catch(error) {
-//             console.error(error); // Log the error for debugging purposes
-//             return res.status(500).send('Internal Server Error');
-//         }
-        
-//       }
- 
 
 
 
@@ -690,11 +561,7 @@ const loadOrdersView=async(req,res)=>{
       const cancellationStatus = order.cancellationStatus
 
 
-      // console.log(cancellationStatus,'cancellationStatus');
-      // console.log(subtotal, 'subtotal');
-      // console.log(orderDetails, 'orderDetails');
-      // console.log(deliveryAddress, 'deliveryAddress');
-
+ 
       res.render('admin/userOrderView', {
           orderDetails: orderDetails,
           deliveryAddress: deliveryAddress,
@@ -720,7 +587,7 @@ const cancelledByAdmin = async (req, res) => {
 
     const updateOrder = await Order.findByIdAndUpdate(
       { _id: new ObjectId(id) },
-      { $set: { cancellationStatus: "cancellation requested", orderStatus: "cancelled" } },
+      { $set: { cancellationStatus: "cancelled", orderStatus: "cancelled" } },
       { new: true }
     ).exec();
 
@@ -869,7 +736,77 @@ const returnOrder = async (req, res) => {
 
 
 
+const salesReportPage = async(req,res)=>{
+  try {
+    const orderSuccessDetails = await adminHelpers.orderSuccess()
+    
+  
+    res.render("admin/sales-report-page", { order:orderSuccessDetails.orderHistory, total:orderSuccessDetails.total });
+  } catch (error) {
+     console.log(error.message)
+    res.render('admin/errorPage')
+  }
+}
 
+const salesofToday = async(req,res)=>{
+  try {
+    const todaySales = await adminHelpers.salesToday()
+    res.render("admin/sales-report-page", { order:todaySales.orderHistory, total:todaySales.total });
+  } catch (error) {
+    console.log(error.message)
+    res.redirect('admin/errorPage')
+  }
+}
+
+const getWeekSales = async(req,res)=>{
+  try {
+    const weeklySales = await adminHelpers.weeklySales()
+
+     res.render("admin/sales-report-page", { order:weeklySales.orderHistory, total:weeklySales.total });
+  } catch (error) {
+    console.log(error.message)
+    res.redirect('admin/errorPage')
+  }
+}
+
+const getMonthSales = async(req,res)=>{
+  try {
+    const montlySales = await adminHelpers.monthlySales()
+    res.render("admin/sales-report-page", { order:montlySales.orderHistory, total:montlySales.total });
+  } catch (error) {
+    console.log(error.message)
+    res.redirect('admin/errorPage')
+  }
+}
+
+const getYearlySales = async(req,res)=>{
+  try {
+    const yearlySales = await adminHelpers.yearlySales()
+    res.render("admin/sales-report-page", { order:yearlySales.orderHistory, total:yearlySales.total });
+  } catch (error) {
+    console.log(error.message)
+    res.redirect('admin/errorPage')
+  }
+}
+
+const salesWithDate = async(req,res)=>{
+  try {
+    const salesWithDate = await adminHelpers.salesWithDate(req,res)
+    res.render("admin/sales-report-page", { order:salesWithDate.orderHistory, total:salesWithDate.total });
+  } catch (error) {
+    console.log(error.message,'salesWithDate controller error')
+    res.redirect('admin/errorPage')
+  }
+}
+
+const downloadSalesReport = async(req,res)=>{
+  try {
+    const salesPdf = await adminHelpers.salesPdf(req,res)
+  } catch (error) {
+    console.log(error.message,'pdfSales controller error')
+    res.redirect('admin/errorPage')
+  }
+}
 
 
 
@@ -910,6 +847,14 @@ module.exports = {
      productDelevery,
      deliveredProduct,
      returnOrder,
+
+     salesReportPage,
+     salesofToday,
+     getWeekSales,
+     getMonthSales,
+     getYearlySales,
+     salesWithDate,
+     downloadSalesReport,
    
     
 

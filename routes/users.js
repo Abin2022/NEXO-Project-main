@@ -105,6 +105,8 @@ router.get('/shop',auth.isLogin,userControllers.loadShopPage)
  router.get('/wallet-details',auth.isLogin,userControllers.loadWallet)
 
 
- router.get('/user-home',auth.isLogin,userControllers.mobilePage)
+//  router.get('/mobile',auth.isLogin,userControllers.mobilePage)
+ router.get('/mobile',auth.isLogin,userControllers.mobilePage)
+ router.get('/laptop',auth.isLogin,userControllers.laptopPage)
  
 module.exports=router

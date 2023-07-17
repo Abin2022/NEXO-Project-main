@@ -113,8 +113,8 @@
 
 
                                             
-                                           <li class="nav-item active"><a class="nav-link"   href="#">Mobiles</a></li>
-                                           <li class="nav-item active"><a class="nav-link" href="#"> Laptops</a></li>
+                                           <li class="nav-item active"><a class="nav-link"   href="/mobile">Mobiles</a></li>
+                                           <li class="nav-item active"><a class="nav-link" href="/laptop"> Laptops</a></li>
                                              <li class="nav-item active"><a class="nav-link"   href="/order-details">Orders</a></li>
 
                                            {{!-- <li class="nav-item active"><a class="nav-link" href="/checkout"> Checkout</a></li> --}}
@@ -140,9 +140,7 @@
                                                
                                              
                                             
-                                             {{!-- <li class="nav-item"><a class="nav-link" href="#">Whishlist</a></li>
-                                             <li class="nav-item"><a class="nav-link" href="#">Account</a></li> 
-                                            <li class="nav-item"><a class="nav-link" href="/about">About</a></li> --}}
+                                            
                                         </ul>
                                     </div>
                                 </nav>
@@ -200,13 +198,66 @@
               
         </section>
         <!-- ****** Top Discount Area End ****** -->
+         <style>
+    /* Custom styles for the buttons */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-primary {
+      background-color: #343a40;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background-color:crimson;
+    }
+
+    .add-to-cart-btn {
+      background-color: #343a40;
+      color: #fff;
+    }
+
+    .add-to-cart-btn:hover {
+      background-color: crimson;
+    }
+
+    .button-container {
+      margin-top: 10px;
+      
+    }
+      .add-to-cart-btn {
+            background-color: #your-color;
+            color: #your-color-text;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+           
+        }
+        .button-container {
+    display: flex;
+    justify-content: center;
+}
+.button-container .btn {
+      margin-right: 10px; /* Adjust this value to set the desired space between buttons */
+    }
+  </style>
+
 
 <section class="new_arrivals_area section_padding_100_0 clearfix">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="section_heading text-center">
-                    <h2>Mobiles</h2>
+                    {{!-- <h2>Mobiles</h2> --}}
                 </div>
             </div>
         </div>
@@ -217,10 +268,15 @@
                 <div class="card single_gallery_item women wow fadeInUpBig" data-wow-delay="0.2s">
                     <img src="/uploads/{{images.[0]}}" class="card-img-top" alt="Product Image">
                     <div class="card-body">
-                        <h5 class="card-title">{{this.productname}}</h5>
-                        <p class="card-text">Price: ₹{{this.price}}</p>
-                        <a href="/product-details?id={{this._id}}" class="btn btn-primary">View Details</a>
-                        <a href="#" class="btn btn-success add-to-cart-btn" onclick="addToCart('{{this._id}}', event)">Add to Cart</a>
+                           <h5 class="card-title" style="text-align: center;">{{this.productname}}</h5>
+                        <p class="card-text" style="text-align: center;">Price: ₹{{this.price}}</p>
+                       <div>
+                         <div class="button-container">
+    <a href="/product-details?id={{this._id}}" class="btn btn-primary">View Details</a> 
+  
+      <button class="add-to-cart-btn" onclick="addToCart('{{this._id}}', event); showSweetAlert()">Add to cart</button>
+    </div>
+  </div>
                     </div>
                 </div>
             </div>
@@ -229,6 +285,7 @@
         </div>
     </div>
 </section>
+
 
 <script>
 function addToCart(productId, event) {

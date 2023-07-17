@@ -384,9 +384,9 @@
         {{#if (eq cancellationStatus "Not requested")}}
 
             <button type="button" class="btn btn-danger btn-sm" onclick="showCancelConfirmationModal('{{orderId}}')">Cancel Order</button>
-        {{else if (eq cancellationStatus "cancellation requested")}}
+        {{!-- {{else if (eq cancellationStatus "cancellation requested")}}
 
-            <button type="button" class="btn btn-danger btn-sm" onclick="showUndoCancelConfirmationModal('{{orderId}}')">UNDO Cancel request</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="showUndoCancelConfirmationModal('{{orderId}}')">UNDO Cancel request</button> --}}
         {{else if (eq cancellationStatus "Not Requested")}}
 
             <button type="button" class="btn btn-danger btn-sm" onclick="showCancelConfirmationModal('{{orderId}}')">Cancel Order</button>
@@ -465,12 +465,13 @@
 </div>
 
 <!-- Add this button in your HTML file -->
+   {{#if (eq cancellationStatus "Delivered")}}
 <div class="row mt-4" >
   <div class="col" style="text-align: center;"  style="color:aqua;">
     <button  class="btn btn-primary"  onclick="downloadPDF('{{orderId}}')">Download Order Details (PDF)</button>
   </div>
 </div>
-
+{{/if}}
 <!-- Add this script to handle the download request -->
 <script>
   function downloadPDF(orderId) {

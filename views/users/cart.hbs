@@ -104,24 +104,25 @@
 
                                         <li class="nav-item active"><a class="nav-link" href="/home"> Home</a></li>
                                         <li class="nav-item dropdown">
-                                           
-                                           
-                                             <li class="nav-item active"><a class="nav-link"   href="#">Mobiles</a></li>
-                                           <li class="nav-item active"><a class="nav-link" href="#"> Laptops</a></li>
-                                           										      <li class="nav-item active"><a class="nav-link"   href="/shop">SHOP</a></li>
+
+
+                                        <li class="nav-item active"><a class="nav-link" href="#">Mobiles</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="#"> Laptops</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="/shop">SHOP</a></li>
 
                                         </li>
-                                        {{!-- <li class="nav-item"><a class="nav-link" href="/checkout">Checkout</a></li> --}}
+                                        {{!-- <li class="nav-item"><a class="nav-link" href="/checkout">Checkout</a>
+                                        </li> --}}
                                         {{!-- <span class="karl-level">hot</span> --}}
-                                    <li class="nav-item"><a class="nav-link" href="/order-details">Orders</a></li>
-                                     <li class="nav-item active"><a class="nav-link" href="/cart">Cart<i
+                                        <li class="nav-item"><a class="nav-link" href="/order-details">Orders</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="/cart">Cart<i
                                                     class="ti-bag"></i> </a>
 
                                         <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
-                                       
 
-                                            <a href="#" id="header-cart-btn" target="_blank"> <i class="ti-bag"></i>
-                                            </a>
+
+                                        <a href="#" id="header-cart-btn" target="_blank"> <i class="ti-bag"></i>
+                                        </a>
 
 
                                         </li>
@@ -145,12 +146,6 @@
         </div>
         </header>
         <!-- ****** Header Area End ****** -->
-
-
-
-
-
-
 
 
 
@@ -182,9 +177,10 @@
 
         {{#if products}}
 
+
+
         <div class="cart_area section_padding_100 clearfix">
             <div class="container">
-
                 <div class="row">
                     <div class="col-12">
                         <div class="cart-table clearfix">
@@ -192,7 +188,6 @@
                                 <thead>
                                     <tr>
                                         <th>Product</th>
-
                                         <th>Price</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
@@ -208,8 +203,6 @@
                                         </td>
                                         <td class="price"><span>₹{{this.price}}</span></td>
                                         <td class="qty">
-                                    
-
                                             <div class="quantity">
                                                 <div class="input-group-prepend">
                                                     <button class="btn btn-outline-secondary" id="decrementBtn"
@@ -218,18 +211,15 @@
                                                 <input type="text" class="form-control text-center"
                                                     id="quantityInput_{{this._id}}" value="{{this.quantity}}" min="1"
                                                     style="width: 44px;">
-
                                                 <div class="input-group-append">
                                                     <button class="btn btn-outline-secondary" id="incrementBtn"
                                                         onclick="changeQuantity('{{this._id}}', 1, '{{this.user_id}}', {{this.quantity}})">+</button>
                                                 </div>
                                             </div>
-
                                         </td>
                                         <td class="total" id="productTotal_{{this._id}}">
-                    <span class="productTotal">{{total}}</span>
-                  </td>
-                                        {{!-- <td class="total_price"><span>₹{{total}}</span></td> --}}
+                                            <span class="productTotal">{{total}}</span>
+                                        </td>
                                     </tr>
                                     {{/each}}
                                 </tbody>
@@ -237,65 +227,27 @@
                         </div>
 
                         <div class="cart-footer d-flex mt-30">
-                            <div class="back-to-shop w-50">
+                            <div class="back-to-shop w-50 d-flex ">
                                 <a href="/home">Continue shopping</a>
                             </div>
-                            <div class="update-checkout w-50 text-right">
-                                {{!-- <a href="#">Clear cart</a>
-                                <a href="#">Update cart</a> --}}
+                               <div class="back-to-shop w-50 text-right">
+                                <a href="/wallet-details">Wallet Balance</a>
                             </div>
+
+                            {{!-- <div class="back-to-shop w-50 text-right">
+                                <a href="/wallet-details">Check Wallet</a>
+                                <a href="#">Update cart</a>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
 
-                {{!-- <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
-                     <div  class="list-group mb-3 sticky-top">
-                        <div class="coupon-code-area mt-70">
-                            <div class="cart-page-heading">
-                                <h5>Coupon code</h5>
-                                <p>Enter your coupon code</p>
-                            </div>
-                            <form action="#">
-                                <input type="search" name="search" placeholder="#mycoupon">
-                                <button type="submit">Apply</button>
-                            </form>
-                        </div>
-                     </div>
-                    </div> --}}
-                    <div class="col-12 col-md-6 col-lg-4">
-                        {{!-- <div class="shipping-method-area mt-70">
-                            <div class="cart-page-heading">
-                                <h5>Shipping method</h5>
-                                <p>Select the one you want</p>
-                            </div>
-
-                            <div class="custom-control custom-radio mb-30">
-                                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                                <label class="custom-control-label d-flex align-items-center justify-content-between"
-                                    for="customRadio1"><span>Next day delivery</span><span>$4.99</span></label>
-                            </div>
-
-                            <div class="custom-control custom-radio mb-30">
-                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                                <label class="custom-control-label d-flex align-items-center justify-content-between"
-                                    for="customRadio2"><span>Standard delivery</span><span>$1.99</span></label>
-                            </div>
-
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                                <label class="custom-control-label d-flex align-items-center justify-content-between"
-                                    for="customRadio3"><span>Personal Pickup</span><span>Free</span></label>
-                            </div>
-                        </div> --}}
-                    </div>
-
-                    <div class="col-12 col-lg-4">
-
+                <div class="row">
+                    <div class="col-12 col-lg-4 mx-auto"> <!-- Added mx-auto class -->
                         <div class="cart-total-area mt-70">
                             <div class="cart-page-heading">
-                                <h5>Cart total</h5>
-                                <p>Final info</p>
+                                <h5 style="text-align: center;">Cart total</h5>
+                                <p style="text-align: center;">Final info</p>
                             </div>
                             <ul class="cart-total-chart">
                                 <li>
@@ -316,39 +268,39 @@
                                 </li>
                             </ul>
 
-
-
-
-
-                            {{!-- <a href="/product-details?id={{this.id}}"><img src="/uploads/{{images.[0]}}"
-                                    alt="Image"></a> --}}
-
-
-                            <a href="/checkout?id={{this.id}}" class="btn karl-checkout-btn">Proceed to checkout</a>
+                            <a href="/checkout?id={{this.id}}" class="btn karl-checkout-btn ">Proceed to checkout</a>
                         </div>
                     </div>
-
                 </div>
 
             </div>
         </div>
+
+
+
+
         {{else}}
 
-        <div class="empty-cart-area section-padding-100">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="empty-cart-content text-center">
-                            <img src="img/core-img/empty-cart.jpg" alt="Empty Cart">
-                            <h4>Please add some products to your cart before checking out.</h4>
-                            <div class="empty-cart-btn">
-                                <a href="/home" class="btn karl-checkout-btn">Continue Shopping</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="empty-cart-area section-padding-100">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="empty-cart-content" style="text-align: center;">
+               <br>
+                 <br>
+            <img src="/img/core-img/empty-cart.jpg" alt="Empty Cart ">
+              <br>
+            <h4>Please add some products to your cart before checking out.</h4>
+            <br>
+              <br>
+            <div class="empty-cart-btn">
+              <a href="/home" class="btn karl-checkout-btn" style="background-color: crimson;">Continue Shopping</a>
             </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
         {{/if}}
 
 
@@ -460,43 +412,43 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  function changeQuantity(proId, count, userId, quantity) {
-    $.ajax({
-      url: "/change-product-quantity",
-      method: "post",
-      data: {
-        productId: proId,
-        count: count,
-        userId: userId,
-        quantity: quantity,
-      },
-      success: (response) => {
-        console.log(response);
-        if (response.deleteProduct) {
-          location.reload(); // Reload the page
-        } else {
-          console.log(response, 'ajax response');
-          const quantityInput = document.getElementById(`quantityInput_${proId}`);
-          quantityInput.value = response.quantity;
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function changeQuantity(proId, count, userId, quantity) {
+            $.ajax({
+                url: "/change-product-quantity",
+                method: "post",
+                data: {
+                    productId: proId,
+                    count: count,
+                    userId: userId,
+                    quantity: quantity,
+                },
+                success: (response) => {
+                    console.log(response);
+                    if (response.deleteProduct) {
+                        location.reload(); // Reload the page
+                    } else {
+                        console.log(response, 'ajax response');
+                        const quantityInput = document.getElementById(`quantityInput_${proId}`);
+                        quantityInput.value = response.quantity;
 
-          const productTotalElement = $('#productTotal_' + proId).find('.productTotal');
-          productTotalElement.text(response.productTotal);
+                        const productTotalElement = $('#productTotal_' + proId).find('.productTotal');
+                        productTotalElement.text(response.productTotal);
 
-          const productTotal = document.querySelector(`#productTotal_${proId}`);
-          productTotal.textContent = response.productTotal;
+                        const productTotal = document.querySelector(`#productTotal_${proId}`);
+                        productTotal.textContent = response.productTotal;
 
-          const subtotal = document.getElementById (`summary`);
-          subtotal.textContent = response.subtotal;
+                        const subtotal = document.getElementById(`summary`);
+                        subtotal.textContent = response.subtotal;
 
-          const summarySubtotal = document.getElementById(`summary-subtotal`);
-          summarySubtotal.textContent = response.subtotal;
+                        const summarySubtotal = document.getElementById(`summary-subtotal`);
+                        summarySubtotal.textContent = response.subtotal;
+                    }
+                }
+            });
         }
-      }
-    });
-  }
-</script>
+    </script>
 
 
 

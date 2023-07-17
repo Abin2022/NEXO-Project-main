@@ -75,13 +75,13 @@ router.get('/blocked-users', adminAuth.isLogin, adminController.blockedUsers);
    router.post('/update-coupon',couponController.updateCoupon)
    router.post('/change-coupon-status',couponController.changeCouponStatus)
 
-//    router.get('/salesPage',adminAuth.isLogin,adminController.loadSalesPage)
-// router.get('/getTodaySales',adminAuth.isLogin,adminController.getSalesToday)
-// router.get('/getWeekSales',adminAuth.isLogin,adminController.getWeekSales)
-// router.get('/getMonthlySales',adminAuth.isLogin,adminController.getMonthSales)
-// router.get('/getYearlySales',adminAuth.isLogin,adminController.getYearlySales)
-// router.post('/salesWithDate',adminController.salesWithDate)
-// router.get('/salesReport',adminAuth.isLogin,adminController.downloadSalesReport)
+   router.get('/sales-report-page',adminAuth.isLogin,adminController.salesReportPage)
+   router.get('/salesofToday',adminAuth.isLogin,adminController.salesofToday)
+   router.get('/WeekelySales',adminAuth.isLogin,adminController.getWeekSales)
+   router.get('/getMonthlySales',adminAuth.isLogin,adminController.getMonthSales)
+   router.get('/getYearlySales',adminAuth.isLogin,adminController.getYearlySales)
+router.post('/salesWithDate',adminController.salesWithDate)
+router.get('/salesReport',adminAuth.isLogin,adminController.downloadSalesReport)
 
 router.get('*',(req,res)=>{ 
     res.redirect('/admin')
