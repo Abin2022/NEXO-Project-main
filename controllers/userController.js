@@ -578,6 +578,10 @@ const  addToCart= async (req, res) => {
       console.log(proId,"is here");
             
       let cart = await Cart.findOne({ user_id: req.session.user_id });
+      const product = await Product.findById(proId).lean();
+      if (product.inStock < 1) {
+        return res.status(400).json({ message: "product is out of stock" });
+      }
     
       if (!cart) {
         let newCart = new Cart({ user_id: req.session.user_id, products: [] });
@@ -598,13 +602,24 @@ const  addToCart= async (req, res) => {
           quantity: 1,
           total, 
         });
-      } else {
+      } 
+
+      
+      
+      else {
         cart.products[existingProductIndex].quantity += 1;
         const product = await Product.findById(proId).lean();
 
-        // Update the total by adding the price of the product
-        cart.products[existingProductIndex].total += product.price; 
+
+        const existingProduct = cart.products[existingProductIndex];
+        if (existingProduct.quantity + 1 > product.inStock) {
+          return res.status(400).json({ message: "stock limit reached" });
+        }
+        cart.products[existingProductIndex].quantity += 1;
+        cart.products[existingProductIndex].total += product.price; // Update the total by adding the price of the product
       }
+
+        
 
       // Calculate the updated total amount for the cart
       cart.total = cart.products.reduce((total, product) => {
@@ -704,16 +719,31 @@ const getCart=async(req,res)=>{
         const productId = new mongoose.Types.ObjectId(req.body.productId);
         const quantity = req.body.quantity;
 
-        console.log("Hello there",userId,productId,quantity);
 
         const cartFind = await Cart.findOne({user_id: userId});
         const cartId = cartFind._id;
         const count = req.body.count;
-        console.log(userId, "userId");
-        console.log(productId, 'productid');
-        console.log(quantity, 'quantity');
-        console.log(cartId, 'cartId');
-        console.log(count, 'count');
+
+
+
+        const productsData = await Product.findById(productId);
+
+        const findProduct = cartFind.products.find((product) =>
+          product.productId._id.equals(productId)
+        );
+  
+        const sumProductQuantityAndCount =
+          parseInt(findProduct.quantity) + parseInt(count);
+  
+        if (sumProductQuantityAndCount > productsData.inStock) {
+          const response = { outOfStock: true };
+          res.send(response);
+          return response;
+        }
+       
+
+
+
 
         // Find the cart for the given user and product
         const cart = await Cart.findOneAndUpdate(
@@ -725,7 +755,6 @@ const getCart=async(req,res)=>{
         // Update the total for the specific product in the cart
         const updatedProduct = cart.products.find(product => product.productId._id.equals(productId));
         updatedProduct.total = updatedProduct.productId.price * updatedProduct.quantity;
-        console.log("getttttttt",updatedProduct.total);
         productTotal= updatedProduct.total
         await cart.save();
 

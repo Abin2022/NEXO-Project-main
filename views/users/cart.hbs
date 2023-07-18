@@ -413,6 +413,7 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function changeQuantity(proId, count, userId, quantity) {
             $.ajax({
@@ -428,7 +429,12 @@
                     console.log(response);
                     if (response.deleteProduct) {
                         location.reload(); // Reload the page
-                    } else {
+                    } 
+                    else if (response.outOfStock) {
+                     console.log("out of stock");
+                     showOutOfStockAlert();
+                      }
+                    else {
                         console.log(response, 'ajax response');
                         const quantityInput = document.getElementById(`quantityInput_${proId}`);
                         quantityInput.value = response.quantity;
@@ -445,10 +451,46 @@
                         const summarySubtotal = document.getElementById(`summary-subtotal`);
                         summarySubtotal.textContent = response.subtotal;
                     }
-                }
+                },
+                   error: (xhr, status, error) => {
+        swal("Error", "An error occurred while changing the product quantity.", "error");
+        console.error(xhr.responseText);
+      }
             });
         }
-    </script>
+        
+   
+     function showOutOfStockAlert() {
+    Swal.fire({
+      title: "Out of Stock",
+      text: "This product is currently out of stock.",
+      icon: "warning",
+      showCancelButton: false,
+      confirmButtonColor: "#000000",
+      confirmButtonText: "OK",
+      customClass: {
+        container: "swal-container",
+        title: "swal-title",
+        text: "swal-text",
+        confirmButton: "swal-button"
+      },
+      onOpen: () => {
+        // Set the text color to white
+        const swalContainer = document.querySelector(".swal-container");
+        swalContainer.style.color = "white";
+
+        // Remove the border from the OK button
+        const okButton = document.querySelector(".swal-button");
+        okButton.style.border = "none";
+      }
+    });
+  }
+  </script>
+
+
+
+
+
 
 
 

@@ -80,14 +80,46 @@ const verifyLogin = async(req,res)=>{
 }
 
 
-const loadDashboard=async(req,res)=>{
-    try{
-        User.findById({_id:req.session.user_id})
-     res.render('admin/home')
-    }catch(error){
-     console.log(error.message);
-    }
+// const loadDashboard=async(req,res)=>{
+//     try{
+
+
+//         User.findById({_id:req.session.user_id})
+//      res.render('admin/home')
+//     }catch(error){
+//      console.log(error.message);
+//     }
+// }
+
+
+const loadDashboard = async (req, res) => {
+  try {
+    User.findById({_id:req.session.user_id})
+    const dashBoardDetails = await adminHelpers.loadingDashboard(req, res)
+
+    const orderDetails = await adminHelpers.OrdersList(req,res)
+
+    const totalUser = dashBoardDetails.totaluser;
+    const totalSales = dashBoardDetails.totalSales;
+    const salesbymonth = dashBoardDetails.salesbymonth
+    const paymentMethod = dashBoardDetails.paymentMethod;
+    const yearSales = dashBoardDetails.yearSales
+    const todaySales = dashBoardDetails.todaySales
+   
+   let sales=encodeURIComponent(JSON.stringify(salesbymonth))
+
+  //  console.log(sales,'sales');
+
+    res.render('admin/home', { totalUser,todaySales:todaySales[0] ,totalSales:totalSales[0], salesbymonth:encodeURIComponent(JSON.stringify(salesbymonth)) ,paymentMethod:encodeURIComponent(JSON.stringify(paymentMethod)),yearSales:yearSales[0],orderDetails:orderDetails })
+  } catch (error) {
+    console.log(error.message)
+    res.redirect('/admin/error')
+  }
 }
+
+
+
+
 
 const adminLogout = async(req,res)=>{
     try{
@@ -106,9 +138,10 @@ const adminLogout = async(req,res)=>{
       }));
       const categories = await Category.find().lean();
       res.render("admin/add-products", {
-        // layout: "admin-layout",
+        
         products: productWithSerialNumber,
         categories: categories,
+
       });
     } catch (error) {
       console.log(error.message);
@@ -129,6 +162,7 @@ const adminLogout = async(req,res)=>{
         category: req.body.category,
         price: req.body.price,
         images: arrayImage,
+        inStock: req.body.stock,
         // images: req.file.filename,
         // images: req.files.map(file => file.filename),
         description: req.body.description,
@@ -182,27 +216,20 @@ const editProduct = async (req, res) => {
     });
  
     // Define the lookupCategory helper function
-    const lookupCategory = function (categoryId) {
-      console.log("categoryId:", categoryId);
-      console.log("categoryLookup:", categoryLookup);
-      return categoryLookup[categoryId];
+    // const lookupCategory = function (categoryId) {
       
-    };
+    //   return categoryLookup[categoryId];
+      
+    // };
 
     const updatedProduct = await Product.findById(id).lean();
-    console.log(lookupCategory(updatedProduct.category), "lookupCategory");
-    console.log(categoryLookup);
-    console.log(updatedProduct.category);
-    console.log(updatedProduct);
-    console.log("updatedProduct.category:", updatedProduct.category);
-    console.log("categoryLookup keys:", Object.keys(categoryLookup));
+ 
 
     if (updatedProduct) {
       const productWithCategoryName = {
         ...updatedProduct,
         category: updatedProduct.category,
       };
-      // console.log("Naduttyy" ,(updatedProduct.category));
       res.render("admin/edit-product", {
         product: productWithCategoryName,
         categories: categoryData,
@@ -260,41 +287,47 @@ const deleteimg = async (req, res) => {
 
 
 
-// console.log(product);
 
-
-const updateProduct = async (req, res) => {
-  console.log("Entered into updateProduct.....");
+const updateProduct = async (req,res) => {
   try {
-    console.log("UpdateProduct", req.files);
-
-    // Now, you should be able to access the uploaded files in req.files["image"]
-    const files = req.files["image"];
-    if (!files || !Array.isArray(files) || files.length === 0) {
-      throw new Error("No files were uploaded or invalid file data.");
+    var arrayImage =[]
+    for (let i = 0; i < req.files.length; i++) {
+      arrayImage[i] = req.files[i].filename;
     }
 
-    var arrayImage = files.map(file => file.filename);
-    console.log(arrayImage, "arrayImage");
+    const existingProduct = await Product.findById(req.query.id);
 
-    const id = req.body.id;
+  
+    const id = req.query.id; // Get the product ID from the request body
+    console.log(req.body)
+    // Create an object with the updated product data
     const updatedProduct = {
-      brand: req.body.brand,
-      productname: req.body.productname,
-      category: req.body.category,
-      price: req.body.price,
-      images: arrayImage,
-      description: req.body.description,
+           brand: req.body.brand,
+            productname: req.body.productname,
+            category: req.body.category,
+            price: req.body.price,      
+            inStock: req.body.stock,
+            description: req.body.description,
+           // images: arrayImage,
+           images: existingProduct.images
+      
     };
 
-    console.log("updatedProduct", updatedProduct);
-    await Product.findByIdAndUpdate(id, updatedProduct);
-    res.redirect("/admin/home");
+
+    const updatedData = 
+
+    await Product.findByIdAndUpdate(
+      { _id: id },
+      { $set: updatedProduct }
+    );
+
+    
+      res.redirect("/admin/add-products");
+    
   } catch (error) {
     console.log(error.message);
   }
 };
-
 
 
 

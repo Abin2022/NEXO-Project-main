@@ -231,6 +231,7 @@
                                 <th scope="col">BRAND</th>
                                 <th scope="col">PRODUCT</th> 
                                 <th scope="col">CATEGORY</th>
+                                <th scope="col">STOCK</th>
                                 <th scope="col">PRICE</th>
                                  <th scope="col">IMAGE</th>
                                   <th scope="col">DESCRIPTION</th>
@@ -247,6 +248,7 @@
                                 <td class="align-middle">{{brand}}</td>
                                 <td class="align-middle">{{productname}}</td>
                                  <td class="align-middle">{{category}}</td>
+                                  <td class="align-middle">{{inStock}}</td>
                                 <td class="align-middle">₹{{price}}</td>
                                 <td class="align-middle" ><img src="/uploads/{{images.[0]}}" alt="image" width="50px" height="50px"></td>
                                 <td class="align-middle">{{description}}</td>
@@ -307,6 +309,10 @@
                             {{/each}}
                         </select>
                     </div>
+                     <div class="mb-3">
+                        <label for="stock" class="form-label">STOCK</label>
+                        <input type="number" name="stock" class="form-control" required oninput="validateStock(this)">
+                        </div>
                      <div class="mb-3">
                          <label for="price" class="form-label">PRICE</label>
                         <input type="number" name="price" class="form-control" required>

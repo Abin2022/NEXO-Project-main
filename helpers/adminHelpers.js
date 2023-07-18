@@ -4,9 +4,194 @@ const moment = require("moment-timezone")
 const pdfPrinter = require("pdfmake");
 var path = require('path');
 const fs = require('fs')
-
+const User = require("../models/userModel")
 module.exports={
 
+
+    loadingDashboard: async (req, res) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const users = await User.find({}).lean().exec();
+                const totaluser = users.length - 1;
+
+                const totalSales = await Order.aggregate([
+                    {
+                        $match: {
+                            orderStatus: { $nin: ["cancelled"] },
+
+                        },
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            totalSum: { $sum: "$orderValue" },
+                        },
+                    },
+                ]);
+
+                const salesbymonth = await Order.aggregate([
+                    {
+                        $match: {
+                            orderStatus: { $nin: ["cancelled"] },
+                        },
+                    },
+                    {
+                        $group: {
+                            _id: { $month: "$date" },
+                            totalSales: { $sum: "$orderValue" },
+                        },
+                    },
+                    {
+                        $sort: {
+                            _id: 1,
+                        },
+                    },
+                ]);
+
+                const paymentMethod = await Order.aggregate([
+                    {
+                        $match: {
+                            orderStatus: { $in: ["Placed", "Delivered", "Shipped"] }, // Exclude "cancelled" status
+                        },
+                    },
+                    {
+                        $group: {
+                            _id: "$paymentMethod", // Group by paymentMethod only
+                            totalOrderValue: { $sum: "$orderValue" },
+                            count: { $sum: 1 },
+                        },
+                    },
+                ]);
+
+                const currentYear = new Date().getFullYear();
+                const previousYear = currentYear - 1;
+
+                const yearSales = await Order.aggregate([
+                    // Match orders within the current year or previous year
+                    {
+                        $match: {
+                            orderStatus: { $nin: ["cancelled"] },
+                            date: {
+                                $gte: new Date(`${previousYear}-01-01`),
+                                $lt: new Date(`${currentYear + 1}-01-01`),
+                            },
+                        },
+                    },
+                    // Group orders by year and calculate total sales
+                    {
+                        $group: {
+                            _id: {
+                                $year: "$date",
+                            },
+                            totalSales: {
+                                $sum: "$orderValue",
+                            },
+                        },
+                    },
+                ])
+                    .exec();
+
+
+                // to get today sales
+
+                // console.log(yearSales, 'yearSales');
+
+                const todaysalesDate = new Date();
+                const startOfDay = new Date(
+                    todaysalesDate.getFullYear(),
+                    todaysalesDate.getMonth(),
+                    todaysalesDate.getDate(),
+                    0,
+                    0,
+                    0,
+                    0
+                );
+                const endOfDay = new Date(
+                    todaysalesDate.getFullYear(),
+                    todaysalesDate.getMonth(),
+                    todaysalesDate.getDate(),
+                    23,
+                    59,
+                    59,
+                    999
+                );
+
+                const todaySales = await Order.aggregate([
+                    {
+                        $match: {
+                            orderStatus: { $in: ["pending", "Delivered", "Placed", "Shipped"] },
+
+                            date: {
+                                $gte: startOfDay, // Set the current date's start time
+                                $lt: endOfDay,
+                            },
+                        },
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            totalAmount: { $sum: "$orderValue" },
+                        },
+                    },
+                ]);
+
+                const dashBoardDetails = {
+                    totaluser,
+                    totalSales,
+                    salesbymonth,
+                    paymentMethod,
+                    yearSales,
+                    todaySales
+                }
+
+                resolve(dashBoardDetails)
+
+
+
+            } catch (error) {
+                reject(error)
+            }
+        })
+
+    },
+
+
+
+    OrdersList: async (req, res) => {
+        try {
+            const userId = req.session.user_id;
+            const { paymentMethod, orderStatus } = req.query;
+            let query = { userId };
+    
+            // Apply filters if provided
+            if (paymentMethod) {
+                query.paymentMethod = paymentMethod;
+            }
+            if (orderStatus) {
+                query.orderStatus = orderStatus;
+            }
+
+            let orderDetails = await Order.find(query).populate('userId').lean();
+
+            // Reverse the order of transactions
+            orderDetails = orderDetails.reverse();
+
+            const orderHistory = orderDetails.map(history => {
+                let createdOnIST = moment(history.date)
+                    .tz('Asia/Kolkata')
+                    .format('DD-MM-YYYY h:mm A');
+
+                return { ...history, date: createdOnIST, userName: history.userId.name };
+            });
+
+
+            return orderHistory
+        } catch (error) {
+            console.log(error.message)
+            res.redirect('/admin/errorPage')
+        }
+    },
+   
 
     orderSuccess: () => {
         return new Promise(async (resolve, reject) => {

@@ -45,10 +45,7 @@ router.get('/otp',userControllers.getOtp)
 router.post('/sendOtp',userControllers.sendOtp)
 router.post('/verifyOtp',userControllers.verifyOtp)
 
-
-
-
- router.get('/product-details',auth.isLogin,userControllers.singleProductDetails)
+   router.get('/product-details',auth.isLogin,userControllers.singleProductDetails)
 
    router.get('/profile',auth.isLogin,userControllers.profilePage)
    router.post('/edit-user',userUpload.single('image'),userControllers.editUser);
@@ -57,7 +54,7 @@ router.post('/verifyOtp',userControllers.verifyOtp)
    router.post('/address',userControllers.addAddress);
    router.post('/set-as-default',userControllers.setAsDefault);
    router.get('/delete-address',auth.isLogin,userControllers.deleteAddress);
-router.post('/edit-address',userControllers.editAddress);
+   router.post('/edit-address',userControllers.editAddress);
 
 
 // router.post('/editCheckoutAddress ',userControllers.editCheckoutAddress);
@@ -69,25 +66,20 @@ router.post('/edit-address',userControllers.editAddress);
  router.get('/delete-address-checkout',auth.isLogin,userControllers.deleteAddressCheckout);
  router.post('/update-address',userControllers.editAddressCheckout);
 
-
-//wallet
- router.get('/wallet-placed',auth.isLogin,userControllers.walletOrder)
- // in checkout page
- router.post('/place-order',auth.isLogin,userControllers.placeOrder)
+  //wallet
+  router.get('/wallet-placed',auth.isLogin,userControllers.walletOrder)
+  router.post('/place-order',auth.isLogin,userControllers.placeOrder)
   router.get('/orderPlaced',auth.isLogin,userControllers.orderPlaced);
   router.get('/orderFailed',auth.isLogin,userControllers.orderFailed)
-  
   router.post('/verify-payment',auth.isLogin,userControllers.verifyPayment)
 
 
-
- router.get('/order-details',auth.isLogin,userControllers.orderDetails)
-  router.get('/ordersView',auth.isLogin,userControllers.loadOrdersView)
+   router.get('/order-details',auth.isLogin,userControllers.orderDetails)
+   router.get('/ordersView',auth.isLogin,userControllers.loadOrdersView)
    router.post('/cancel-order',userControllers.cancelOrder)
    router.post('/undo-cancel',userControllers.undoCancel)
- router.post("/return-order", auth.isLogin,userControllers.returnOrder);
- router.get('/download/order/:orderId',auth.isLogin,userControllers.downloadInvoice)
-
+   router.post("/return-order", auth.isLogin,userControllers.returnOrder);
+   router.get('/download/order/:orderId',auth.isLogin,userControllers.downloadInvoice)
 
 
  router.post('/addtocart',auth.isLogin,userControllers.addToCart)

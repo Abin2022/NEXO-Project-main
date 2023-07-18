@@ -1,146 +1,85 @@
-  <style>
-    /* Custom styles for the header */
-    .main_header_area {
-      background-color: #343a40;
-      padding: 10px 0;
-    }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    .main_header_area a {
-      color: #fff;
-      text-decoration: none;
-    }
+<script> 
+function addToCart(productId, event) {
+  event.preventDefault(); // Prevent the default behavior of the <a> tag
 
-    .main_header_area a:hover {
-      color: #333;
-      background-color: #444;
-    }
-
-    .header-social-area img {
-      width: 150px;
-      height: 80px;
-      margin-right: 15px;
-    }
-
-    .navbar-toggler {
-      border: none;
-      background-color: transparent;
-      padding: 0;
-    }
-
-    .navbar-toggler .navbar-toggler-icon {
-      font-size: 24px;
-      color: #fff;
-    }
-
-    .collapse.navbar-collapse {
-      background-color: #333;
-      padding: 10px;
-    }
-
-    .navbar-nav li {
-      margin: 0 10px;
-    }
-
-    /* Custom styles for nav-links */
-    .navbar-nav .nav-item {
-      position: relative;
-    }
-
-    .navbar-nav .nav-item:before {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -5px;
-      left: 50%;
-      background-color: #fff;
-      transition: width 0.3s ease;
-    }
-
-    .navbar-nav .nav-item:hover:before {
-      width: 100%;
-      left: 0;
-    }
-
-    .navbar-nav .nav-link {
-      padding: 10px 20px;
-    }
-
-    @media (max-width: 768px) {
-      .main-menu-area {
-        display: none;
-      }
-
-      .collapse.navbar-collapse.show {
-        display: block;
-      }
-
-      .navbar-nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .navbar-nav li {
-        margin: 5px 0;
+  // Send an AJAX request to the server
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/add-cart', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        // Handle the server response here (if needed)
+        showSuccessAlert();
+      } else if (xhr.status === 400) {
+        console.log('status is 400 ')
+        // Product is out of stock
+        showOutOfStock() 
+      } else {
+        // Other server errors
+        swal("Error", "An error occurred while adding the product to cart.", "error");
       }
     }
-  </style>
-</head>
-<body>
-  <div class="main_header_area">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 d-md-flex justify-content-between">
-          <!-- Header Social Area -->
-          <div class="header-social-area">
-            <a href="#"><img src="/img/core-img/NEXO.png" alt="Nexo"></a>
-          </div>
+  };
+  xhr.onerror = function() {
+    console.log("Request error");
+  };
 
-          <!-- Menu Area -->
-          <div class="main-menu-area">
-            <nav class="navbar navbar-expand-lg align-items-start">
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#karl-navbar"
-                aria-controls="karl-navbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"><i class="ti-menu"></i></span>
-              </button>
-              <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
-                <ul class="navbar-nav animated" id="nav">
-                  <li class="nav-item active"><a class="nav-link" href="/home">Home</a></li>
-                  <li class="nav-item active"><a class="nav-link" href="/mobile">Mobile</a></li>
-                  <li class="nav-item active"><a class="nav-link" href="/laptop">Laptop</a></li>
-                  <li class="nav-item active"><a class="nav-link" href="/shop">Shop</a></li>
-                  <li class="nav-item active"><a class="nav-link" href="/order-details">Orders</a></li>
-                  <li class="nav-item active"><a class="nav-link" href="/cart">Cart <i class="ti-bag"></i></a></li>
-                  <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
-                </ul>
-              </div>
-            </nav>
-          </div>
-
-          <!-- Help Line -->
-          <div class="help-line">
-            <a href="/logout">LOGOUT</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
-
-    </div>
-    <style>
-       
-        .add-to-cart-btn {
-            background-color: #your-color;
-            color: #your-color-text;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-           
-        }
-        .button-container {
-    display: flex;
-    justify-content: center;
+  xhr.send(JSON.stringify({ productId: productId }));
 }
-    </style>
+</script>
+<script>
+function showSuccessAlert() {
+  Swal.fire({
+    title: "Success",
+    text: "Product added to cart!",
+    icon: "success",
+    showCancelButton: false,
+    confirmButtonColor: "#000000",
+    confirmButtonText: "OK",
+    customClass: {
+      container: "swal-container",
+      title: "swal-title",
+      text: "swal-text",
+      confirmButton: "swal-button"
+    },
+    onOpen: () => {
+      // Set the text color to white
+      const swalContainer = document.querySelector(".swal-container");
+      swalContainer.style.color = "white";
+
+      // Remove the border from the OK button
+      const okButton = document.querySelector(".swal-button");
+      okButton.style.border = "none";
+    }
+  });
+}
+
+function showOutOfStock() {
+  Swal.fire({
+    title: "Out of Stock",
+    text: "This product is currently out of stock.",
+    icon: "error",
+    showCancelButton: false,
+    confirmButtonColor: "#000000",
+    confirmButtonText: "OK",
+    customClass: {
+      container: "swal-container",
+      title: "swal-title",
+      text: "swal-text",
+      confirmButton: "swal-button"
+    },
+    onOpen: () => {
+      // Set the text color to white
+      const swalContainer = document.querySelector(".swal-container");
+      swalContainer.style.color = "white";
+
+      // Remove the border from the OK button
+      const okButton = document.querySelector(".swal-button");
+      okButton.style.border = "none";
+    }
+  });
+}
+</script>

@@ -37,6 +37,45 @@
 
 
 
+<style>
+    /* Mobile Menu Styles */
+    .navbar-toggler {
+        display: none;
+        /* Hide the toggler button on larger screens */
+    }
+
+    .navbar-nav {
+        display: flex;
+        /* Arrange the menu items horizontally */
+        justify-content: space-between;
+        /* Distribute menu items evenly */
+        background-color: #f9f9f9;
+        /* Set a background color for the mobile menu */
+        padding: 15px;
+        /* Add padding to the mobile menu */
+    }
+
+    .navbar-nav .nav-item {
+        margin: 0;
+        /* Remove margin between menu items */
+    }
+
+    .navbar-nav .nav-link {
+        padding: 10px 15px;
+        /* Add padding to menu links */
+    }
+
+    /* Hide the mobile menu on larger screens */
+    @media (min-width: 992px) {
+        .navbar-nav {
+            display: flex;
+            justify-content: flex-end;
+            /* Align menu items to the right */
+            background-color: transparent;
+            padding: 0;
+        }
+    }
+</style>
 
 
 
@@ -62,69 +101,59 @@
     <!-- Top Header Area End -->
     {{!-- <div class="list-group mb-3 sticky-top"> --}}
         <div class="main_header_area">
-
-
-
             <div class="container h-100">
                 <div class="row h-100">
                     <div class="col-12 d-md-flex justify-content-between">
                         <!-- Header Social Area -->
                         <div class="header-social-area">
-                            {{!-- <li class="nav-item active"> <a href="#"><img src="/img/logo/nexo2235.jpg" style="width:150px" style="height: 80px;" alt="Nexo"></a> --}}
-                         <li class="nav-item active"> <a href="#"><img src="/img/logo/1.png" style="width:150px" style="height: 80px;" alt="Nexo"></a>
-
-                            </li>
-
+                            <a href="#"><img src="img/logo/1.png" style="width:150px; height:80px;" alt="Nexo"></a>
                         </div>
+
+                        {{!-- <div class="main-menu-area">
+                            <div class="mobile-menu">
+                                <!-- Your existing menu content goes here -->
+                                <!-- ... -->
+                            </div>
+                            <nav class="navbar navbar-expand-lg align-items-start">
+                                <!-- ... -->
+                            </nav>
+                        </div> --}}
+
+
+
+
                         <!-- Menu Area -->
                         <div class="main-menu-area">
-                            <nav class="navbar navbar-expand-lg align-items-start">
+                            <div class="mobile-menu">
 
-                                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                    data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false"
-                                    aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i
-                                            class="ti-menu"></i></span></button>
-                                <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
+                                <nav class="class=navbar navbar-expand-lg align-items-start">
                                     <ul class="navbar-nav animated" id="nav">
-                                      
-
-
                                         <li class="nav-item active"><a class="nav-link" href="/home"> Home</a></li>
-
-                                        <li class="nav-item active"><a class="nav-link" href="/mobile">MOBILE</a>
-                                        </li>
-                                        <li class="nav-item active"><a class="nav-link" href="/laptop">LAPTOP</a>
-                                        </li>
-
+                                        <li class="nav-item active"><a class="nav-link" href="/mobile">MOBILE</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="/laptop">LAPTOP</a></li>
                                         <li class="nav-item active"><a class="nav-link" href="/shop">SHOP</a></li>
                                         <li class="nav-item active"><a class="nav-link" href="/order-details">Orders</a>
                                         </li>
-
-
-
                                         <li class="nav-item active"> <a class="nav-link" href="/cart">Cart<i
                                                     class="ti-bag"></i> </a></li>
-
                                         <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
                                     </ul>
-                                </div>
-                            </nav>
+                                </nav>
+                            </div>
                         </div>
-                        <!-- Help Line -->
 
+                        <!-- Help Line -->
                         <div class="help-line">
                             <a href="/logout">LOGOUT</a>
                         </div>
-
                     </div>
                 </div>
             </div>
-            {{!--
-        </div> --}}
+        </div>
+
 
     </div>
     <style>
-       
         .add-to-cart-btn {
             background-color: #your-color;
             color: #your-color-text;
@@ -132,12 +161,13 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-           
+
         }
+
         .button-container {
-    display: flex;
-    justify-content: center;
-}
+            display: flex;
+            justify-content: center;
+        }
     </style>
 
     </header>
@@ -224,11 +254,13 @@
                         {{!-- <h2 style="text-align: center;">{{ this.brand }}</h2> --}}
                         <h6 style="text-align: center;">{{this.productname}}</h6>
                         <h6 style="text-align: center;">Price: ₹{{this.price}}</h6>
-                       
-                        {{!-- <button  class="add-to-cart-btn" onclick="addToCart('{{this._id}}', event); showSweetAlert()">Add  to cart</button> --}}
-                       <div class="button-container">
-    <button class="add-to-cart-btn" onclick="addToCart('{{this._id}}', event); showSweetAlert()">Add to cart</button>
-</div>
+
+                        {{!-- <button class="add-to-cart-btn"
+                            onclick="addToCart('{{this._id}}', event); showSweetAlert()">Add to cart</button> --}}
+                        <div class="button-container">
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('{{this._id}}', event); showSweetAlert()">Add to cart</button>
+                        </div>
 
                     </div>
                 </div>
@@ -261,6 +293,7 @@
             <div class="row karl-new-arrivals">
                 {{#each Product}}
                 {{#if (eq this.category 'LAPTOP')}}
+
                 <!-- Single gallery Item Start -->
                 <div class="col-12 col-sm-6 col-md-4 single_gallery_item women wow fadeInUpBig" data-wow-delay="0.2s">
                     <!-- Product Image -->
@@ -278,9 +311,10 @@
                         {{!-- <h2>{{ this.brand }}</h2> --}}
                         <h6 style="text-align: center;">{{this.productname}}</h6>
                         <h6 style="text-align: center;"> Price: ₹{{this.price}}</h6>
-                                           <div class="button-container">
-    <button class="add-to-cart-btn" onclick="addToCart('{{this._id}}', event); showSweetAlert()">Add to cart</button>
-</div>
+                        <div class="button-container">
+                            <button class="add-to-cart-btn"
+                                onclick="addToCart('{{this._id}}', event); showSweetAlert()">Add to cart</button>
+                        </div>
                     </div>
                 </div>
 
@@ -376,20 +410,33 @@
 
 
     <script>
-                      function addToCart(productId, event) {
-                          event.preventDefault(); // Prevent the default behavior of the <a> tag
+                            function addToCart(productId, event) {
+                                event.preventDefault(); // Prevent the default behavior of the <a> tag
 
-                              // Send an AJAX request to the server
-                              const xhr = new XMLHttpRequest();
-                              xhr.open('POST', '/addtocart', true);
-                              xhr.setRequestHeader('Content-Type', 'application/json');
-                              xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-                              // Handle the server response here (if needed)
-                              swal("Success", "Product added to cart!", "success");
+                                    // Send an AJAX request to the server
+                                    const xhr = new XMLHttpRequest();
+                                    xhr.open('POST', '/addtocart', true);
+                                    xhr.setRequestHeader('Content-Type', 'application/json');
+                                    xhr.onreadystatechange = function () {
+                                   if (xhr.readyState === 4){ 
+                                    if(xhr.status === 200) {
+                                                 // Handle the server response here (if needed)
+                                    showSuccessAlert();
+                                     } else if (xhr.status === 400) {
+                                    console.log('status is 400 ')
+                                       // Product is out of stock
+                                         showOutOfStock() 
+                                     } else {
+                                    // Other server errors
+                                    swal("Error", "An error occurred while adding the product to cart.", "error");
+      }
     }
   };
-                          xhr.send(JSON.stringify({productId: productId }));
+                                xhr.onerror = function() {
+                                    console.log("Request error");
+  
+  };
+                                xhr.send(JSON.stringify({productId: productId }));
 }
     </script>
 
@@ -398,29 +445,59 @@
 
 
     <script>
-                          function showSweetAlert() {
-                              Swal.fire({
-                                  title: "Success",
-                                  text: "Product added to cart!",
-                                  icon: "success",
-                                  showCancelButton: false,
-                                  confirmButtonColor: "#FF0000",
-                                  confirmButtonText: "OK",
-                                  customClass: {
-                                      container: "swal-container",
-                                      title: "swal-title",
-                                      content: "swal-text",
-                                      confirmButton: "swal-button"
-                                  },
-                                  onOpen: () => {
-                                      // Set the text color to white
-                                      const swalContainer = document.querySelector(".swal-container");
-                                      swalContainer.style.color = "white";
+                                function showSweetAlert() {
+                                    Swal.fire({
+                                        title: "Success",
+                                        text: "Product added to cart!",
+                                        icon: "success",
+                                        showCancelButton: false,
+                                        confirmButtonColor: "#FF0000",
+                                        confirmButtonText: "OK",
+                                        customClass: {
+                                            container: "swal-container",
+                                            title: "swal-title",
+                                            content: "swal-text",
+                                            confirmButton: "swal-button"
+                                        },
+                                        onOpen: () => {
+                                            // Set the text color to white
+                                            const swalContainer = document.querySelector(".swal-container");
+                                            swalContainer.style.color = "white";
 
-                                      // Remove the border from the OK button
-                                      const okButton = document.querySelector(".swal-button");
-                                      okButton.style.border = "none";
-                                  }
-                              });
-}
+                                            // Remove the border from the OK button
+                                            const okButton = document.querySelector(".swal-button");
+                                            okButton.style.border = "none";
+                                        }
+                                    });
+                                }
+
+
+                              
+function showOutOfStock() {
+  Swal.fire({
+    title: "Out of Stock",
+    text: "This product is currently out of stock.",
+    icon: "error",
+    showCancelButton: false,
+    confirmButtonColor: "#000000",
+    confirmButtonText: "OK",
+    customClass: {
+      container: "swal-container",
+      title: "swal-title",
+      text: "swal-text",
+      confirmButton: "swal-button"
+    },
+    onOpen: () => {
+      // Set the text color to white
+      const swalContainer = document.querySelector(".swal-container");
+      swalContainer.style.color = "white";
+
+      // Remove the border from the OK button
+      const okButton = document.querySelector(".swal-button");
+      okButton.style.border = "none";
+    }
+  });
+}  
+                  
+
     </script>

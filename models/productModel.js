@@ -39,7 +39,11 @@ const productSchema = new Schema({
   Subtotal:{
     type:Number,
     // required:true,
-  }
+  },
+  inStock: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Products = mongoose.model("Product", productSchema);
