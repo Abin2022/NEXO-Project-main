@@ -3,7 +3,6 @@
 
 
 {{!-- header --}}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,18 +64,9 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/stylesheets/themify-icons.css"> --}}
 
-
-
-
-
-
 </head>
 
 <body>
-
-
-
-
     <div id="wrapper">
 
         <!-- Top Header Area End -->
@@ -86,11 +76,7 @@
                     <div class="col-12 d-md-flex justify-content-between">
                         <!-- Header Social Area -->
                         <div class="header-social-area">
-                            {{!-- <span class="karl-level">Share</span> --}}
-                            <a href="#"> <i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="#"><img src="img/logo/1.png" style="width:150px; height:80px;" alt="Nexo"></a>
                         </div>
                         <!-- Menu Area -->
                         <div class="main-menu-area">
@@ -102,45 +88,15 @@
                                             class="ti-menu"></i></span></button>
                                 <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
                                     <ul class="navbar-nav animated" id="nav">
-
-
-                                        <li class="nav-item active"> <a href="#"><img src="img/core-img/logo.png"
-                                                    alt=""></a></li>
-
-
                                         <li class="nav-item active"><a class="nav-link" href="/home"> Home</a></li>
-                                        {{!-- <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="karlDropdown" role="button"
-                                                data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">Pages</a>
-                                            <div class="dropdown-menu" aria-labelledby="karlDropdown">
-
-                                                <a class="dropdown-item" href="shop.html">Shop</a>
-                                                <a class="dropdown-item" href="product-details.html">Product Details</a>
-                                                <a class="dropdown-item" href="/cart">Cart</a>
-                                                <a class="dropdown-item" href="checkout.html">Checkout</a>
-                                            </div>
-                                        </li> --}}
-                                        {{!-- <li class="nav-item active"><a class="nav-link" href="#">Mobiles</a></li>
-                                        <li class="nav-item active"><a class="nav-link" href="#"> Laptops</a></li> --}}
+                                        <li class="nav-item dropdown">
+                                        <li class="nav-item active"><a class="nav-link" href="/mobile">Mobiles</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="/laptop"> Laptops</a></li>
                                         <li class="nav-item active"><a class="nav-link" href="/shop">SHOP</a></li>
-
-                                        {{!-- <li class="nav-item"><a class="nav-link" href="/checkout">Checkout</a>
-                                        </li> --}}
-                                        {{!-- <span class="karl-level">hot</span> --}}
-                                        <li class="nav-item"><a class="nav-link" href="/order-details">orders</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="/order-details">Orders</a></li>
                                         <li class="nav-item active"><a class="nav-link" href="/cart">Cart<i
                                                     class="ti-bag"></i> </a>
-
                                         <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
-
-                                        <a href="#" id="header-cart-btn" target="_blank"> <i class="ti-bag"></i> </a>
-
-
-                                        </li>
-                                        {{!-- <li class="nav-item"><a class="nav-link" href="#">Whishlist</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#">Account</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li> --}}
                                     </ul>
                                 </div>
                             </nav>
@@ -148,7 +104,6 @@
                         <!-- Help Line -->
 
                         <div class="help-line">
-                            {{!-- <i class="ti-headphone-alt"></i> --}}
                             <a href="/logout">LOGOUT</a>
                         </div>
 
@@ -157,31 +112,36 @@
             </div>
         </div>
         </header>
+        <!-- ****** Header Area End ****** -->
 
 
 
 
-        <!-- ****** Top Discount Area Start ****** -->
-        <section class="top-discount-area d-md-flex align-items-center">
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>Free Shipping &amp; Returns</h5>
-                <h6><a href="#">BUY NOW</a></h6>
-            </div>
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>20% Discount for all dresses</h5>
-                <h6>USE CODE: mycoupon</h6>
-            </div>
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>20% Discount for students</h5>
-                <h6>USE CODE: Colorlib</h6>
-            </div>
-        </section>
-        <!-- ****** Top Discount Area End ****** -->
 
 
+<!-- ****** Top Discount Area Start ****** -->
+    <section class="top-discount-area d-md-flex align-items-center">
+        <!-- Single Discount Area -->
+
+        <div class="single-discount-area">
+            <h5>Free Shipping &amp; Returns With Full Cash-Back</h5>
+            <h6><a href="/cart">BUY NOW</a></h6>
+        </div>
+
+        <!-- Single Discount Area -->
+        <div class="single-discount-area">
+            <h5>20% Discount for all Products</h5>
+            <h6>USE CODE:#Coupon-22 <span>[1 Time offer]</span></h6>
+        </div>
+        <!-- Single Discount Area -->
+        <div class="single-discount-area">
+            <h5>Purshase Above ₹2,00,000 & get 40% Discount</h5>
+            {{!-- <h5>Purshase Above ₹2,00,000 & get 40% Upto ₹1,00,000 </h5> --}}
+            <h6>USE CODE: #₹₹Nexo$$</h6>
+        </div>
+
+    </section>
+    <!-- ****** Top Discount Area End ****** -->
 
 
         {{#if orderDetails.length}}

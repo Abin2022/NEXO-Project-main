@@ -54,23 +54,21 @@
           </div>
         </div>
         <div class="navbar-nav w-100">
-          <a href="/admin/home" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-          <a href="/admin/category" class="nav-item nav-link"><i class="fa fa-folder"></i>CATEGORY</a>
-          <a href="/admin/add-products" class="nav-item nav-link"><i  class="fa fa-cube"></i>Products</a>
-  <a href="/admin/user" class="nav-item nav-link"><i class="fa fa-user"></i>USERS</a>
-  <a href="/admin/orders" class="nav-item nav-link"><i class="fa fa-shopping-cart me-2"></i>ORDERS</a>
-  <a href="/admin/manage-coupons" class="nav-item nav-link active"><i class="fas fa-tags"></i>COUPONS</a>
-
-  <div class="nav-item dropdown ">
-    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
-    <div class="dropdown-menu bg-transparent border-0 ">
-      <a href="/login" class="dropdown-item">Sign In to User page</a>
-      <a href="/cart" class="dropdown-item">Go to Cart Page</a>
-      <a href="#" class="dropdown-item">Go to ....</a>
-      <a href="#" class="dropdown-item">Go to ....</a>
-    </div>
-  </div>
-</div>
+                    <a href="/admin/home" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <br>
+                    <a href="/admin/category" class="nav-item nav-link"><i class="fa fa-folder"></i>CATEGORY</a>
+                      <br>
+                    <a href="/admin/add-products" class="nav-item nav-link"><i class="fa fa-cube"></i>Products</a>
+                      <br>
+                    <a href="/admin/user" class="nav-item nav-link"><i class="fa fa-user"></i>USERS</a>  
+                      <br>
+                       <a href="/admin/orders" class="nav-item nav-link"><i class="fa fa-shopping-cart me-2"></i>ORDERS</a>
+                         <br>
+                          <a href="/admin/manage-coupons" class="nav-item nav-link active"><i class="fas fa-tags"></i>COUPONS</a>
+                            <br>
+                    <a href="/admin/sales-report-page" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Sales Report</a>
+                    
+                    </div>
 </nav>
 </div>
 <!-- Sidebar End -->
@@ -210,7 +208,7 @@
                                 <th scope="col">Maximum Discount</th>
                                 <th scope="col">Minimum Order Value</th>
                                 <th scope="col">Validity</th>
-                                <th scope="col">Usage Count</th>
+                      
                                 <th scope="col">Action</th>
 
                             </tr>
@@ -233,7 +231,7 @@
                                 <td class="align-middle">{{this.maxDiscountAmount}}</td>
                                 <td class="align-middle">{{this.minOrderValue}}</td>
                                 <td class="align-middle">{{this.validFor}}</td>
-                                <td class="align-middle">{{this.usageCount}}</td>
+                                
                                 <td>
                                               <a href="/admin/coupon-edit?id={{this._id}}" class="btn btn-primary mb-2">EDIT</a>
 

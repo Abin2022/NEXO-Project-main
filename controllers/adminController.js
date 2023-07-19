@@ -612,7 +612,6 @@ const loadOrdersView=async(req,res)=>{
 const cancelledByAdmin = async (req, res) => {
   try {
     const id = req.body.orderId;
-    console.log(id, 'id');
     
 
     const url = '/admin/ordersView?id=' + id;
@@ -626,7 +625,6 @@ const cancelledByAdmin = async (req, res) => {
 
 
     
-    console.log(updateOrder, 'updateOrder');
 
     const wallet = await Wallet.findOne({ userId: updateOrder.userId }).exec();
 
@@ -642,8 +640,18 @@ const cancelledByAdmin = async (req, res) => {
         walletAmount: updateOrder.orderValue,
       });
       const createdWallet = await newWallet.save();
-      console.log(createdWallet, "created wallet");
     }
+
+     // Retrieve the products in the order
+      const productsInOrder = updateOrder.products;
+
+     // Iterate over the products and add them back to the stock
+    for (const product of productsInOrder) {
+    const productId = product.productId;
+    const quantity = product.quantity;
+
+    await Product.findByIdAndUpdate(productId, { $inc: { inStock: quantity } });
+  }
 
     res.redirect(url);
   } catch (error) {
@@ -657,7 +665,6 @@ const cancelledByAdmin = async (req, res) => {
 const rejectCancellation = async (req, res) => {
   try {
     const orderId = req.body.orderId;
-    console.log(orderId, 'orderID..............');
 
     const updateOrder = await Order.findByIdAndUpdate(
       { _id: new ObjectId(orderId) },
@@ -665,10 +672,8 @@ const rejectCancellation = async (req, res) => {
       { new: true }
     ).exec();
 
-    console.log(updateOrder, 'OrderUpdated.............');
 
     const url = '/admin/ordersView?id=' + orderId;
-    console.log(url, 'url......................');
     
     res.redirect(url);
   } catch (error) {
@@ -687,7 +692,6 @@ const rejectCancellation = async (req, res) => {
 const productDelevery = async (req, res) => {
   try {
     const orderId = req.body.orderId;
-    console.log(orderId, 'id here............');
 
     const updateOrder = await Order.findByIdAndUpdate(
       { _id: new ObjectId(orderId) },
@@ -708,7 +712,6 @@ const productDelevery = async (req, res) => {
 const deliveredProduct = async (req, res) => {
   try {
     const orderId = req.body.orderId;
-    console.log(orderId, 'id here...........');
 
     const updateOrder = await Order.findByIdAndUpdate(
       { _id: new ObjectId(orderId) },
@@ -716,10 +719,8 @@ const deliveredProduct = async (req, res) => {
       { new: true }
     ).exec();
 
-    console.log(updateOrder, 'updateOrder here..........');
 
     const url = '/admin/ordersView?id=' + orderId;
-    console.log(url, 'url goes here...........');
     
     res.redirect(url);
   } catch (error) {
@@ -760,6 +761,17 @@ const returnOrder = async (req, res) => {
       const createdWallet = await newWallet.save();
       console.log(createdWallet, "created wallet");
     }
+
+     // Retrieve the products in the order
+  const productsInOrder = updatedOrder.products;
+
+  // Iterate over the products and add them back to the stock
+  for (const product of productsInOrder) {
+    const productId = product.productId;
+    const quantity = product.quantity;
+
+    await Product.findByIdAndUpdate(productId, { $inc: { inStock: quantity } });
+  }
 
     res.redirect(url);
   } catch (error) {

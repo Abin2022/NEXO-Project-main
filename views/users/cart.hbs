@@ -59,18 +59,9 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/stylesheets/themify-icons.css"> --}}
 
-
-
-
-
-
 </head>
 
 <body>
-
-
-
-
     <div id="wrapper">
 
         <!-- Top Header Area End -->
@@ -80,11 +71,7 @@
                     <div class="col-12 d-md-flex justify-content-between">
                         <!-- Header Social Area -->
                         <div class="header-social-area">
-                            {{!-- <span class="karl-level">Share</span> --}}
-                            <a href="#"> <i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="#"><img src="img/logo/1.png" style="width:150px; height:80px;" alt="Nexo"></a>
                         </div>
                         <!-- Menu Area -->
                         <div class="main-menu-area">
@@ -96,39 +83,15 @@
                                             class="ti-menu"></i></span></button>
                                 <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
                                     <ul class="navbar-nav animated" id="nav">
-
-
-                                        <li class="nav-item active"> <a href="#"><img src="img/core-img/logo.png"
-                                                    alt=""></a></li>
-
-
                                         <li class="nav-item active"><a class="nav-link" href="/home"> Home</a></li>
                                         <li class="nav-item dropdown">
-
-
-                                        <li class="nav-item active"><a class="nav-link" href="#">Mobiles</a></li>
-                                        <li class="nav-item active"><a class="nav-link" href="#"> Laptops</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="/mobile">Mobiles</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="/laptop"> Laptops</a></li>
                                         <li class="nav-item active"><a class="nav-link" href="/shop">SHOP</a></li>
-
-                                        </li>
-                                        {{!-- <li class="nav-item"><a class="nav-link" href="/checkout">Checkout</a>
-                                        </li> --}}
-                                        {{!-- <span class="karl-level">hot</span> --}}
                                         <li class="nav-item"><a class="nav-link" href="/order-details">Orders</a></li>
                                         <li class="nav-item active"><a class="nav-link" href="/cart">Cart<i
                                                     class="ti-bag"></i> </a>
-
                                         <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
-
-
-                                        <a href="#" id="header-cart-btn" target="_blank"> <i class="ti-bag"></i>
-                                        </a>
-
-
-                                        </li>
-                                        {{!-- <li class="nav-item"><a class="nav-link" href="#">Whishlist</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#">Account</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li> --}}
                                     </ul>
                                 </div>
                             </nav>
@@ -136,7 +99,6 @@
                         <!-- Help Line -->
 
                         <div class="help-line">
-                            {{!-- <i class="ti-headphone-alt"></i> --}}
                             <a href="/logout">LOGOUT</a>
                         </div>
 
@@ -152,26 +114,29 @@
 
 
 
+<!-- ****** Top Discount Area Start ****** -->
+    <section class="top-discount-area d-md-flex align-items-center">
+        <!-- Single Discount Area -->
 
-        <!-- ****** Top Discount Area Start ****** -->
-        <section class="top-discount-area d-md-flex align-items-center">
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>Free Shipping &amp; Returns</h5>
-                <h6><a href="#">BUY NOW</a></h6>
-            </div>
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>20% Discount for all dresses</h5>
-                <h6>USE CODE: Colorlib</h6>
-            </div>
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>20% Discount for students</h5>
-                <h6>USE CODE: Colorlib</h6>
-            </div>
-        </section>
-        <!-- ****** Top Discount Area End ****** -->
+        <div class="single-discount-area">
+            <h5>Free Shipping &amp; Returns With Full Cash-Back</h5>
+            <h6><a href="/cart">BUY NOW</a></h6>
+        </div>
+
+        <!-- Single Discount Area -->
+        <div class="single-discount-area">
+            <h5>20% Discount for all Products</h5>
+            <h6>USE CODE:#Coupon-22 <span>[1 Time offer]</span></h6>
+        </div>
+        <!-- Single Discount Area -->
+        <div class="single-discount-area">
+            <h5>Purshase Above ₹2,00,000 & get 40% Discount</h5>
+            {{!-- <h5>Purshase Above ₹2,00,000 & get 40% Upto ₹1,00,000 </h5> --}}
+            <h6>USE CODE: #₹₹Nexo$$</h6>
+        </div>
+
+    </section>
+    <!-- ****** Top Discount Area End ****** -->
 
         <!-- ****** Cart Area Start ****** -->
 
@@ -230,7 +195,7 @@
                             <div class="back-to-shop w-50 d-flex ">
                                 <a href="/home">Continue shopping</a>
                             </div>
-                               <div class="back-to-shop w-50 text-right">
+                            <div class="back-to-shop w-50 text-right">
                                 <a href="/wallet-details">Wallet Balance</a>
                             </div>
 
@@ -281,26 +246,27 @@
 
         {{else}}
 
-  <div class="empty-cart-area section-padding-100">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="empty-cart-content" style="text-align: center;">
-               <br>
-                 <br>
-            <img src="/img/core-img/empty-cart.jpg" alt="Empty Cart ">
-              <br>
-            <h4>Please add some products to your cart before checking out.</h4>
-            <br>
-              <br>
-            <div class="empty-cart-btn">
-              <a href="/home" class="btn karl-checkout-btn" style="background-color: crimson;">Continue Shopping</a>
+        <div class="empty-cart-area section-padding-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="empty-cart-content" style="text-align: center;">
+                            <br>
+                            <br>
+                            <img src="/img/core-img/empty-cart.jpg" alt="Empty Cart ">
+                            <br>
+                            <h4>Please add some products to your cart before checking out.</h4>
+                            <br>
+                            <br>
+                            <div class="empty-cart-btn">
+                                <a href="/home" class="btn karl-checkout-btn"
+                                    style="background-color: crimson;">Continue Shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
         {{/if}}
 
 
@@ -429,11 +395,11 @@
                     console.log(response);
                     if (response.deleteProduct) {
                         location.reload(); // Reload the page
-                    } 
+                    }
                     else if (response.outOfStock) {
-                     console.log("out of stock");
-                     showOutOfStockAlert();
-                      }
+                        console.log("out of stock");
+                        showOutOfStockAlert();
+                    }
                     else {
                         console.log(response, 'ajax response');
                         const quantityInput = document.getElementById(`quantityInput_${proId}`);
@@ -452,40 +418,40 @@
                         summarySubtotal.textContent = response.subtotal;
                     }
                 },
-                   error: (xhr, status, error) => {
-        swal("Error", "An error occurred while changing the product quantity.", "error");
-        console.error(xhr.responseText);
-      }
+                error: (xhr, status, error) => {
+                    swal("Error", "An error occurred while changing the product quantity.", "error");
+                    console.error(xhr.responseText);
+                }
             });
         }
-        
-   
-     function showOutOfStockAlert() {
-    Swal.fire({
-      title: "Out of Stock",
-      text: "This product is currently out of stock.",
-      icon: "warning",
-      showCancelButton: false,
-      confirmButtonColor: "#000000",
-      confirmButtonText: "OK",
-      customClass: {
-        container: "swal-container",
-        title: "swal-title",
-        text: "swal-text",
-        confirmButton: "swal-button"
-      },
-      onOpen: () => {
-        // Set the text color to white
-        const swalContainer = document.querySelector(".swal-container");
-        swalContainer.style.color = "white";
 
-        // Remove the border from the OK button
-        const okButton = document.querySelector(".swal-button");
-        okButton.style.border = "none";
-      }
-    });
-  }
-  </script>
+
+        function showOutOfStockAlert() {
+            Swal.fire({
+                title: "Out of Stock",
+                text: "This product is currently out of stock.",
+                icon: "warning",
+                showCancelButton: false,
+                confirmButtonColor: "#000000",
+                confirmButtonText: "OK",
+                customClass: {
+                    container: "swal-container",
+                    title: "swal-title",
+                    text: "swal-text",
+                    confirmButton: "swal-button"
+                },
+                onOpen: () => {
+                    // Set the text color to white
+                    const swalContainer = document.querySelector(".swal-container");
+                    swalContainer.style.color = "white";
+
+                    // Remove the border from the OK button
+                    const okButton = document.querySelector(".swal-button");
+                    okButton.style.border = "none";
+                }
+            });
+        }
+    </script>
 
 
 

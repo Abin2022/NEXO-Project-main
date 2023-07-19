@@ -1,85 +1,166 @@
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!DOCTYPE html>
+<html lang="en">
 
-<script> 
-function addToCart(productId, event) {
-  event.preventDefault(); // Prevent the default behavior of the <a> tag
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-  // Send an AJAX request to the server
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', '/add-cart', true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        // Handle the server response here (if needed)
-        showSuccessAlert();
-      } else if (xhr.status === 400) {
-        console.log('status is 400 ')
-        // Product is out of stock
-        showOutOfStock() 
-      } else {
-        // Other server errors
-        swal("Error", "An error occurred while adding the product to cart.", "error");
-      }
-    }
-  };
-  xhr.onerror = function() {
-    console.log("Request error");
-  };
+    <!-- Title  -->
+    <title>Nexo - | Cart</title>
 
-  xhr.send(JSON.stringify({ productId: productId }));
-}
-</script>
-<script>
-function showSuccessAlert() {
-  Swal.fire({
-    title: "Success",
-    text: "Product added to cart!",
-    icon: "success",
-    showCancelButton: false,
-    confirmButtonColor: "#000000",
-    confirmButtonText: "OK",
-    customClass: {
-      container: "swal-container",
-      title: "swal-title",
-      text: "swal-text",
-      confirmButton: "swal-button"
-    },
-    onOpen: () => {
-      // Set the text color to white
-      const swalContainer = document.querySelector(".swal-container");
-      swalContainer.style.color = "white";
+    <!-- Favicon  -->
+    <link rel="icon" href="img/core-img/favicon.ico">
 
-      // Remove the border from the OK button
-      const okButton = document.querySelector(".swal-button");
-      okButton.style.border = "none";
-    }
-  });
-}
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="style.css">
 
-function showOutOfStock() {
-  Swal.fire({
-    title: "Out of Stock",
-    text: "This product is currently out of stock.",
-    icon: "error",
-    showCancelButton: false,
-    confirmButtonColor: "#000000",
-    confirmButtonText: "OK",
-    customClass: {
-      container: "swal-container",
-      title: "swal-title",
-      text: "swal-text",
-      confirmButton: "swal-button"
-    },
-    onOpen: () => {
-      // Set the text color to white
-      const swalContainer = document.querySelector(".swal-container");
-      swalContainer.style.color = "white";
+    <!-- Responsive CSS -->
+    <link href="css/responsive.css" rel="stylesheet">
 
-      // Remove the border from the OK button
-      const okButton = document.querySelector(".swal-button");
-      okButton.style.border = "none";
-    }
-  });
-}
-</script>
+
+    {{!-- links from home page --}}
+
+    <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Responsive CSS -->
+    <link href="css/responsive.css" rel="stylesheet">
+
+
+    {{!-- stylesheet section link --}}
+    <link rel="stylesheet" href="/stylesheets/core-style.css">
+    <link rel="stylesheet" href="/stylesheets/animate.css">
+
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    {{!--
+    <link rel="stylesheet" href="/stylesheets/font-awesome.min.css"> --}}
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min1.css">
+
+    {{!--
+    <link rel="stylesheet" href="/stylesheets/forget.css"> --}}
+    {{!--
+    <link rel="stylesheet" href="/stylesheets/jquery-ui.min.css"> --}}
+
+    {{!--
+    <link rel="stylesheet" href="/stylesheets/login.css"> --}}
+    <link rel="stylesheet" href="/stylesheets/magnific-popup.css">
+
+    <link rel="stylesheet" href="/stylesheets/nouislider.css">
+    <link rel="stylesheet" href="/stylesheets/owl.carousel.css">
+    <link rel="stylesheet" href="/stylesheets/responsive.css">
+    {{!--
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/themify-icons.css"> --}}
+
+</head>
+
+<body>
+    <div id="wrapper">
+
+        <!-- Top Header Area End -->
+        <div class="main_header_area">
+            <div class="container h-100">
+                <div class="row h-100">
+                    <div class="col-12 d-md-flex justify-content-between">
+                        <!-- Header Social Area -->
+                        <div class="header-social-area">
+                            <a href="#"><img src="img/logo/1.png" style="width:150px; height:80px;" alt="Nexo"></a>
+                        </div>
+                        <!-- Menu Area -->
+                        <div class="main-menu-area">
+                            <nav class="navbar navbar-expand-lg align-items-start">
+
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false"
+                                    aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i
+                                            class="ti-menu"></i></span></button>
+                                <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
+                                    <ul class="navbar-nav animated" id="nav">
+                                        <li class="nav-item active"><a class="nav-link" href="/home"> Home</a></li>
+                                        <li class="nav-item dropdown">
+                                        <li class="nav-item active"><a class="nav-link" href="/mobile">Mobiles</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="/laptop"> Laptops</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="/shop">SHOP</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="/order-details">Orders</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="/cart">Cart<i
+                                                    class="ti-bag"></i> </a>
+                                        <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <!-- Help Line -->
+
+                        <div class="help-line">
+                            <a href="/logout">LOGOUT</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </header>
+        <!-- ****** Header Area End ****** -->
+
+
+
+
+
+
+<!-- ****** Top Discount Area Start ****** -->
+    <section class="top-discount-area d-md-flex align-items-center">
+        <!-- Single Discount Area -->
+
+        <div class="single-discount-area">
+            <h5>Free Shipping &amp; Returns With Full Cash-Back</h5>
+            <h6><a href="/cart">BUY NOW</a></h6>
+        </div>
+
+        <!-- Single Discount Area -->
+        <div class="single-discount-area">
+            <h5>20% Discount for all Products</h5>
+            <h6>USE CODE:#Coupon-22 <span>[1 Time offer]</span></h6>
+        </div>
+        <!-- Single Discount Area -->
+        <div class="single-discount-area">
+            <h5>Purshase Above ₹2,00,000 & get 40% Discount</h5>
+            {{!-- <h5>Purshase Above ₹2,00,000 & get 40% Upto ₹1,00,000 </h5> --}}
+            <h6>USE CODE: #₹₹Nexo$$</h6>
+        </div>
+
+    </section>
+    <!-- ****** Top Discount Area End ****** -->
+
+
+
+
+
+
+
+
+
+
+
+       <!-- /.wrapper end -->
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Plugins js -->
+    <script src="js/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script>
+
+</body>
+
+</html>

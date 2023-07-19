@@ -95,7 +95,8 @@ router.get('/shop',auth.isLogin,userControllers.loadShopPage)
 
 
  router.get('/wallet-details',auth.isLogin,userControllers.loadWallet)
-
+ router.post('/generate-wallet-recharge-order',userControllers.generateWalletRechargeOrder)
+router.post('/verify-wallet-recharge-payment',userControllers.verifyWalletRecharge)
 
 //  router.get('/mobile',auth.isLogin,userControllers.mobilePage)
  router.get('/mobile',auth.isLogin,userControllers.mobilePage)

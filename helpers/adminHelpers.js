@@ -171,7 +171,8 @@ module.exports={
                 query.orderStatus = orderStatus;
             }
 
-            let orderDetails = await Order.find(query).populate('userId').lean();
+            let orderDetails = await Order.find().populate('userId').lean();
+            
 
             // Reverse the order of transactions
             orderDetails = orderDetails.reverse();

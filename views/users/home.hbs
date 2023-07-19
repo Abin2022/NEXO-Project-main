@@ -1,105 +1,79 @@
-{{!-- from Home page --}}
+<!DOCTYPE html>
+<html lang="en">
 
-<link rel="icon" href="img/core-img/favicon.ico">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-<!-- Core Style CSS -->
-<link rel="stylesheet" href="css/core-style.css">
-<link rel="stylesheet" href="style.css">
+    <!-- Title  -->
+    <title>Nexo - | Cart</title>
 
-<!-- Responsive CSS -->
-<link href="css/responsive.css" rel="stylesheet">
+    <!-- Favicon  -->
+    <link rel="icon" href="img/core-img/favicon.ico">
 
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="style.css">
 
-{{!-- stylesheet section link --}}
-<link rel="stylesheet" href="/stylesheets/core-style.css">
-<link rel="stylesheet" href="/stylesheets/animate.css">
-
-<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-{{!--
-<link rel="stylesheet" href="/stylesheets/font-awesome.min.css"> --}}
-<link rel="stylesheet" href="/stylesheets/bootstrap.min1.css">
-
-{{!--
-<link rel="stylesheet" href="/stylesheets/forget.css"> --}}
-{{!--
-<link rel="stylesheet" href="/stylesheets/jquery-ui.min.css"> --}}
-
-{{!--
-<link rel="stylesheet" href="/stylesheets/login.css"> --}}
-<link rel="stylesheet" href="/stylesheets/magnific-popup.css">
-
-<link rel="stylesheet" href="/stylesheets/nouislider.css">
-<link rel="stylesheet" href="/stylesheets/owl.carousel.css">
-<link rel="stylesheet" href="/stylesheets/responsive.css">
-{{!--
-<link rel="stylesheet" href="/stylesheets/style.css">
-<link rel="stylesheet" href="/stylesheets/themify-icons.css"> --}}
+    <!-- Responsive CSS -->
+    <link href="css/responsive.css" rel="stylesheet">
 
 
+    {{!-- links from home page --}}
 
-<style>
-    /* Mobile Menu Styles */
-    .navbar-toggler {
-        display: none;
-        /* Hide the toggler button on larger screens */
-    }
+    <link rel="icon" href="img/core-img/favicon.ico">
 
-    .navbar-nav {
-        display: flex;
-        /* Arrange the menu items horizontally */
-        justify-content: space-between;
-        /* Distribute menu items evenly */
-        background-color: #f9f9f9;
-        /* Set a background color for the mobile menu */
-        padding: 15px;
-        /* Add padding to the mobile menu */
-    }
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="style.css">
 
-    .navbar-nav .nav-item {
-        margin: 0;
-        /* Remove margin between menu items */
-    }
+    <!-- Responsive CSS -->
+    <link href="css/responsive.css" rel="stylesheet">
 
-    .navbar-nav .nav-link {
-        padding: 10px 15px;
-        /* Add padding to menu links */
-    }
 
-    /* Hide the mobile menu on larger screens */
-    @media (min-width: 992px) {
-        .navbar-nav {
-            display: flex;
-            justify-content: flex-end;
-            /* Align menu items to the right */
-            background-color: transparent;
-            padding: 0;
-        }
-    }
-</style>
+    {{!-- stylesheet section link --}}
+    <link rel="stylesheet" href="/stylesheets/core-style.css">
+    <link rel="stylesheet" href="/stylesheets/animate.css">
+
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    {{!--
+    <link rel="stylesheet" href="/stylesheets/font-awesome.min.css"> --}}
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min1.css">
+
+    {{!--
+    <link rel="stylesheet" href="/stylesheets/forget.css"> --}}
+    {{!--
+    <link rel="stylesheet" href="/stylesheets/jquery-ui.min.css"> --}}
+
+    {{!--
+    <link rel="stylesheet" href="/stylesheets/login.css"> --}}
+    <link rel="stylesheet" href="/stylesheets/magnific-popup.css">
+
+    <link rel="stylesheet" href="/stylesheets/nouislider.css">
+    <link rel="stylesheet" href="/stylesheets/owl.carousel.css">
+    <link rel="stylesheet" href="/stylesheets/responsive.css">
+    {{!--
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/themify-icons.css"> --}}
 
 
 
 
 
 
+</head>
+
+<body>
 
 
 
 
+    <div id="wrapper">
 
-
-
-
-
-
-
-
-
-
-<div id="wrapper">
-
-    <!-- Top Header Area End -->
-    {{!-- <div class="list-group mb-3 sticky-top"> --}}
+        <!-- Top Header Area End -->
         <div class="main_header_area">
             <div class="container h-100">
                 <div class="row h-100">
@@ -108,73 +82,48 @@
                         <div class="header-social-area">
                             <a href="#"><img src="img/logo/1.png" style="width:150px; height:80px;" alt="Nexo"></a>
                         </div>
-
-                        {{!-- <div class="main-menu-area">
-                            <div class="mobile-menu">
-                                <!-- Your existing menu content goes here -->
-                                <!-- ... -->
-                            </div>
-                            <nav class="navbar navbar-expand-lg align-items-start">
-                                <!-- ... -->
-                            </nav>
-                        </div> --}}
-
-
-
-
                         <!-- Menu Area -->
                         <div class="main-menu-area">
-                            <div class="mobile-menu">
+                            <nav class="navbar navbar-expand-lg align-items-start">
 
-                                <nav class="class=navbar navbar-expand-lg align-items-start">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false"
+                                    aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i
+                                            class="ti-menu"></i></span></button>
+                                <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
                                     <ul class="navbar-nav animated" id="nav">
                                         <li class="nav-item active"><a class="nav-link" href="/home"> Home</a></li>
-                                        <li class="nav-item active"><a class="nav-link" href="/mobile">MOBILE</a></li>
-                                        <li class="nav-item active"><a class="nav-link" href="/laptop">LAPTOP</a></li>
+                                        <li class="nav-item dropdown">
+                                        <li class="nav-item active"><a class="nav-link" href="/mobile">Mobiles</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="/laptop"> Laptops</a></li>
                                         <li class="nav-item active"><a class="nav-link" href="/shop">SHOP</a></li>
-                                        <li class="nav-item active"><a class="nav-link" href="/order-details">Orders</a>
-                                        </li>
-                                        <li class="nav-item active"> <a class="nav-link" href="/cart">Cart<i
-                                                    class="ti-bag"></i> </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="/order-details">Orders</a></li>
+                                        <li class="nav-item active"><a class="nav-link" href="/cart">Cart<i
+                                                    class="ti-bag"></i> </a>
                                         <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
                                     </ul>
-                                </nav>
-                            </div>
+                                </div>
+                            </nav>
                         </div>
-
                         <!-- Help Line -->
+
                         <div class="help-line">
                             <a href="/logout">LOGOUT</a>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
+        </header>
+        <!-- ****** Header Area End ****** -->
 
 
-    </div>
-    <style>
-        .add-to-cart-btn {
-            background-color: #your-color;
-            color: #your-color-text;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-        }
-    </style>
-
-    </header>
-    <!-- ****** Header Area End ****** -->
 
 
-    <!-- ****** Top Discount Area Start ****** -->
+
+
+<!-- ****** Top Discount Area Start ****** -->
     <section class="top-discount-area d-md-flex align-items-center">
         <!-- Single Discount Area -->
 
@@ -198,7 +147,22 @@
     </section>
     <!-- ****** Top Discount Area End ****** -->
 
+<style>
+        .add-to-cart-btn {
+            background-color: #your-color;
+            color: #your-color-text;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
 
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
     <!-- ****** Top Catagory Area Start ****** -->
     <section class="top_catagory_area d-md-flex clearfix">
         <!-- Single Catagory -->
@@ -501,3 +465,17 @@ function showOutOfStock() {
                   
 
     </script>
+
+
+
+
+
+      
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+
+    <script src="js/popper.min.js"></script>
+  
+    <script src="js/bootstrap.min.js"></script>
+   
+    <script src="js/plugins.js"></script>
+    <script src="js/active.js"></script>

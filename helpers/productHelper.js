@@ -2,6 +2,7 @@ const { Reject } = require("twilio/lib/twiml/VoiceResponse");
 const Cart = require("../models/cartModel");
 const Order = require("../models/orderModel");
 const Address = require("../models/addressesModel");
+const userHelpers = require('../helpers/userHelpers')
 
 
 const Razorpay = require("razorpay");
@@ -55,7 +56,6 @@ module.exports = {
     return new Promise(async(resolve,reject)=>{
      try{
    
-    console.log("enter  the helper placing order");
     let orderStatus =
       orderData["paymentMethod"] === "COD" ? "Placed" : "PENDING";
     console.log(orderStatus, "this is the order status");
@@ -65,10 +65,8 @@ module.exports = {
       { user_id: userId, "addresses.is_default": true },
       { "addresses.$": 1 }
     ).lean();
-    console.log(defaultAddress, "defaultadress of the user is here");
 
     if (!defaultAddress) {
-      console.log("default address not found");
       return res.redirect("/address");
     }
     const defaultAddressDetails = defaultAddress.addresses[0];
@@ -80,7 +78,7 @@ module.exports = {
       state: defaultAddressDetails.state,
       pincode: defaultAddressDetails.pincode,
     };
-    console.log(address, "address of the order placing");
+    
     const orderDetails = new Order({
       userId: userId,
       date: Date(),
@@ -95,10 +93,17 @@ module.exports = {
       "this is the order details of the user from helper"
     );
     const placedOrder = await orderDetails.save();
-    console.log(placedOrder, "save to the database");
+    // console.log(placedOrder, "save to the database");
+
+    const stockDecrease = await userHelpers.updateProductStock(
+      orderedProducts
+    );
+
+
+
     await Cart.deleteMany({ user_id: userId });
     let dbOrderId = placedOrder._id.toString();
-    console.log(dbOrderId, "order id of the user");
+    // console.log(dbOrderId, "order id of the user");
    
     resolve(dbOrderId)
 

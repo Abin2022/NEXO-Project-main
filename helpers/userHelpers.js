@@ -204,13 +204,93 @@ walletBalance: (userId) => {
             }
         
     })
-   }
+   },
 
 
    
 
   
+   updateProductStock: async (orderedProducts) => {
+    try {
+      for (const orderedProduct of orderedProducts) {
+        const productId = orderedProduct.productId;
+        const quantity = orderedProduct.quantity;
 
+        // Find the product by its ID
+        const product = await Product.findById(productId);
+
+        // Update the product stock by subtracting the ordered quantity
+        product.inStock -= quantity;
+
+        // Save the updated product
+        await product.save();
+      }
+    } catch (error) {}
+  },
+
+
+  generateRazorpayForWallet:(userId,total)=>{
+    total = parseInt(total);
+    return new Promise(async(resolve,reject)=>{
+        try {
+            var options = {
+
+                amount: total * 100,  // amount in the smallest currency unit
+      
+                currency: "INR",
+      
+                receipt: "" + userId
+      
+              };
+
+              console.log('it resacged here ',options);
+
+              instance.orders.create(options, function (err, order) {
+
+                if (err) {
+      
+                  console.log(err);
+      
+                  reject(err);
+      
+                } else {
+      
+                  resolve(order);
+      
+                }
+      
+              });
+
+        } catch (error) {
+            reject(error);
+        }
+    })
+},
+
+rechargeUpdateWallet:(userId, referalAmount)=>{
+    return new Promise(async(resolve,reject)=>{
+        try {
+            
+            const wallet  = await Wallet.findOne({userId:new ObjectId(userId)}).lean().exec()
+            
+            if(wallet){
+                const currentAmount = wallet.walletAmount
+                const updatedAmount = currentAmount + referalAmount;
+
+               
+                
+               const walletUpdate = await Wallet.updateOne({userId:new ObjectId(userId)},{ $set: { walletAmount: updatedAmount } })
+
+
+                resolve()
+            }else{
+                reject(new Error('Wallet not found'));
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+},
 
 
 

@@ -17,7 +17,7 @@ const moment = require("moment-timezone")
 // const EventEmitter = require('events');
 
 const accountSid = "ACa547f4ad75438fee11d6c1f2b5cc0a4a";
-const authToken = '853eb4c3a5df6ac5d933475ea2e8922a';
+const authToken = '358454ff9b9e16dfd20668484e7cd5af';
 const verifySid = "VAb65553a60d1c6c15f8fb69e14c75d2f9";
 const client = require("twilio")(accountSid, authToken);
 
@@ -675,7 +675,7 @@ const getCart=async(req,res)=>{
               user_id: req.session.user_id,
             };
           });
-          // console.log("passing products data is :", products);
+         
     
           const total = products.reduce(
             (sum, product) => sum + Number(product.total),
@@ -852,7 +852,6 @@ const blockUser=async(req,res)=>{
 const profilePage = async (req, res) => {
   try {
     const userId = new mongoose.Types.ObjectId(req.session.user_id);
-    console.log(userId, "user id.....");
     const userData = await User.findOne({ _id: userId }).lean();
     const defaultAddress = await Address.findOne(
       { user_id: userId, "addresses.is_default": true },
@@ -887,20 +886,17 @@ const editUser= async (req, res) => {
       }
 
       let updatedUserData = {
-          // image:req.body.images,
+        image: userData.image,
           name: req.body.name,
           email: req.body.email,
            mobile: req.body.mobile,
-          // address:req.body.address,
-          // city:req.body.city,
-          // state: req.body.state,
-          // pincode:req.body.pincode,
+         
       };
-      // if (req.file) {
-      //     // Check if a new image file is uploaded
-      //     updatedUserData.image = req.file.filename; // Update with the new image filename
-
-      // }
+      
+      if (req.file) {
+        // Check if a new image file is uploaded
+        updatedUserData.image = req.file.filename; // Update with the new image filename
+    }
 
       const updatedUser = await User.findByIdAndUpdate({ _id: id }, { $set: updatedUserData }, { new: true });
       res.redirect('/profile');
@@ -1515,6 +1511,58 @@ const loadWallet = async (req, res) => {
 
 
 
+const generateWalletRechargeOrder = async(req,res)=>{
+  try {
+      const userId=req.session.user_id
+
+      const total=req.body.total
+      console.log(total,'totalvvvvvvvvvvvvv');
+    
+      const razorpayResponse = await userHelpers.generateRazorpayForWallet(userId,total);
+      const user = await User.findById({ _id: userId }).lean()
+      console.log(razorpayResponse,'razorpayResponse');
+      console.log(process.env.KEY_ID,'razorpayKeyId');
+
+      res.json({
+          razorpayResponse:razorpayResponse,
+          userDetails: user,
+          razorpayKeyId: process.env.KEY_ID,
+      });
+
+  } catch (error) {
+      console.log(error.message);
+      res.redirect('/user-error')
+  }
+}
+
+
+const verifyWalletRecharge = async(req,res)=>{
+  try {
+      userHelpers.verifyOnlinePayment(req.body).then(()=>{
+          
+          const razorpayAmount=parseInt(req.body['serverOrderDetails[razorpayResponse][amount]'])
+          const amount=parseInt(razorpayAmount/100)
+          userHelpers. rechargeUpdateWallet(req.body['serverOrderDetails[razorpayResponse][receipt]'],amount).then(()=>{
+              res.json({ status: true });
+          })
+          
+
+      })
+      .catch((err) => {
+
+          console.log(err);
+  
+          res.json({ status: false });
+  
+      });
+  } catch (error) {
+      console.log(error.message);
+      res.redirect('/user-error')
+  }
+}
+
+
+
 
 
 
@@ -1543,7 +1591,6 @@ const placeOrder = async (req, res) => {
       }
 
       const orderId = await productHelper.placingOrder(userId, orderDetails, productsOrdered, totalOrderValue);
-      console.log("successfully reached hereeeeeeeeee");
       if (req.body["paymentMethod"] === "COD") {
         res.json({ COD_CHECKOUT: true });
       } else if (req.body["paymentMethod"] === "ONLINE") {
@@ -1633,7 +1680,6 @@ const verifyPayment = async (req, res) => {
 
 const orderDetails= async (req, res) => {
   try {
-    console.log("entered into order details page..");
       const userId = req.session.user_id
       console.log(userId);
       const orderDetails = await Order.find({ userId: userId }).lean()
@@ -1645,7 +1691,6 @@ const orderDetails= async (req, res) => {
           return { ...history, date: createdOnIST };
       })
 
-      console.log(orderDetails, 'orderDetails');
 
       res.render('users/ordersList', {  orderDetails: orderHistory });
 
@@ -1664,7 +1709,6 @@ const loadOrdersView = async (req, res) => {
       
       const userId = req.session.user_id
 
-      console.log(orderId, 'orderId when loading page');
       const order = await Order.findOne({ _id: orderId })
           .populate({
               path: 'products.productId',
@@ -1858,38 +1902,6 @@ const downloadInvoice= async (req, res) => {
 
 
 
-// const pdfDoc = new PDFDocument();
-// const filePath = path.join(__dirname, `downloads_${orderId}.pdf`); // Use 'path.join()' to create the file path
-
-// pdfDoc.pipe(fs.createWriteStream(filePath));
-// pdfDoc.fontSize(16).text(`Order ID: ${orderId}`, { align: 'center' });
-
-// order.products.forEach((product, index) => {
-//   const images = product.productId.images || [];
-//   const image = images.length > 0 ? images[0] : '';
-
-//   // Check if the image path is not empty before adding the image to the PDF
-//   if (image) {
-//     // Use 'path.join()' to create the full path to the image file
-//     const imagePath = path.join(__dirname, 'path/to/your/images/', image);
-
-//     // Add the image to the PDF with specified position, width, and height
-//     pdfDoc.image(imagePath, {
-//       fit: [100, 100], // Set the width and height of the image in points (100x100 in this example)
-//       align: 'center', // Align the image to the center of the page
-//       valign: 'center', // Vertically center the image on the page
-//     });
-//   }
-
-//   pdfDoc.text(`Product Purchased ${index + 1}: ${product.productId.productname}`);
-//   pdfDoc.text(`Price: ${product.productId.price}`);
-//   pdfDoc.text(`Discount: ${product.discount}`)
-//   pdfDoc.text(`Quantity: ${product.quantity}`);
-
-//   pdfDoc.text('------------------------------');
-// });
-
-// pdfDoc.end();
 
 
 
@@ -1923,7 +1935,7 @@ const loadShopPage = async (req, res) => {
 
     // Pagination in shop
     const currentPage = parseInt(req.query.page) || 1;
-    const PAGE_SIZE = 3;
+    const PAGE_SIZE = 6;
 
     const totalItems = productData.length;
     const totalPages = Math.ceil(totalItems / PAGE_SIZE);
@@ -1968,6 +1980,7 @@ const loadShopPage = async (req, res) => {
 
 
 module.exports={
+
   loadSignup,
   insertUser,
   mailNotification,
@@ -1980,53 +1993,39 @@ module.exports={
   notifyForPassReset,
   forgetPasswordLoad,
   resetPassword,
-  
-
-   singleProductDetails,
-  //  checkoutPage,
-
+  singleProductDetails,
    getOtp,
   sendOtp,
   verifyOtp,
-
   mobilePage,
   laptopPage,
   aboutPage,
-  userLogout,
-  
+  userLogout,  
   getCart,
    addToCart,
   changeQuantity,
   deleteProduct,
   blockUser,
-
-
   profilePage,
-  editUser,
-  
+  editUser, 
   loadAddress,
-  addAddress,
- 
+  addAddress, 
   setAsDefault,
   addNewAddress,
   deleteAddressCheckout,
   editAddressCheckout,
-  // editCheckoutAddress,
   deleteAddress,
-  editAddress,
-  
+  editAddress, 
  loadCheckout,
  placeOrder,
-//  walletBalance,
  orderPlaced,
  orderFailed,
  verifyPayment,
  changeAddress,
  loadWallet,
- walletOrder,
-
-
- 
+ generateWalletRechargeOrder,
+ verifyWalletRecharge,
+ walletOrder, 
  orderDetails,
  loadOrdersView,
  cancelOrder,
@@ -2034,7 +2033,7 @@ module.exports={
  returnOrder,
  downloadInvoice,
  loadShopPage,
-//  searchShop,
+
  
 }
 
