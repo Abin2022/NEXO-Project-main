@@ -54,7 +54,7 @@
           </div>
         </div>
         <div class="navbar-nav w-100">
-                    <a href="/admin/home" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="/admin/home" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <br>
                     <a href="/admin/category" class="nav-item nav-link"><i class="fa fa-folder"></i>CATEGORY</a>
                       <br>
@@ -62,7 +62,7 @@
                       <br>
                     <a href="/admin/user" class="nav-item nav-link"><i class="fa fa-user"></i>USERS</a>  
                       <br>
-                       <a href="/admin/orders" class="nav-item nav-link"><i class="fa fa-shopping-cart me-2"></i>ORDERS</a>
+                       <a href="/admin/orders" class="nav-item nav-link active"><i class="fa fa-shopping-cart me-2"></i>ORDERS</a>
                          <br>
                           <a href="/admin/manage-coupons" class="nav-item nav-link"><i class="fas fa-tags"></i>COUPONS</a>
                             <br>
@@ -268,12 +268,13 @@
                             <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span>&#8377;{{subtotal}}</p>
                         </div>
                        
-                        <div class="d-flex justify-content-between pt-2">
+                        {{!-- <div class="d-flex justify-content-between pt-2">
                             <p class="text-muted mb-0">Order Id : {{orderId}}</p>
                             <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> &#8377;{{discountAmount}}</p>
                         </div>
-                       
-
+                         --}}
+                      
+ 
                         <div class="d-flex justify-content-between">
                             <p class="text-muted mb-0">Order Date : {{orderDate}}</p>
 

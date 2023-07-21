@@ -1,56 +1,129 @@
- 	<link rel="stylesheet" href="/stylesheets/forget.css">  
+<link rel="stylesheet" href="/stylesheets/forget.css">
 
 
 
 
 <div id="container" class="container">
-		<!-- FORM SECTION -->
-		<div class="row">
-			<!-- SIGN UP -->
-      
-			<div class="col align-items-center flex-col sign-up">
-				<div class="form-wrapper align-items-center">
-					<div class="form sign-up">
-            <form method="post" action="/signup">
-  <div class="input-group">
-    <i class='bx bxs-user'></i>
-    <input type="text" name="name" placeholder="Username">
-  </div>
-  <div class="input-group">
-    <i class='bx bx-mail-send'></i>
-    <input type="email" name="email" placeholder="Email">
-  </div>
-  <div class="input-group">
-    <i class='bx bxs-lock-alt'></i>
-    <input type="text" name="mobile" placeholder="Mobile">
-  </div>
-  <div class="input-group">
-    <i class='bx bxs-lock-alt'></i>
-    <input type="password" name="password" placeholder="Password">
-  </div>
-  <button>Sign up</button>
-  <p>
-   
-	<div style="text-align: center;">
-                           <span>Already have an account?</span>
-                            <a href="/login">Sign in here</a>
-							<br>
-							
-							 {{!-- <a href="/otp">OTP login</a> --}}
-							 </div>
-  </p>
-</form>
-<div class="message" style="color: red; text-align: center;">
-  {{#if message}}
-  {{message}}
-  {{/if}}
-</div>
+  <!-- FORM SECTION -->
+  <div class="row">
+    <!-- SIGN UP -->
+
+    <div class="col align-items-center flex-col sign-up">
+      <div class="form-wrapper align-items-center">
+        <div class="form sign-up">
+          <form method="post" action="/signup">
+            <div class="input-group">
+              <i class='bx bxs-user'></i>
+              {{!-- <input type="text" id="usernameInput">
+<p id="username-message" style="color: red;"></p> --}}
+              <input type="text" name="name" placeholder="Username"  id="name"  required>
+            </div>
+            <div class="input-group">
+              <i class='bx bx-mail-send'></i>
+              <input type="email" name="email" placeholder="Email"  id="email" required>
+              
+
+            
+              {{!-- {{message}} --}}
+            </div>
+           
+            <div class="input-group">
+              <i class='bx bxs-lock-alt'></i>
+              <input class="message" type="number" name="mobile" placeholder="Mobile" id="mobile" required>
+              
+            </div>
+           
+            <div class="input-group">
+              <i class='bx bxs-lock-alt'></i>
+              <input type="password" name="password" placeholder="Password" id="password" required>
+              
+            </div>
+            <button>Sign up</button>
+            <p>
 
 
-					</div>
-				</div>
-			
-			</div>
+            <div style="text-align: center;">
+              <span>Already have an account?</span>
+              <a href="/login">Sign in here</a>
+              <br>
 
+            </div>
+            </p>
+          </form>
+          <div class="message"  id="password-message" style="color: red; text-align: center;" >
+            {{#if message}}
+            {{message}}
+            {{/if}}
+          </div>
+         
+        
+
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+    
+ 
+ <script>
+
+  const passwordInput = document.getElementById("password");
+  const mobileInput = document.getElementById("mobile")
+  const passwordMessage = document.getElementById("password-message");
+  const email = document.getElementById('email')
+
+  function validatePassword() {
+    if (passwordInput.value.length < 6) {
+      document.getElementById("password-message").innerHTML = "Password must be at least 6 characters long";
+    } else {
+      passwordMessage.textContent = "";
+    }
+  }
+
+
+
+
+          
+
+
+
+function validateUsername() {
+  const usernameInput = document.getElementById("usernameInput");
+  const usernameMessage = document.getElementById("username-message");
+  const username = usernameInput.value.trim(); // Trim any leading/trailing spaces
+
+  if (username.length < 4) {
+    usernameMessage.textContent = "Username must be at least 4 characters long";
+  } else {
+    usernameMessage.textContent = "";
+  }
+}
+
+
+  
+
+  function validateNumber() {
+    const mobileValue = mobileInput.value.trim(); 
+    const mobileMessage = document.getElementById("mobile-message");
+
+    if (mobileValue.length !== 10 || isNaN(mobileValue)) {
+      mobileMessage.textContent = "Please enter a 10-digit number";
+    } else {
+      mobileMessage.textContent = "";
+    }
+  }
+
+
+
+
+  passwordInput.addEventListener("input", validatePassword);
+  mobileInput.addEventListener("input", validateNumber);
+
+</script>
 
 

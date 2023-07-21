@@ -759,7 +759,6 @@ const returnOrder = async (req, res) => {
         walletAmount: updatedOrder.orderValue,
       });
       const createdWallet = await newWallet.save();
-      console.log(createdWallet, "created wallet");
     }
 
      // Retrieve the products in the order

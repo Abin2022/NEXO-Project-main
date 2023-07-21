@@ -240,19 +240,23 @@
                      
                         
                         <select id="sortField" class="sort-label" name="sortField">
-                             <option value="category" {{#if (eq query.sortField "category")}}selected{{/if}}>Category</option>
+                             {{!-- <option value="category" {{#if (eq query.sortField "category")}}selected{{/if}}>Category</option> --}}
 {{!-- 
                             <option value="brand" {{#if (eq query.sortField "brand")}}selected{{/if}}>Brand</option>
                             <option value="productname" {{#if (eq query.sortField "productname")}}selected{{/if}}>Product Name</option> --}}
                             <option value="price" {{#if (eq query.sortField "price")}}selected{{/if}}>Price</option>
                         </select>
+                       
                         <label for="sortDirection">Sort By:</label>
+                      
                         <select id="sortDirection" name="sortDirection">
                             <option value="asc" {{#if (eq query.sortDirection "asc")}}selected{{/if}}>Ascending</option>
                             <option value="desc" {{#if (eq query.sortDirection "desc")}}selected{{/if}}>Descending</option>
                         </select>
+                       
                         
                         <button type="submit" class="sort-button">Sort</button>
+                      
                     </form>
                     <br>
                     <br>

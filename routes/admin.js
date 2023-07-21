@@ -30,7 +30,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get('/',adminAuth.isLogout,adminController.loadLogin)
 router.post('/',adminController.verifyLogin)
-router.get('/home',adminAuth.isLogin,adminController.loadDashboard)
+router.get('/home',adminController.loadDashboard)
  router.get('/logout',adminAuth.isLogin,adminController.adminLogout)
 
 

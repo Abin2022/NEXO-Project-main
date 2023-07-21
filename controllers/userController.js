@@ -17,7 +17,7 @@ const moment = require("moment-timezone")
 // const EventEmitter = require('events');
 
 const accountSid = "ACa547f4ad75438fee11d6c1f2b5cc0a4a";
-const authToken = '358454ff9b9e16dfd20668484e7cd5af';
+const authToken = 'b188c3ed5c9e17381370a261ee61a4e3';
 const verifySid = "VAb65553a60d1c6c15f8fb69e14c75d2f9";
 const client = require("twilio")(accountSid, authToken);
 
@@ -61,7 +61,7 @@ const sendVerifyMail = async(name,email,user_id)=>{
   try{
    
    const transporter=nodemailer.createTransport({
-    host:'smtp.ethereal.email',
+    host:'smtp.gmail.com',
     port: 587,
     secure:false,
     requireTls:true,
@@ -97,8 +97,22 @@ const loadSignup=async(req,res)=>{
       console.log(error.message);
     }
 }
+
+
+
 const insertUser=async(req,res)=>{
   try{
+
+    console.log("Enterd into the user login page ................................");
+    const emailExists = await User.findOne({ email: req.body.email });
+    if (emailExists) {
+      return res.render('users/signup', { message: "Email already exists. Please enter a different email." });
+    }
+
+    const mobileExists = await User.findOne({ mobile: req.body.mobile})
+    if (mobileExists) {
+      return res.render('users/signup', { message: "Mobile already exists. Please enter a different Mobile Number." });
+    }
     const safePassword=await securePassword(req.body.password)
    const  user=new User({
     name:req.body.name,
@@ -110,21 +124,14 @@ const insertUser=async(req,res)=>{
     const userData=await user.save();
     console.log(userData);
   
-    // const existingUser = await User.findOne({ $or: [{ email }, { mobile }] });
-    // if (existingUser) {
-    //   res.render("users/signup", {
-    //     message: "Email or mobile number already exists",
-    //   });
-    // }
+   
     
     if(userData){
       sendVerifyMail(req.body.name,req.body.email,userData._id)
-      res.render('users/otp' ,{
-        message:"You signup is sucessfull pls check the mail"
+      res.render('users/emailVerificationNotation' ,{ 
+        message:"You signup is sucessfull pls Re-enter Your Mobile for verification..."
       })
-  //  if(userData){
-
-  //  }
+ 
 
     }else{
       res.render('users/signup',{message:"Error"})
@@ -134,6 +141,64 @@ const insertUser=async(req,res)=>{
    console.log(error.message);
   }
 }
+
+// const insertUser = async (req, res) => {
+//   try {
+
+//     console.log("Enterd into the user login page ................................");
+//     const emailExists = await User.findOne({ email: req.body.email });
+//     if (emailExists) {
+//       return res.render('users/signup', { message: "Email already exists. Please enter a different email." });
+//     }
+
+//     const mobileExists = await User.findOne({ mobile: req.body.mobile})
+//     if (mobileExists) {
+//       return res.render('users/signup', { message: "Mobile already exists. Please enter a different Mobile Number." });
+//     }
+
+//     // const userNameValidation = await User.findOne({ name: req.body.name})
+//     // if (userNameValidation) {
+//     //   return res.render('users/signup', { message: "Ooops You have execeded the max length" });
+//     // }
+
+
+//     const spassword = await module.exports.passwordHash(req.body.password);
+//     const user = new User({
+//       name: req.body.name,
+//       email: req.body.email,
+//       mobile: req.body.mobile,
+//       password: spassword,
+//       is_admin: 0
+//     });
+//      console.log("user///////////",user);
+//     const userData = await user.save();
+//     req.session.user_id = userData._id;
+
+//     // Creating address collection
+//     const address = new Address({
+//       user_id: req.session.user_id,
+//       address: []
+//     });
+//     console.log("address",address);
+//     const addresses = await address.save();
+
+//     await module.exports.sendingMailToVerify(req.body.name, req.body.email, userData._id);
+//     res.render('users/otp', { message: "Your registration has been successful. Please verify your email." });
+//   } catch (error) {
+//     console.log(error.message);
+//     res.redirect('/error');
+//   }
+// };
+
+
+
+
+
+
+
+
+
+
 
 
 const mailNotification=async(req,res)=>{
@@ -147,7 +212,7 @@ const mailNotification=async(req,res)=>{
 
 const verifyMail = async(req,res)=>{
   try{
-  
+    
     const updateInfo= await User.updateOne({_id:req.query.id},{ $set: { is_verified:1 }
       
     });console.log(updateInfo);
@@ -937,7 +1002,6 @@ const loadAddress = async (req, res) => {
         }; 
       });
 
-      console.log(addressDetails, "addressdetails");
       res.render("users/address", {  addressDetails });
     } else {
       res.render("users/address", {
@@ -972,12 +1036,7 @@ const addAddress = async (req, res) => {
 
     
 
-    console.log(name,"name");
     
-    console.log(city,"city");
-    console.log(state,'state');
-    console.log(address,'address');
-    console.log(pincode,"pincod");
 
     const newAddress = {
       name: name,
@@ -1140,8 +1199,9 @@ const deleteAddressCheckout= async (req, res) => {
 
 const editAddressCheckout= async (req, res) => {
   try {
-    
+       console.log("Esjhiae[gd;lfzxcm.xl,mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
       const userId = req.session.user_id;
+      console.log("userIddddddddddddddddddddddddddddddd",userId);
       const { _id, name, mobile, address, city, state, pincode } = req.body;
 
       const updatedAddress = await Address.findOneAndUpdate (
@@ -1410,7 +1470,6 @@ const changeAddress= async (req, res) => {
           { user_id: userId, 'addresses._id': addressId },
           { $set: { 'addresses.$.is_default': true } }
       );
-      console.log(defaultAddress,"new Default address");
 
       res.redirect('/checkout')
 
@@ -1429,7 +1488,6 @@ const changeAddress= async (req, res) => {
 
 const walletOrder = async (req, res) => {
   try {
-    console.log("Enterd into Wallet order Seciton..........................................................r");
       const orderId = req.query.id
       console.log(orderId, 'From wallet Order');
       const userId = req.session.user_id
@@ -1516,12 +1574,10 @@ const generateWalletRechargeOrder = async(req,res)=>{
       const userId=req.session.user_id
 
       const total=req.body.total
-      console.log(total,'totalvvvvvvvvvvvvv');
     
       const razorpayResponse = await userHelpers.generateRazorpayForWallet(userId,total);
       const user = await User.findById({ _id: userId }).lean()
-      console.log(razorpayResponse,'razorpayResponse');
-      console.log(process.env.KEY_ID,'razorpayKeyId');
+      
 
       res.json({
           razorpayResponse:razorpayResponse,
@@ -1531,7 +1587,7 @@ const generateWalletRechargeOrder = async(req,res)=>{
 
   } catch (error) {
       console.log(error.message);
-      res.redirect('/user-error')
+      res.redirect('/error')
   }
 }
 
@@ -1557,7 +1613,7 @@ const verifyWalletRecharge = async(req,res)=>{
       });
   } catch (error) {
       console.log(error.message);
-      res.redirect('/user-error')
+      res.redirect('/error')
   }
 }
 
@@ -1605,7 +1661,6 @@ const placeOrder = async (req, res) => {
         });
       } else if (req.body["paymentMethod"] === "WALLET") {
         const walletBalance = await userHelpers.walletBalance(userId);
-        console.log(walletBalance, "wallet balance is this");
         if (walletBalance.walletAmount >= totalOrderValue) {
           await productHelper.placingOrder(userId, orderDetails, productsOrdered, totalOrderValue);
           res.json({ WALLET_CHECKOUT: true, orderId });
@@ -1614,6 +1669,7 @@ const placeOrder = async (req, res) => {
           res.json({ error: "Insufficient balance." });
         }
       } else {
+        
         res.json({ paymentStatus: false });
       }
     } else {
@@ -1749,12 +1805,8 @@ const loadOrdersView = async (req, res) => {
     const subtotal = order.orderValue;
     const cancellationStatus = order.cancellationStatus
     // console.log(cancellationStatus,'cancellationStatus');
-   
-    console.log(subtotal, 'subtotal');
-    
-
-    console.log(orderDetails, 'orderDetails');
-    console.log(deliveryAddress, 'deliveryAddress');
+    const discountAmount = order.couponDiscount
+  
 
     res.render('users/ordersView', {
         orderDetails: orderDetails,
@@ -1764,6 +1816,7 @@ const loadOrdersView = async (req, res) => {
         orderId: orderId,
         orderDate: createdOnIST,
         cancellationStatus:cancellationStatus,
+        discountAmount,discountAmount,
        
 
     });

@@ -18,6 +18,54 @@ var instance = new Razorpay({
 
 module.exports={
 
+
+    insertingUser: async (req, res) => {
+        try {
+            const emailExists = await User.findOne({ email: req.body.email });
+            if (emailExists) {
+                return res.render('users/signup', { messages: "Email already exists. Please enter a different email." });
+            }
+            
+            const spassword = await module.exports.passwordHash(req.body.password);
+            const user = new User({
+                name: req.body.name,
+                email: req.body.email,
+                mobile: req.body.mobile,
+                password: spassword,
+                is_admin: 0
+            });
+            const userData = await user.save();
+            req.session.user_id = userData._id;
+            //creating address collection
+            const address = new address({
+                user_id: req.session.user_id ,
+                address:[]
+
+            })
+
+            const addresses = await address.save()
+            
+            await module.exports.sendingMailToVerify(req.body.name, req.body.email, userData._id);
+            res.render('users/otp', { message: "Your registration has been successful. Please verify your email."});
+        } catch (error) {
+            res.render('users/signup', { message: "Your registration has failed." });
+            throw new Error('Failed to insert user');
+        }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 verifyOnlinePayment: (paymentData) => {
 
 console.log(paymentData);
@@ -110,7 +158,6 @@ getWalletDetails:(userId)=>{
 },
 
 creditOrderDetails: (userId) => {
-    console.log("Entered into credit Page");
     return new Promise(async (resolve, reject) => {
         try {
             const orderDetails = await Order.find({
@@ -118,7 +165,6 @@ creditOrderDetails: (userId) => {
                 $or: [{ paymentMethod: 'ONLINE' }, { paymentMethod: 'WALLET' }],
                 orderStatus: 'cancelled'
             }).lean();
-            console.log("Credit orderDetails",orderDetails);
             const orderHistory = orderDetails.map(history => {
                 let createdOnIST = moment(history.date)
                     .tz('Asia/Kolkata')
@@ -136,16 +182,14 @@ creditOrderDetails: (userId) => {
 },
 
 debitOrderDetails: (userId) => {
-    console.log("Enterd into the deb page");
     return new Promise(async (resolve, reject) => {
         try {
             const orderDetails = await Order.find({
                 userId: userId,
                 paymentMethod: 'WALLET',
-                $or: [{ orderStatus: 'Placed' }, { orderStatus: 'Delivered' },{orderStatus:'Product'}],
+                $or: [{ orderStatus: 'Placed' }, { orderStatus: 'Delivered' },{orderStatus:'Shipped'}],
               
             }).lean();
-            console.log(orderDetails,"orderDetails..");
 
             const orderHistory = orderDetails.map(history => {
                 let createdOnIST = moment(history.date)
@@ -182,30 +226,66 @@ walletBalance: (userId) => {
 
 
 
-   updateWallet:(userId,orderId)=>{
-    return new Promise(async(resolve,reject)=>{
-        try{
-            const orderDetails=await Order.findOne({_id:orderId})
-            const wallet=await Wallet.findOne({userId:userId })
+//    updateWallet:(userId,orderId)=>{
+//     return new Promise(async(resolve,reject)=>{
+//         try{
+//             const orderDetails=await Order.findOne({_id:orderId})
+//             const wallet=await Wallet.findOne({userId:userId })
 
-            if(wallet){
-                const updatedWalletAmount = wallet.walletAmount - orderDetails.orderValue;
+//             if(wallet){
+//                 const updatedWalletAmount = wallet.walletAmount - orderDetails.orderValue;
 
-                await Wallet.findOneAndUpdate(
-                    { userId:userId},
-                    { walletAmount: updatedWalletAmount}
-                );
-                resolve(updatedWalletAmount)
-            } else {
-                reject('Wallet is not found')
-            }
-            }catch(error){
-                reject(error)
-            }
+//                 await Wallet.findOneAndUpdate(
+//                     { userId:userId},
+//                     { walletAmount: updatedWalletAmount}
+//                 );
+//                 resolve(updatedWalletAmount)
+//             } else {
+
+//                 reject('Wallet is not found')
+//             }
+//             }catch(error){
+//                 reject(error)
+//             }
         
-    })
-   },
+//     })
+//    },
 
+
+
+
+updateWallet: (userId, orderId) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const orderDetails = await Order.findOne({ _id: orderId });
+        let wallet = await Wallet.findOne({ userId: userId });
+  
+        if (wallet) {
+          const updatedWalletAmount = wallet.walletAmount - orderDetails.orderValue;
+  
+          await Wallet.findOneAndUpdate(
+            { userId: userId },
+            { walletAmount: updatedWalletAmount }
+          );
+          resolve(updatedWalletAmount);
+        } else {
+          // If the wallet is not found, create a new wallet for the user with the initial amount being the negative value of the order value.
+          const initialWalletAmount = -orderDetails.orderValue;
+  
+          wallet = new Wallet({
+            userId: userId,
+            walletAmount: initialWalletAmount,
+          });
+  
+          await wallet.save();
+          resolve(initialWalletAmount);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
+  
 
    
 

@@ -94,7 +94,7 @@ module.exports={
 
                 // to get today sales
 
-                // console.log(yearSales, 'yearSales');
+           
 
                 const todaysalesDate = new Date();
                 const startOfDay = new Date(
@@ -119,7 +119,7 @@ module.exports={
                 const todaySales = await Order.aggregate([
                     {
                         $match: {
-                            orderStatus: { $in: ["pending", "Delivered", "Placed", "Shipped"] },
+                            orderStatus: { $in: ["pending", "Delivered", "Placed", "Shipped","Return"] },
 
                             date: {
                                 $gte: startOfDay, // Set the current date's start time
@@ -243,7 +243,7 @@ module.exports={
         })
     },
 
-    
+
 
     salesToday: () => {
         return new Promise(async (resolve, reject) => {
@@ -289,7 +289,7 @@ module.exports={
                     {
                         $match: {
 
-                            orderStatus: { $in: ["Placed", "Delivered", "Shipped"] },
+                            orderStatus: { $in: ["Placed", "Delivered", "Shipped","Return","Return"] },
 
                             date: {
                                 $gte: startOfDay, // Set the current date's start time
@@ -366,7 +366,7 @@ module.exports={
                 const total = await Order.aggregate([
                     {
                         $match: {
-                            orderStatus: { $in: ["Placed", "Delivered", "Shipped"] },
+                            orderStatus: { $in: ["Placed", "Delivered", "Shipped","Return","Return"] },
                             date: {
                                 $gte: startOfWeek,
                                 $lt: endOfWeek,
@@ -436,7 +436,7 @@ module.exports={
                 const total = await Order.aggregate([
                     {
                         $match: {
-                            orderStatus: { $in: ["Placed", "Delivered", "Shipped"] },
+                            orderStatus: { $in: ["Placed", "Delivered", "Shipped" ,"z","Return"] },
                             date: {
                                 $lt: endofMonth,
                                 $gte: startofMonth,
@@ -493,7 +493,7 @@ module.exports={
                 const total = await Order.aggregate([
                     {
                         $match: {
-                            orderStatus: { $in: ["Placed", "Delivered", "Shipped"] },
+                            orderStatus: { $in: ["Placed", "Delivered", "Shipped" ,"z"] },
                             date: {
                                 $lt: endofYear,
                                 $gte: startofYear,

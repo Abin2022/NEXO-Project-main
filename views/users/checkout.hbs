@@ -330,25 +330,7 @@
                                 <button class="btn btn-dark btn-lg btn-block" data-toggle="modal"
                                     data-target="#addnewaddress" type="button">Add new Address</button>
                             </div>
-                             {{!-- <div class="col-md-3 mb-3">
-                                <button class="btn btn-dark btn-lg btn-block" data-toggle="modal"
-                                    data-target="editingAddress" type="button">Edit Address</button>
-                            </div> --}}
-                            {{!-- <div class="col-md-3 mb-3">
-  <a href="/address" class="btn btn-dark btn-lg btn-block" >Edit Address</a>
-</div> --}}
-                                            {{!-- <div class="col-md-3 mb-3">
-  <a href="/delete-address?id={{this._id}}" class="btn btn-dark btn-lg btn-block"  onclick="return confirm('Are you sure you want to delete this Address?')">Delete Address</a>
-</div>
-  --}}
-   {{!-- <div class="col-md-3 mb-3">
-  <a href="/address" class="btn btn-dark btn-lg btn-block" >Remove Address</a>
-</div>
-              --}}
-                             {{!-- <div class="col-md-3 mb-3">
-                                <button class="btn btn-dark btn-lg btn-block" data-toggle="modal"
-                                    data-target="#addnewaddress" type="button">Delete Address</button>
-                            </div> --}}
+                            
                         </div>
 
                         <hr class="mb-4">
@@ -360,11 +342,7 @@
                                     checked="" required="" value="COD">
                                 <label class="custom-control-label" for="credit">COD</label>
                             </div>
-                             {{!-- <div class="custom-control custom-radio">
-                                <input id="" name="paymentMethod" type="radio" class="custom-control-input"
-                                    required="" value="ONLINE">
-                                <label class="custom-control-label" for="">WALLET</label>
-                            </div> --}}
+                             
                              <div class="custom-control custom-radio">
                                 <input id="wallet" name="paymentMethod" type="radio" class="custom-control-input"
                                     required="" value="WALLET">
@@ -375,11 +353,7 @@
                                 </label>
                                  <p id="error-message" class="text-danger"></p>
                               </div>
-                                 {{!-- <div class="custom-control custom-radio">
-                                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input"
-                                    checked="" required="" value="WALLET">
-                                <label class="custom-control-label" for="credit">WALLET</label>
-                            </div> --}}
+                               
                    
 
 
@@ -398,8 +372,7 @@
 
 
                         <hr class="mb-4">
-                        {{!-- <button class="btn btn-secondary rounded-pill m-2" type="submit" >Continue to
-                            checkout</button> --}}
+                      
                             
                              <hr class="mb-4">
                         <button class="btn btn-dark btn-lg btn-block btn-checkout" id="checkout-button" type="submit">Continue to
@@ -455,6 +428,7 @@
       <div class="modal-body">
         <form action="/change-address" method="post">
           <div class="address-container">
+          
             {{#each filteredAddresses}}
             <div class="card border-dark mb-3">
               <div class="card-header">Address details</div>
@@ -470,11 +444,11 @@
 
                     <div >
                       
-               <button class="edit-button" data-toggle="modal" data-target="#editingAddress" data-name="{{this.name}}"
+               {{!-- <button class="edit-button" data-toggle="modal" data-target="#editingAddress" data-name="{{this.name}}"
                 data-mobile="{{this.mobile}}" data-address="{{this.address}}" data-city="{{this.city}}"
                 data-state="{{this.state}}" data-pincode="{{this.pincode}}" data-_id="{{this._id}}">
                 <i class="fas fa-edit"></i> Edit
-              </button>
+              </button> --}}
                                     
 
               <a href="/delete-address-checkout?id={{this._id}}" class="delete-button"  onclick="return confirm('Are you sure you want to delete this Address?')">

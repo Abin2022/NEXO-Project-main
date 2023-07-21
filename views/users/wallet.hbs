@@ -269,21 +269,16 @@
 
 
               </h1>
+              <br>
               {{#if walletDetails }}
-              <img src="/img/core-img/giphy (1).gif" alt="Wallet" style="width:150px " class="wallet-gif">
+              <img src="/img/core-img/giphy (1).gif" alt="Wallet" style="width:150px" class="wallet-gif">
               {{else }}
-              <img src="/img/core-img/OIP (2).jpeg" alt="Image">
+              <img src="/img/core-img/OIP (1).jpeg" alt="Image">
               {{/if}}
 
 
             </div>
-             
-
-             {{!-- Wallet button --}}
-            {{!-- <div style="text-align: right; padding-top:20px">
-              <a href="" class="btn btn-danger btn-sm" style="background-color: crimson; color: darkgray;"
-                id="walletRechargeBtn"> Recharge your Wallet....</a>
-            </div> --}}
+      
 
 
             <div class="card-body wallet-body">
@@ -329,9 +324,15 @@
                   {{/if}}
                 </ul>
               </nav>
+            
               {{!-- <h2 class="display-2">₹{{walletDetails.walletAmount}}</h2> --}}
 
               {{/if}}
+                 {{!-- Wallet button --}}
+            <div style="text-align:center; padding-top:20px">
+              <a href="" class="btn btn-danger btn-sm" style="background-color: crimson; color: darkgray;"
+                id="walletRechargeBtn"> Recharge your Wallet....</a>
+            </div>
             </div>
           </div>
         </div>
