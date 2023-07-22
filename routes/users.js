@@ -45,6 +45,8 @@ router.get('/otp',userControllers.getOtp)
 router.post('/sendOtp',userControllers.sendOtp)
 router.post('/verifyOtp',userControllers.verifyOtp)
 
+// router.get('/otpsignup',userControllers.gettingOtp)
+
    router.get('/product-details',auth.isLogin,userControllers.singleProductDetails)
 
    router.get('/profile',auth.isLogin,userControllers.profilePage)

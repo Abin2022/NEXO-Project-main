@@ -408,12 +408,12 @@
 
         var ctx2 = $("#sales-revenue").get(0).getContext("2d");
         var myChart2 = new Chart(ctx2, {
-            type: "line",
+            type: "bar",
             data: {
                 labels: paymentMethods,
                 datasets: [
                     {
-                        label: "Total order value",
+                        label: "Total Sales",
                         data: orderValues,
                         backgroundColor: "rgba(0, 156, 255, .5)",
                         fill: true,

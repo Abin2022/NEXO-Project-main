@@ -51,7 +51,7 @@ module.exports={
                 const paymentMethod = await Order.aggregate([
                     {
                         $match: {
-                            orderStatus: { $in: ["Placed", "Delivered", "Shipped"] }, // Exclude "cancelled" status
+                            orderStatus: { $in: [ "Delivered"] }, // Exclude "cancelled" status
                         },
                     },
                     {
@@ -119,7 +119,7 @@ module.exports={
                 const todaySales = await Order.aggregate([
                     {
                         $match: {
-                            orderStatus: { $in: ["pending", "Delivered", "Placed", "Shipped","Return"] },
+                            orderStatus: { $in: [ "Delivered"] },
 
                             date: {
                                 $gte: startOfDay, // Set the current date's start time
@@ -289,7 +289,7 @@ module.exports={
                     {
                         $match: {
 
-                            orderStatus: { $in: ["Placed", "Delivered", "Shipped","Return","Return"] },
+                            orderStatus: { $in: [ "Delivered"] },
 
                             date: {
                                 $gte: startOfDay, // Set the current date's start time
@@ -366,7 +366,7 @@ module.exports={
                 const total = await Order.aggregate([
                     {
                         $match: {
-                            orderStatus: { $in: ["Placed", "Delivered", "Shipped","Return","Return"] },
+                            orderStatus: { $in: [ "Delivered"] },
                             date: {
                                 $gte: startOfWeek,
                                 $lt: endOfWeek,
@@ -436,7 +436,7 @@ module.exports={
                 const total = await Order.aggregate([
                     {
                         $match: {
-                            orderStatus: { $in: ["Placed", "Delivered", "Shipped" ,"z","Return"] },
+                            orderStatus: { $in: [ "Delivered" ] },
                             date: {
                                 $lt: endofMonth,
                                 $gte: startofMonth,
@@ -493,7 +493,7 @@ module.exports={
                 const total = await Order.aggregate([
                     {
                         $match: {
-                            orderStatus: { $in: ["Placed", "Delivered", "Shipped" ,"z"] },
+                            orderStatus: { $in: [ "Delivered"] },
                             date: {
                                 $lt: endofYear,
                                 $gte: startofYear,
@@ -550,7 +550,7 @@ module.exports={
                 const total = await Order.aggregate([
                     {
                         $match: {
-                            orderStatus: { $in: ["Placed", "Delivered", "Shipped"] },
+                            orderStatus: { $in: [ "Delivered"] },
                             date: {
                                 $lt: toDate,
                                 $gte: fromDate,
@@ -615,7 +615,7 @@ module.exports={
                 // Create document definition
                 const docDefinition = {
                     content: [
-                        { text: "Nexo", style: "header" },
+                        { text: "NEXO", style: "header" },
                         { text: "\n" },
                         { text: "Order Information", style: "header1" },
                         { text: "\n" },

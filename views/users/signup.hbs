@@ -1,129 +1,152 @@
-<link rel="stylesheet" href="/stylesheets/forget.css">
+<!DOCTYPE html>
+<html>
 
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
 
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
 
+    h1 {
+      text-align: center;
+    }
 
-<div id="container" class="container">
-  <!-- FORM SECTION -->
-  <div class="row">
-    <!-- SIGN UP -->
+    .input-group {
+      margin-bottom: 15px;
+    }
 
-    <div class="col align-items-center flex-col sign-up">
-      <div class="form-wrapper align-items-center">
-        <div class="form sign-up">
-          <form method="post" action="/signup">
-            <div class="input-group">
-              <i class='bx bxs-user'></i>
-              {{!-- <input type="text" id="usernameInput">
-<p id="username-message" style="color: red;"></p> --}}
-              <input type="text" name="name" placeholder="Username"  id="name"  required>
-            </div>
-            <div class="input-group">
-              <i class='bx bx-mail-send'></i>
-              <input type="email" name="email" placeholder="Email"  id="email" required>
-              
+    .input-group i {
+      padding: 10px;
+    }
 
-            
-              {{!-- {{message}} --}}
-            </div>
-           
-            <div class="input-group">
-              <i class='bx bxs-lock-alt'></i>
-              <input class="message" type="number" name="mobile" placeholder="Mobile" id="mobile" required>
-              
-            </div>
-           
-            <div class="input-group">
-              <i class='bx bxs-lock-alt'></i>
-              <input type="password" name="password" placeholder="Password" id="password" required>
-              
-            </div>
-            <button>Sign up</button>
-            <p>
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #1e221e;
+      color: white;
+      cursor: pointer;
+    }
 
-            <div style="text-align: center;">
-              <span>Already have an account?</span>
-              <a href="/login">Sign in here</a>
-              <br>
+    button:hover {
+      background-color:crimson;
+    }
 
-            </div>
-            </p>
-          </form>
-          <div class="message"  id="password-message" style="color: red; text-align: center;" >
-            {{#if message}}
-            {{message}}
-            {{/if}}
-          </div>
-         
-        
+    p {
+      text-align: center;
+    }
 
+    a {
+      text-decoration: none;
+      color: #007BFF;
+    }
 
-        </div>
-      </div>
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
 
+<body>
+  <form method="post" action="/signup" onsubmit="return validateForm()" >
+    <h1>Sign Up</h1>
+    <div class="input-group">
+      <i class="fas fa-user"></i>
+      <input type="text" name="name" placeholder="Username" id="name" required>
     </div>
+    <div class="input-group">
+      <i class="fas fa-envelope"></i>
+      <input type="email" name="email" placeholder="Email" id="email" required>
+    </div>
+    <div class="input-group">
+      <i class="fas fa-phone"></i>
+      <input class="message" type="number" name="mobile" placeholder="Mobile" id="phone" required>
+    </div>
+    <div class="input-group">
+      <i class="fas fa-lock"></i>
+      <input type="password" name="password" placeholder="Password" id="password" required>
+    </div>
+    <div class="input-group">
+      <i class="fas fa-lock"></i>
+      <input type="password" name="confirm_password" placeholder="Confirm Password" id="confirm_password" required>
+    </div>
+    <button>Sign up</button>
+    <p>
+      <span>Already have an account?</span>
+      <a href="/login">Sign in here</a>
+    </p>
+  </form>
 
+  <script>
+     function validateForm() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var phone = document.getElementById("phone").value;
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirm_password").value;
 
+    // Regular expressions
+    var nameRegex = /^[a-zA-Z\s]+$/;
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var phoneRegex = /^(\+91|0)?[6789]\d{9}$/;
+    var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-
-
-    
- 
- <script>
-
-  const passwordInput = document.getElementById("password");
-  const mobileInput = document.getElementById("mobile")
-  const passwordMessage = document.getElementById("password-message");
-  const email = document.getElementById('email')
-
-  function validatePassword() {
-    if (passwordInput.value.length < 6) {
-      document.getElementById("password-message").innerHTML = "Password must be at least 6 characters long";
-    } else {
-      passwordMessage.textContent = "";
+    if (!nameRegex.test(name)) {
+      alert("Name is not valid");
+      return false;
     }
-  }
 
-
-
-
-          
-
-
-
-function validateUsername() {
-  const usernameInput = document.getElementById("usernameInput");
-  const usernameMessage = document.getElementById("username-message");
-  const username = usernameInput.value.trim(); // Trim any leading/trailing spaces
-
-  if (username.length < 4) {
-    usernameMessage.textContent = "Username must be at least 4 characters long";
-  } else {
-    usernameMessage.textContent = "";
-  }
-}
-
-
-  
-
-  function validateNumber() {
-    const mobileValue = mobileInput.value.trim(); 
-    const mobileMessage = document.getElementById("mobile-message");
-
-    if (mobileValue.length !== 10 || isNaN(mobileValue)) {
-      mobileMessage.textContent = "Please enter a 10-digit number";
-    } else {
-      mobileMessage.textContent = "";
+    if (!emailRegex.test(email)) {
+      alert("Email is not valid");
+      return false;
     }
+
+    if (!phoneRegex.test(phone)) {
+      alert("Phone number is not valid");
+      return false;
+    }
+
+    if (!passwordRegex.test(password)) {
+      alert("Password is not valid. It should contain at least 8 characters, one uppercase letter, one lowercase letter, and one digit.");
+      return false;
+    }
+
+    if (confirmPassword !== password) {
+      alert("Confirm Password should match the Password");
+      return false;
+    }
+
+     // Store the mobile number for OTP verification
+      window.userMobileForOtp = phone;
+
+      // Submit the form to sendOtp endpoint
+      
+    return true;
   }
+  </script>
+</body>
 
-
-
-
-  passwordInput.addEventListener("input", validatePassword);
-  mobileInput.addEventListener("input", validateNumber);
-
-</script>
-
-
+</html>

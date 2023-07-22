@@ -42,7 +42,7 @@
       margin-top: 20px;
         
       padding: 10px 20px;
-      background-color: #337ab7;
+      background-color: #353839;
       color: #fff;
       text-decoration: none;
       border-radius: 5px;
@@ -56,9 +56,12 @@
 </head>
 <body>
   <div class="blocked-container">
+    <form action="/otpVerification" method="post">
     <h1>"Mail Verification Was Sucessfull  </h1>
-
-    <a href="/otp">Go to final Verification...</a>
+    <input type="text" value="{{phonenumber}}" hidden>
+    {{!-- <a href="">Go to final Verification...</a> --}}
+    <input type="submit" value="Go to final Verification...">
+    </form>
   </div>
 </body>
 </html>

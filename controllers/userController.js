@@ -17,7 +17,7 @@ const moment = require("moment-timezone")
 // const EventEmitter = require('events');
 
 const accountSid = "ACa547f4ad75438fee11d6c1f2b5cc0a4a";
-const authToken = 'b188c3ed5c9e17381370a261ee61a4e3';
+const authToken = '15270e12134a9b96de1030ff281bf9e7';
 const verifySid = "VAb65553a60d1c6c15f8fb69e14c75d2f9";
 const client = require("twilio")(accountSid, authToken);
 
@@ -103,7 +103,6 @@ const loadSignup=async(req,res)=>{
 const insertUser=async(req,res)=>{
   try{
 
-    console.log("Enterd into the user login page ................................");
     const emailExists = await User.findOne({ email: req.body.email });
     if (emailExists) {
       return res.render('users/signup', { message: "Email already exists. Please enter a different email." });
@@ -118,7 +117,8 @@ const insertUser=async(req,res)=>{
     name:req.body.name,
     email:req.body.email,
     mobile:req.body.mobile,
-    password:safePassword
+    password:safePassword,
+
     
     })
     const userData=await user.save();
@@ -247,7 +247,6 @@ const verifyLogin=async(req,res)=>{
       if(userData.is_verified === 0){
    res.render('users/login')
 
-   console.log("message printed.......................")
       }else if(userData.blocked ===true){
          res.render('users/block')
       }
@@ -426,13 +425,7 @@ const getOtp=(req,res)=>{
   res.render('users/otp')
 }
 
-// const sendOtp=(req,res)=>{
-// client.verify.v2
-// .services(verifySid)
-// .verifications.create({ to: "+916235095693", channel: "sms" })
-// .then((verification) => console.log(verification.status))
-// res.render('users/otpVerification')
-// }
+
 
 const sendOtp= async (req, res) => {
   try {
@@ -505,6 +498,12 @@ const verifyOtp= async (req, res) => {
 }
 
 
+
+
+
+const gettingOtp=(req,res)=>{
+  res.render("users/otpSignup")
+}
 
 
 
@@ -2050,6 +2049,7 @@ module.exports={
    getOtp,
   sendOtp,
   verifyOtp,
+  gettingOtp,
   mobilePage,
   laptopPage,
   aboutPage,
